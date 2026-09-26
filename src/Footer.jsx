@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { CONTACT_EMAIL, SUBSCRIBE_ENDPOINT } from "./config";
+import Logo from "./Logo";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -47,7 +48,12 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-2xl font-bold text-blue-300 mb-4">MentroeX</h3>
+            <h3 className="flex items-center gap-3 text-2xl font-bold text-white mb-4">
+              <Logo size={36} variant="light" />
+              <span style={{ fontFamily: "Sora, sans-serif", letterSpacing: "-0.02em" }}>
+                Mentore<span className="text-amber-400">X</span>
+              </span>
+            </h3>
             <p className="text-gray-400 mb-4">
               Empowering students with comprehensive insights, financial tools,
               and personalized guidance for educational success.

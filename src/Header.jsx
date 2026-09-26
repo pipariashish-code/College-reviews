@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
+import Logo from "./Logo";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,9 +16,13 @@ const Header = () => {
         {/* Logo */}
         <Link
           to="/"
-          className="text-2xl font-bold text-blue-300 hover:text-blue-400 transition duration-200"
+          aria-label="MentoreX home"
+          className="flex items-center gap-3 text-2xl font-bold text-white hover:text-blue-200 transition duration-200"
         >
-         MentoreX 
+          <Logo size={40} variant="light" />
+          <span style={{ fontFamily: "Sora, sans-serif", letterSpacing: "-0.02em" }}>
+            Mentore<span className="text-amber-400">X</span>
+          </span>
         </Link>
 
         {/* Desktop Navigation */}

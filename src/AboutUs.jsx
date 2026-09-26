@@ -108,7 +108,7 @@ const AboutUs = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 md:pt-24 md:pb-32 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 mb-6 leading-tight">
-              SyncMatch: Empowering Academic Success
+              MentoreX: Empowering Academic Success
             </h1>
             <p className="text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
               We are dedicated to transforming the educational landscape by
@@ -213,7 +213,7 @@ const AboutUs = () => {
       <section className="bg-blue-900/30 backdrop-blur-sm py-16 px-4 md:px-12">
         <div className="max-w-xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4 text-blue-100">
-            Join SyncMatch Today
+            Join MentoreX Today
           </h2>
           <p className="text-gray-300 mb-8 max-w-md mx-auto">
             Take the first step towards a brighter academic future. Discover
