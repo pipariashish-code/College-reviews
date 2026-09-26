@@ -117,9 +117,11 @@ const Home = () => {
             <div className="relative group">
               <div className="absolute -inset-4 bg-gradient-to-r from-blue-600/20 to-blue-400/20 rounded-xl opacity-50 blur-xl transition duration-300" />
               <img
-                src="/college-1.webp"
-                alt="College Campus"
-                className="relative rounded-xl shadow-2xl shadow-blue-500/10"
+                src="/mentorex-hero.svg"
+                alt="A mentor guiding a student toward the right college while she plans her budget on a tablet"
+                width="1600"
+                height="900"
+                className="relative w-full h-auto rounded-xl shadow-2xl shadow-blue-500/10"
               />
             </div>
           </div>
