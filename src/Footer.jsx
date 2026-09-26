@@ -1,7 +1,46 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { CONTACT_EMAIL, SUBSCRIBE_ENDPOINT } from "./config";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [message, setMessage] = useState("");
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    setMessage("");
+    try {
+      const response = await fetch(SUBSCRIBE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          _subject: "New newsletter subscriber",
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+      const data = await response.json();
+      if (response.ok && String(data.success) === "true") {
+        setStatus("success");
+        setMessage("Thanks for subscribing!");
+        setEmail("");
+      } else {
+        throw new Error(data.message || "Subscription failed");
+      }
+    } catch (err) {
+      console.error("Subscribe error:", err);
+      setStatus("error");
+      setMessage("Something went wrong. Please try again later.");
+    }
+  };
+
   return (
     <footer className="bg-gray-900 text-gray-100 py-12">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -128,25 +167,41 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-blue-300 mb-4">
               Stay Connected
             </h4>
-            <form className="mb-4">
+            <form className="mb-4" onSubmit={handleSubscribe}>
               <input
                 type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 className="w-full p-2 bg-gray-800 text-white rounded-md mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
                 type="submit"
-                className="w-full p-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md hover:from-blue-700 hover:to-blue-800 transition-colors"
+                disabled={status === "sending"}
+                className="w-full p-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md hover:from-blue-700 hover:to-blue-800 transition-colors disabled:opacity-60"
               >
-                Subscribe
+                {status === "sending" ? "Subscribing..." : "Subscribe"}
               </button>
+              {message && (
+                <p
+                  className={`text-sm mt-2 ${
+                    status === "success" ? "text-green-400" : "text-red-400"
+                  }`}
+                >
+                  {message}
+                </p>
+              )}
             </form>
             <div>
               <p className="text-gray-400 text-sm">
-                Contact: ashish.maurya.workmail@gmail.com
-              </p>
-              <p className="text-gray-400 text-sm mt-2">
-                Phone: +91 7897629080
+                Contact:{" "}
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="hover:text-blue-300 transition-colors"
+                >
+                  {CONTACT_EMAIL}
+                </a>
               </p>
             </div>
           </div>
