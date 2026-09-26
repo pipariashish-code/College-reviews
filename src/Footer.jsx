@@ -210,7 +210,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-gray-800 mt-8 pt-6 text-center">
           <p className="text-gray-500">
-            © {new Date().getFullYear()} SyncMatch. All Rights Reserved.
+            © {new Date().getFullYear()} MentoreX. All Rights Reserved.
           </p>
         </div>
       </div>
