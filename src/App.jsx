@@ -1,3 +1,4 @@
+import CollegeSearchBar from './CollegeSearchBar';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Header from "./Header";
@@ -16,6 +17,7 @@ import Footer from "./Footer";
 
 function App() {
   return (
+    <CollegeSearchBar />
     <div className=" bg-black m-0 p-0">
       <Router>
         <Header />
