@@ -7,7 +7,7 @@ export default function CollegeSearchBar() {
   const [notice, setNotice] = useState('');
 
   // Replace with your Render backend URL:
-  const BACKEND_URL = "https://your-backend-name.onrender.com";
+  const BACKEND_URL = "https://backend-1-fttw.onrender.com/";
 
   const handleSearch = async (e, overrideQuery) => {
     if (e) e.preventDefault();
