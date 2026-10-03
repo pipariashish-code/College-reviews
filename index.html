@@ -25,71 +25,7 @@
     />
   </head>
   <body>
-    <!-- MENTOREX COLLEGE SEARCH BAR -->
-<div style="max-width: 800px; margin: 40px auto; padding: 20px; text-align: center; font-family: sans-serif;">
-  <h2 style="font-size: 26px; font-weight: bold; margin-bottom: 8px;">Find Verified Colleges</h2>
-  <p style="color: #666; margin-bottom: 20px;">Search any college across India with instant AI verification</p>
-  
-  <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;">
-    <input 
-      id="collegeInput" 
-      type="text" 
-      placeholder="Type college name (e.g. RV College of Engineering, IIT)..." 
-      style="width: 70%; padding: 14px; font-size: 16px; border: 1.5px solid #ccc; border-radius: 8px;"
-    />
-    <button 
-      onclick="searchMentorexColleges()" 
-      style="padding: 14px 24px; font-size: 16px; font-weight: bold; background-color: #4f46e5; color: white; border: none; border-radius: 8px; cursor: pointer;"
-    >
-      Search
-    </button>
-  </div>
-
-  <div id="searchStatus" style="color: #4f46e5; font-size: 14px; margin-bottom: 15px;"></div>
-  <div id="searchResults" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; text-align: left;"></div>
-</div>
-
-<script>
-  async function searchMentorexColleges() {
-    const query = document.getElementById('collegeInput').value.trim();
-    if (!query) return;
-
-    const statusEl = document.getElementById('searchStatus');
-    const resultsEl = document.getElementById('searchResults');
-
-    statusEl.innerText = 'Searching database and discovering colleges with AI...';
-    resultsEl.innerHTML = '';
-
-    try {
-      // Put your Render URL here:
-      const BACKEND_URL = 'https://ais-pre-fg6tjdmo3v2peae77l4xe4-801775728769.asia-southeast1.run.app';
-      const res = await fetch(`${BACKEND_URL}/colleges?q=${encodeURIComponent(query)}&mode=smart`);
-      const data = await res.json();
-
-      statusEl.innerText = data.autoUpdatedToDb > 0 ? `✨ Found and saved ${data.autoUpdatedToDb} colleges!` : '';
-      
-      const colleges = data.results || [];
-      if (colleges.length === 0) {
-        statusEl.innerText = 'No colleges found.';
-        return;
-      }
-
-      resultsEl.innerHTML = colleges.map(c => `
-        <div style="border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-          <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #1e293b;">${c.name}</h3>
-          <p style="margin: 0 0 8px 0; font-size: 13px; color: #64748b;">📍 ${c.city}, ${c.state}</p>
-          ${c.nirfRank ? `<span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">NIRF #${c.nirfRank}</span>` : ''}
-          ${c.averagePlacementInr ? `<p style="margin: 8px 0 0 0; font-size: 13px; font-weight: bold; color: #059669;">Avg: ₹${(c.averagePlacementInr/100000).toFixed(1)} LPA</p>` : ''}
-          ${c.websiteUrl ? `<a href="${c.websiteUrl}" target="_blank" style="display: inline-block; margin-top: 10px; font-size: 12px; color: #4f46e5; text-decoration: none;">Visit Website →</a>` : ''}
-        </div>
-      `).join('');
-    } catch (e) {
-      statusEl.innerText = 'Could not load colleges. Please check the backend connection.';
-    }
-  }
-</script>
-<!-- END SEARCH BAR -->
-    <div id="root"></div>
+        <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
