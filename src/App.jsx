@@ -17,7 +17,6 @@ import Footer from "./Footer";
 
 function App() {
   return (
-    <CollegeSearchBar />
     <div className=" bg-black m-0 p-0">
       <Router>
         <Header />
