@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { programsData } from "./data/updated_programsData";
+import axios from "axios";
+import { API_URL } from "./config";
 
 import {
   FaUniversity,
@@ -16,56 +17,26 @@ import {
   FaMoneyBillWave,
   FaClipboardList,
   FaUserGraduate,
-  FaFlask,
   FaRegStar,
   FaStarHalfAlt,
+  FaSearch,
+  FaCode,
+  FaCheckCircle,
+  FaBuilding,
+  FaGlobe,
+  FaCopy,
+  FaRobot,
 } from "react-icons/fa";
 
-const nfsuData = {
-  name: "National Forensic Sciences University (NFSU)",
-  location: "Gandhinagar, Gujarat, India",
-  established: 2008,
-  type: "Public University",
-  website: "https://www.nfsu.ac.in",
-  overview: `NFSU is a premier university dedicated to the study of forensic sciences and cyber security. It offers a wide range of undergraduate, postgraduate, and doctoral programs focusing on forensic investigation, cyber security, digital forensics, and related fields.`,
-  additionalOverviewDetails: {
-    jobPlacementRate: 92,
-    professorStudentRatio: "1:15",
-    academicPrograms: [
-      "Forensic Science",
-      "Cyber Security",
-      "Artificial Intelligence",
-      "Digital Forensics",
-    ],
-    financialAid: {
-      scholarships: "Up to 50% tuition waiver",
-      governmentSchemes: "Multiple state and central government schemes",
-      researchGrants: "Available for meritorious students",
-    },
-  },
-  rankings: {
-    nationalRank: 12,
-    researchScore: 8.5,
-    placementRate: 92,
-    starRatings: {
-      campusLife: 4.2,
-      graduationRate: 4.5,
-      careerOpportunities: 4.7,
-    },
-  },
-  facilities: [
-    "State-of-the-art Forensic Labs",
-    "Cyber Security Research Center",
-    "Advanced Digital Forensics Infrastructure",
-    "Collaboration with Law Enforcement Agencies",
-  ],
-};
+import { resolveCollegeQuery } from "./utils/collegeResolver.js";
+import AiCollegeSearchBar from "./components/AiCollegeSearchBar";
 
 const ProgramStarRating = ({ rating }) => {
   const renderStars = () => {
     const stars = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 >= 0.5;
+    const validRating = typeof rating === "number" ? rating : 4.5;
+    const fullStars = Math.floor(validRating);
+    const hasHalfStar = validRating % 1 >= 0.5;
 
     for (let i = 1; i <= 5; i++) {
       if (i <= fullStars) {
@@ -98,7 +69,7 @@ const ProgramStarRating = ({ rating }) => {
     <div className="flex items-center bg-gray-800/50 p-3 rounded-xl">
       <div className="flex space-x-1">{renderStars()}</div>
       <span className="ml-3 text-gray-400 font-medium">
-        ({rating.toFixed(1)})
+        ({(typeof rating === "number" ? rating : 4.5).toFixed(1)})
       </span>
     </div>
   );
@@ -111,7 +82,7 @@ const AnimatedCard = ({ children, className = "" }) => (
       border border-gray-700 
       rounded-2xl 
       shadow-2xl 
-      hover:scale-[1.02] 
+      hover:scale-[1.01] 
       transition-all 
       duration-300 
       ease-in-out 
@@ -124,16 +95,17 @@ const AnimatedCard = ({ children, className = "" }) => (
 );
 
 const StarRating = ({ rating }) => {
+  const numRating = typeof rating === "number" ? rating : 4.5;
   return (
     <div className="flex items-center">
-      {[...Array(5)].map((star, index) => {
+      {[...Array(5)].map((_, index) => {
         const ratingValue = index + 1;
         return (
           <FaStar
             key={index}
             className={`
               ${
-                ratingValue <= Math.round(rating)
+                ratingValue <= Math.round(numRating)
                   ? "text-yellow-400"
                   : "text-gray-600"
               }
@@ -143,7 +115,7 @@ const StarRating = ({ rating }) => {
         );
       })}
       <span className="ml-2 text-gray-400 font-semibold">
-        ({rating.toFixed(1)}/5)
+        ({numRating.toFixed(1)}/5)
       </span>
     </div>
   );
@@ -162,90 +134,110 @@ const IconMetric = ({ icon: Icon, value, label, bgColor }) => (
 );
 
 const CollegePage = () => {
+  const [colleges, setColleges] = useState([]);
+  const [selectedCollegeId, setSelectedCollegeId] = useState("");
   const [activeTab, setActiveTab] = useState("overview");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("All");
+  const [loading, setLoading] = useState(true);
+  const [showApiDocs, setShowApiDocs] = useState(false);
+  const [codeCopied, setCodeCopied] = useState("");
 
-  const renderProgramDetails = (program) => (
-    <AnimatedCard key={program.id} className="p-8 hover:border-blue-600">
-      <div className="flex justify-between items-start mb-6">
-        <div className="space-y-3">
-          <h3 className="text-2xl font-bold text-blue-400">{program.name}</h3>
-          <ProgramStarRating rating={program.courseRating} />
-        </div>
-        <div className="flex space-x-4">
-          <span className="bg-blue-900 text-blue-300 px-4 py-2 rounded-full">
-            {program.duration}
-          </span>
-          <span className="bg-purple-900 text-purple-300 px-4 py-2 rounded-full">
-            {program.category}
-          </span>
-        </div>
-      </div>
+  const fetchCollegesList = useCallback(async (selectNewId = null) => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${API_URL}/api/colleges?limit=250`);
+      if (res.data && res.data.success && res.data.data?.length > 0) {
+        setColleges(res.data.data);
+        if (selectNewId) {
+          setSelectedCollegeId(selectNewId);
+        } else if (res.data.data.length > 0) {
+          setSelectedCollegeId((prev) => prev || res.data.data[0].id);
+        }
+      }
+    } catch (err) {
+      console.error("Failed to load colleges from API:", err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="space-y-4">
-          <IconMetric
-            icon={FaMapMarkerAlt}
-            value={program.campus}
-            label="Campus"
-            bgColor="bg-cyan-600"
-          />
-          <IconMetric
-            icon={FaBriefcase}
-            value={program.seats}
-            label="Total Seats"
-            bgColor="bg-pink-600"
-          />
-          <IconMetric
-            icon={FaMoneyBillWave}
-            value={`₹${program.annualFee.toLocaleString()}`}
-            label="Annual Fee"
-            bgColor="bg-green-600"
-          />
-          <IconMetric
-            icon={FaUserGraduate}
-            value={`${program.placementRate}%`}
-            label="Placement Rate"
-            bgColor="bg-yellow-600"
-          />
-        </div>
-        <div className="space-y-6">
-          <div>
-            <h4 className="text-xl font-semibold text-gray-200 mb-4 flex items-center">
-              <FaClipboardList className="mr-2 text-blue-400" />
-              Eligibility Criteria
-            </h4>
-            <ul className="space-y-2 text-gray-400">
-              <li>Minimum Marks: {program.eligibilityCriteria.minMarks}%</li>
-              <li>Entrance: {program.eligibilityCriteria.entrance}</li>
-              {program.eligibilityCriteria.additionalRequirements.map(
-                (req, idx) => (
-                  <li key={idx}>{req}</li>
-                )
-              )}
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-xl font-semibold text-gray-200 mb-4 flex items-center">
-              <FaFlask className="mr-2 text-green-400" />
-              Lab Facilities
-            </h4>
-            <ul className="space-y-2 text-gray-400">
-              {program.labFacilities.map((facility, idx) => (
-                <li
-                  key={idx}
-                  className="flex items-center before:content-['▶'] before:text-blue-400 before:mr-3"
-                >
-                  {facility}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </AnimatedCard>
-  );
+  useEffect(() => {
+    fetchCollegesList();
+  }, [fetchCollegesList]);
+
+  const copySnippet = (text, key) => {
+    navigator.clipboard.writeText(text);
+    setCodeCopied(key);
+    setTimeout(() => setCodeCopied(""), 2500);
+  };
+
+  const [aiFetching, setAiFetching] = useState(false);
+
+  const handleAiSelect = (college) => {
+    if (!college) return;
+    setColleges((prev) => {
+      const exists = prev.some((c) => c.id === college.id);
+      if (!exists) return [college, ...prev];
+      return prev.map((c) => (c.id === college.id ? college : c));
+    });
+    setSelectedCollegeId(college.id);
+    setActiveTab("overview");
+  };
+
+  const handleAiSearch = async (term) => {
+    if (!term || !term.trim()) return;
+    setAiFetching(true);
+    try {
+      const res = await axios.post(`${API_URL}/api/colleges/ai-search`, {
+        name: term.trim(),
+      });
+      if (res.data?.success && res.data?.data) {
+        handleAiSelect(res.data.data);
+        setSearchTerm("");
+      }
+    } catch (e) {
+      console.error("AI search error:", e);
+    } finally {
+      setAiFetching(false);
+    }
+  };
+
+  const selectedCollege =
+    colleges.find((c) => c.id === selectedCollegeId) || colleges[0];
+
+  const filteredColleges = colleges.filter((c) => {
+    if (!searchTerm.trim()) {
+      return (
+        categoryFilter === "All" ||
+        c.category.toLowerCase().includes(categoryFilter.toLowerCase())
+      );
+    }
+
+    const term = searchTerm.toLowerCase().trim();
+    const resolved = resolveCollegeQuery(searchTerm).toLowerCase().trim();
+
+    // When searching for a specific institution name or acronym, match flexibly
+    const matchesSearch =
+      c.name.toLowerCase().includes(term) ||
+      c.shortName.toLowerCase().includes(term) ||
+      c.id.toLowerCase().includes(term) ||
+      c.name.toLowerCase().includes(resolved) ||
+      c.shortName.toLowerCase().includes(resolved) ||
+      c.location.toLowerCase().includes(term);
+
+    return matchesSearch;
+  });
 
   const renderTabContent = () => {
+    if (!selectedCollege) {
+      return (
+        <div className="text-center py-12 text-gray-400">
+          No college data available.
+        </div>
+      );
+    }
+
     switch (activeTab) {
       case "overview":
         return (
@@ -255,9 +247,23 @@ const CollegePage = () => {
                 <FaBookOpen className="mr-3 text-blue-400" />
                 University Overview
               </h3>
-              <p className="text-gray-300 leading-relaxed">
-                {nfsuData.overview}
+              <p className="text-gray-300 leading-relaxed text-lg">
+                {selectedCollege.overview}
               </p>
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                {selectedCollege.feeRange && (
+                  <div className="inline-flex items-center gap-2 bg-emerald-950/70 border border-emerald-700/60 text-emerald-200 px-4 py-2 rounded-xl text-sm">
+                    <span className="font-bold text-white">Verified Annual Tuition:</span>
+                    <span className="font-semibold text-emerald-300">{selectedCollege.feeRange}</span>
+                  </div>
+                )}
+                {selectedCollege.verifiedSource && (
+                  <div className="inline-flex items-center gap-1.5 bg-blue-950/60 border border-blue-800/60 text-blue-200 px-3.5 py-2 rounded-xl text-xs">
+                    <FaCheckCircle className="text-emerald-400" />
+                    <span>Audited Source: {selectedCollege.verifiedSource}</span>
+                  </div>
+                )}
+              </div>
             </AnimatedCard>
 
             <div className="grid md:grid-cols-2 gap-8">
@@ -269,17 +275,51 @@ const CollegePage = () => {
                 <div className="space-y-4">
                   <IconMetric
                     icon={FaGraduationCap}
-                    value={`${nfsuData.additionalOverviewDetails.jobPlacementRate}%`}
+                    value={
+                      selectedCollege.additionalOverviewDetails.jobPlacementRate &&
+                      selectedCollege.additionalOverviewDetails.jobPlacementRate > 0
+                        ? `${selectedCollege.additionalOverviewDetails.jobPlacementRate}%`
+                        : "Not Publicly Disclosed (Audit Pending)"
+                    }
                     label="Job Placement Rate"
                     bgColor="bg-green-600"
                   />
+                  <div className="flex items-start space-x-4 bg-gray-800 p-4 rounded-xl">
+                    <div className="p-3 bg-purple-600 rounded-full flex-shrink-0 mt-0.5">
+                      <FaUniversity className="text-2xl text-white" />
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold text-blue-300 leading-snug">
+                        {selectedCollege.additionalOverviewDetails.professorStudentRatio ||
+                          "Varies by Dept & Program (UGC ~1:15-1:20)"}
+                      </p>
+                      <p className="text-xs text-gray-400">Faculty-to-Student Ratio</p>
+                      <p className="text-[11px] text-purple-300/80 mt-1 italic leading-normal">
+                        *Ratio varies across departments, undergraduate courses, and specialized PG/PhD research wings.
+                      </p>
+                    </div>
+                  </div>
                   <IconMetric
-                    icon={FaUniversity}
+                    icon={FaMoneyBillWave}
                     value={
-                      nfsuData.additionalOverviewDetails.professorStudentRatio
+                      selectedCollege.additionalOverviewDetails.averagePackage &&
+                      !selectedCollege.additionalOverviewDetails.averagePackage.includes("Not Publicly")
+                        ? selectedCollege.additionalOverviewDetails.averagePackage
+                        : "Not Publicly Disclosed"
                     }
-                    label="Professor-Student Ratio"
-                    bgColor="bg-purple-600"
+                    label="Average Placement Package"
+                    bgColor="bg-emerald-600"
+                  />
+                  <IconMetric
+                    icon={FaChartLine}
+                    value={
+                      selectedCollege.additionalOverviewDetails.highestPackage &&
+                      !selectedCollege.additionalOverviewDetails.highestPackage.includes("Not Publicly")
+                        ? selectedCollege.additionalOverviewDetails.highestPackage
+                        : "Not Publicly Disclosed"
+                    }
+                    label="Highest Package Offered"
+                    bgColor="bg-amber-600"
                   />
                 </div>
               </AnimatedCard>
@@ -287,47 +327,158 @@ const CollegePage = () => {
               <AnimatedCard className="p-6">
                 <h4 className="text-xl font-semibold text-blue-300 mb-4 flex items-center">
                   <FaMoneyBillWave className="mr-3 text-indigo-400" />
-                  Financial Support
+                  Financial Support & Aid
                 </h4>
-                <div className="space-y-3 text-gray-400">
-                  {Object.entries(
-                    nfsuData.additionalOverviewDetails.financialAid
-                  ).map(([key, value]) => (
-                    <div
-                      key={key}
-                      className="flex justify-between border-b border-gray-700 pb-2"
-                    >
-                      <span className="capitalize">
-                        {key.replace(/([A-Z])/g, " $1")}
-                      </span>
-                      <span className="font-semibold text-blue-300">
-                        {value}
-                      </span>
-                    </div>
-                  ))}
+                <div className="space-y-4 text-gray-300">
+                  {selectedCollege.additionalOverviewDetails?.financialAid &&
+                    Object.entries(
+                      selectedCollege.additionalOverviewDetails.financialAid
+                    ).map(([key, value]) => (
+                      <div
+                        key={key}
+                        className="flex flex-col border-b border-gray-700/80 pb-3"
+                      >
+                        <span className="capitalize text-xs font-semibold uppercase tracking-wider text-blue-400 mb-1">
+                          {key.replace(/([A-Z])/g, " $1")}
+                        </span>
+                        <span className="text-gray-300 text-sm">{value}</span>
+                      </div>
+                    ))}
                 </div>
+
+                {selectedCollege.additionalOverviewDetails?.topRecruiters && (
+                  <div className="mt-6 pt-4 border-t border-gray-700">
+                    <h5 className="text-sm font-semibold uppercase tracking-wider text-purple-400 mb-3 flex items-center gap-2">
+                      <FaBriefcase /> Top Recruiters
+                    </h5>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedCollege.additionalOverviewDetails.topRecruiters.map(
+                        (recruiter, idx) => (
+                          <span
+                            key={idx}
+                            className="bg-gray-800 text-gray-300 text-xs px-3 py-1.5 rounded-full border border-gray-700"
+                          >
+                            {recruiter}
+                          </span>
+                        )
+                      )}
+                    </div>
+                  </div>
+                )}
               </AnimatedCard>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              {nfsuData.facilities.map((facility, index) => (
-                <AnimatedCard
-                  key={index}
-                  className="p-5 flex items-center space-x-4 hover:bg-gray-700"
-                >
-                  <FaUniversity className="text-blue-400 text-3xl" />
-                  <p className="text-gray-300">{facility}</p>
-                </AnimatedCard>
-              ))}
-            </div>
+            {selectedCollege.facilities && selectedCollege.facilities.length > 0 && (
+              <div>
+                <h4 className="text-xl font-bold text-gray-200 mb-4 flex items-center gap-2">
+                  <FaBuilding className="text-blue-400" /> Campus Infrastructure & Facilities
+                </h4>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {selectedCollege.facilities.map((facility, index) => (
+                    <AnimatedCard
+                      key={index}
+                      className="p-5 flex items-center space-x-4 hover:bg-gray-700/60"
+                    >
+                      <FaUniversity className="text-blue-400 text-2xl flex-shrink-0" />
+                      <p className="text-gray-300 text-sm leading-snug">{facility}</p>
+                    </AnimatedCard>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         );
+
       case "programs":
         return (
-          <div className="space-y-8">
-            {programsData.map((program) => renderProgramDetails(program))}
+          <div className="space-y-6">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-2xl font-bold text-blue-300 flex items-center gap-2">
+                <FaBookOpen className="text-blue-400" /> Academic Programs & Courses
+              </h3>
+              <span className="text-sm text-gray-400">
+                Category: <span className="text-blue-300 font-semibold">{selectedCollege.category}</span>
+              </span>
+            </div>
+
+            {selectedCollege.popularPrograms && selectedCollege.popularPrograms.length > 0 ? (
+              selectedCollege.popularPrograms.map((program, idx) => (
+                <AnimatedCard key={idx} className="p-8 hover:border-blue-600">
+                  <div className="flex flex-col md:flex-row justify-between md:items-start gap-4 mb-6">
+                    <div className="space-y-2">
+                      <h4 className="text-2xl font-bold text-blue-400">{program.name}</h4>
+                      <p className="text-sm text-gray-400">
+                        Offered by {selectedCollege.name}
+                      </p>
+                      <ProgramStarRating rating={selectedCollege.rankings.starRatings.careerOpportunities} />
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="bg-blue-900/80 text-blue-300 text-sm px-4 py-1.5 rounded-full border border-blue-700">
+                        {program.duration}
+                      </span>
+                      <span className="bg-purple-900/80 text-purple-300 text-sm px-4 py-1.5 rounded-full border border-purple-700">
+                        {program.degree}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <IconMetric
+                      icon={FaMoneyBillWave}
+                      value={
+                        program.annualFee && program.annualFee > 0
+                          ? `₹${program.annualFee.toLocaleString()}`
+                          : selectedCollege.feeRange || "Refer to Prospectus"
+                      }
+                      label="Approx. Annual Fee"
+                      bgColor="bg-green-600"
+                    />
+                    <IconMetric
+                      icon={FaBriefcase}
+                      value={program.seats ? `${program.seats} Seats` : "Department Intake Norm"}
+                      label="Available Seats"
+                      bgColor="bg-pink-600"
+                    />
+                    <IconMetric
+                      icon={FaUserGraduate}
+                      value={
+                        selectedCollege.additionalOverviewDetails.jobPlacementRate &&
+                        selectedCollege.additionalOverviewDetails.jobPlacementRate > 0
+                          ? `${selectedCollege.additionalOverviewDetails.jobPlacementRate}%`
+                          : "Audit Pending / Not Disclosed"
+                      }
+                      label="Placement Rate"
+                      bgColor="bg-yellow-600"
+                    />
+                  </div>
+                </AnimatedCard>
+              ))
+            ) : (
+              <div className="grid md:grid-cols-2 gap-4">
+                {selectedCollege.additionalOverviewDetails.academicPrograms.map(
+                  (prog, idx) => (
+                    <AnimatedCard key={idx} className="p-5 flex items-center space-x-3">
+                      <FaGraduationCap className="text-blue-400 text-2xl flex-shrink-0" />
+                      <span className="text-gray-200 font-medium">{prog}</span>
+                    </AnimatedCard>
+                  )
+                )}
+              </div>
+            )}
+
+            {selectedCollege.admissionProcess && (
+              <AnimatedCard className="p-6 mt-6">
+                <h4 className="text-xl font-bold text-gray-200 mb-3 flex items-center gap-2">
+                  <FaClipboardList className="text-green-400" /> Admission Process & Eligibility
+                </h4>
+                <p className="text-gray-300 leading-relaxed text-sm">
+                  {selectedCollege.admissionProcess}
+                </p>
+              </AnimatedCard>
+            )}
           </div>
         );
+
       case "rankings":
         return (
           <div className="space-y-8">
@@ -336,19 +487,24 @@ const CollegePage = () => {
                 {
                   icon: FaChartLine,
                   title: "National Rank",
-                  value: nfsuData.rankings.nationalRank,
+                  value: typeof selectedCollege.rankings.nationalRank === "number"
+                    ? `#${selectedCollege.rankings.nationalRank}`
+                    : selectedCollege.rankings.nationalRank,
+                  sub: selectedCollege.rankings.rankingBody || "NIRF / QS",
                   bgColor: "bg-blue-600",
                 },
                 {
                   icon: FaGraduationCap,
                   title: "Research Score",
-                  value: `${nfsuData.rankings.researchScore}/10`,
+                  value: `${selectedCollege.rankings.researchScore}/10`,
+                  sub: "Institutional Academic Research",
                   bgColor: "bg-green-600",
                 },
                 {
                   icon: FaMapMarkerAlt,
                   title: "Placement Rate",
-                  value: `${nfsuData.rankings.placementRate}%`,
+                  value: `${selectedCollege.rankings.placementRate}%`,
+                  sub: "Campus Employment Record",
                   bgColor: "bg-yellow-600",
                 },
               ].map((metric, index) => (
@@ -358,118 +514,530 @@ const CollegePage = () => {
                   >
                     <metric.icon className="text-4xl text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-200 mb-2">
+                  <h3 className="text-xl font-bold text-gray-200 mb-1">
                     {metric.title}
                   </h3>
-                  <p className="text-3xl font-bold text-blue-300">
+                  <p className="text-3xl font-bold text-blue-300 mb-1">
                     {metric.value}
                   </p>
+                  <p className="text-xs text-gray-400">{metric.sub}</p>
                 </AnimatedCard>
               ))}
             </div>
 
             <AnimatedCard className="p-8">
               <h3 className="text-2xl font-bold text-blue-300 mb-6 text-center">
-                Star Ratings
+                Star Ratings & Student Perception
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
-                {Object.entries(nfsuData.rankings.starRatings).map(
-                  ([key, rating]) => (
-                    <div key={key} className="text-center">
-                      <h4 className="font-semibold text-gray-200 mb-3 capitalize">
-                        {key.replace(/([A-Z])/g, " $1")}
-                      </h4>
-                      <StarRating rating={rating} />
-                    </div>
-                  )
-                )}
+                {selectedCollege.rankings?.starRatings &&
+                  Object.entries(selectedCollege.rankings.starRatings).map(
+                    ([key, rating]) => (
+                      <div key={key} className="text-center p-4 bg-gray-800/40 rounded-xl">
+                        <h4 className="font-semibold text-gray-200 mb-3 capitalize text-sm">
+                          {key.replace(/([A-Z])/g, " $1")}
+                        </h4>
+                        <div className="flex justify-center">
+                          <StarRating rating={rating} />
+                        </div>
+                      </div>
+                    )
+                  )}
               </div>
             </AnimatedCard>
           </div>
         );
+
+      case "integration":
+        return (
+          <div className="space-y-8">
+            <AnimatedCard className="p-8">
+              <h3 className="text-2xl font-bold text-blue-300 mb-4 flex items-center gap-2">
+                <FaCode className="text-blue-400" />
+                How to Integrate Live Results with Your Website
+              </h3>
+              <p className="text-gray-300 leading-relaxed text-sm md:text-base mb-6">
+                You can call the live backend API from anywhere on your website (such as search boxes, calculator tools, program pages, or mentor booking). Below are copy-paste integration examples for React, Vanilla JavaScript, and cURL.
+              </p>
+
+              {/* Code Snippet 1: React Live Search Hook */}
+              <div className="space-y-6">
+                <div className="bg-gray-900 border border-gray-700 rounded-xl p-5">
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">
+                      Option A: React Component (Instant Live Search & Fetch)
+                    </span>
+                    <button
+                      onClick={() =>
+                        copySnippet(
+`import { useState } from 'react';
+import axios from 'axios';
+
+export function CollegeLiveSearch({ onSelectCollege }) {
+  const [query, setQuery] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [collegeData, setCollegeData] = useState(null);
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+    setLoading(true);
+
+    try {
+      // 1. Fetch live college data (fetches from Wikipedia/AI if not already cached)
+      const res = await axios.post('/api/colleges/fetch', { name: query });
+      if (res.data.success) {
+        setCollegeData(res.data.data);
+        if (onSelectCollege) onSelectCollege(res.data.data);
+      }
+    } catch (err) {
+      console.error('Error fetching college:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <form onSubmit={handleSearch} className="flex gap-2">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search any university (e.g. IIT Kharagpur)..."
+          className="p-3 bg-gray-800 text-white rounded-lg flex-1 border border-gray-700"
+        />
+        <button type="submit" disabled={loading} className="px-5 py-3 bg-blue-600 text-white rounded-lg font-bold">
+          {loading ? 'Fetching Live...' : 'Search'}
+        </button>
+      </form>
+
+      {collegeData && (
+        <div className="p-4 bg-gray-800 rounded-lg border border-gray-700">
+          <h3 className="text-xl font-bold text-blue-300">{collegeData.name}</h3>
+          <p className="text-sm text-gray-400">{collegeData.location} • Est: {collegeData.established}</p>
+          <p className="text-gray-300 mt-2">{collegeData.overview}</p>
+          <div className="mt-3 flex gap-4 text-sm font-semibold">
+            <span className="text-green-400">Avg Package: {collegeData.additionalOverviewDetails.averagePackage}</span>
+            <span className="text-yellow-400">Placement: {collegeData.additionalOverviewDetails.jobPlacementRate}%</span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}`,
+                          "react-snippet"
+                        )
+                      }
+                      className="text-xs flex items-center gap-1.5 px-3 py-1 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded border border-gray-600 transition"
+                    >
+                      <FaCopy /> {codeCopied === "react-snippet" ? "Copied!" : "Copy React Code"}
+                    </button>
+                  </div>
+                  <pre className="text-xs text-gray-300 font-mono overflow-x-auto bg-black/60 p-4 rounded-lg">
+{`// 1. Send query to POST /api/colleges/fetch
+const response = await fetch('/api/colleges/fetch', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'IIT Kharagpur' })
+});
+const { data: college } = await response.json();
+console.log(college.name, college.location, college.overview);`}
+                  </pre>
+                </div>
+
+                {/* Code Snippet 2: cURL / Backend */}
+                <div className="bg-gray-900 border border-gray-700 rounded-xl p-5">
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="text-xs font-semibold text-green-400 uppercase tracking-wider">
+                      Option B: Direct REST API (cURL or Python)
+                    </span>
+                    <button
+                      onClick={() =>
+                        copySnippet(
+`curl -X POST http://localhost:3000/api/colleges/fetch \\
+  -H "Content-Type: application/json" \\
+  -d '{"name": "Jadavpur University"}'`,
+                          "curl-snippet"
+                        )
+                      }
+                      className="text-xs flex items-center gap-1.5 px-3 py-1 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded border border-gray-600 transition"
+                    >
+                      <FaCopy /> {codeCopied === "curl-snippet" ? "Copied!" : "Copy cURL"}
+                    </button>
+                  </div>
+                  <pre className="text-xs text-gray-300 font-mono overflow-x-auto bg-black/60 p-4 rounded-lg">
+{`curl -X POST http://localhost:3000/api/colleges/fetch \\
+  -H "Content-Type: application/json" \\
+  -d '{"name": "Jadavpur University"}'`}
+                  </pre>
+                </div>
+
+                {/* Key Benefits */}
+                <div className="grid md:grid-cols-3 gap-4 pt-4 border-t border-gray-700">
+                  <div className="p-4 bg-gray-800/60 rounded-xl border border-gray-700/60">
+                    <h5 className="font-bold text-blue-300 mb-1 text-sm">1. Zero Key Dependency</h5>
+                    <p className="text-xs text-gray-400">
+                      Fetches live verified encyclopedic data, real photos, established years, and locations via Wikipedia & HipoLabs open APIs even without an external API key.
+                    </p>
+                  </div>
+                  <div className="p-4 bg-gray-800/60 rounded-xl border border-gray-700/60">
+                    <h5 className="font-bold text-green-300 mb-1 text-sm">2. Automatic In-Memory Caching</h5>
+                    <p className="text-xs text-gray-400">
+                      Once a college is fetched, it is stored in the server's cache so subsequent searches by any user load instantaneously.
+                    </p>
+                  </div>
+                  <div className="p-4 bg-gray-800/60 rounded-xl border border-gray-700/60">
+                    <h5 className="font-bold text-purple-300 mb-1 text-sm">3. Optional Gemini AI Turbo</h5>
+                    <p className="text-xs text-gray-400">
+                      If <code>GEMINI_API_KEY</code> is set in <code>.env</code>, it automatically upgrades to Gemini 3.8 Flash for deep NIRF ranking parsing and detailed recruiter extraction.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AnimatedCard>
+          </div>
+        );
+
       default:
         return null;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-gray-100 py-12 px-4 md:px-12">
-      <div className="max-w-7xl mx-auto">
-        <AnimatedCard className="mb-12 p-8">
-          <div className="flex flex-col md:flex-row items-center justify-between">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-gray-100 py-10 px-4 md:px-12">
+      <div className="max-w-7xl mx-auto space-y-8">
+        {/* Banner with Live Fetch Bar */}
+        <div className="bg-gradient-to-r from-blue-900/60 via-indigo-950/80 to-purple-900/60 border border-blue-500/30 rounded-3xl p-6 md:p-8 backdrop-blur shadow-2xl">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div>
-              <h1 className="text-5xl font-bold mb-4 text-blue-300 tracking-tight">
-                {nfsuData.name}
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/20 text-blue-300 text-xs font-semibold rounded-full border border-blue-400/30 mb-3">
+                <FaGlobe className="text-blue-400" /> Live Multi-Source University Engine
+              </div>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+                Live College Explorer & Ingestion
               </h1>
-              <div className="flex items-center space-x-6 text-gray-400">
-                <div className="flex items-center space-x-2">
-                  <FaMapMarkerAlt className="text-blue-400" />
-                  <span>{nfsuData.location}</span>
+              <p className="text-gray-300 text-sm md:text-base mt-1 max-w-2xl">
+                Search verified university profiles or type any university in India or worldwide to fetch its live statistics, rankings, placement records, and campus photos.
+              </p>
+            </div>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => setActiveTab("integration")}
+                className="flex items-center gap-2 px-4 py-2.5 bg-blue-600/80 hover:bg-blue-600 text-white text-sm font-semibold rounded-xl border border-blue-500 transition duration-200"
+              >
+                <FaCode /> Integration Guide
+              </button>
+              <button
+                onClick={() => setShowApiDocs(!showApiDocs)}
+                className="flex items-center gap-2 px-4 py-2.5 bg-gray-800/80 hover:bg-gray-700 text-blue-300 text-sm font-semibold rounded-xl border border-gray-600 transition duration-200"
+              >
+                {showApiDocs ? "Hide Docs" : "Quick API"}
+              </button>
+            </div>
+          </div>
+
+          {/* AI Mode College Search Bar */}
+          <div className="mt-6 pt-6 border-t border-blue-500/20">
+            <label className="block text-sm font-semibold text-blue-200 mb-2">
+              Search or fetch live stats for ANY college using Gemini AI Mode:
+            </label>
+            <AiCollegeSearchBar
+              onSelectCollege={handleAiSelect}
+              showPopularChips={true}
+              autoNavigate={false}
+            />
+          </div>
+
+          {/* API Documentation Drawer */}
+          {showApiDocs && (
+            <div className="mt-6 pt-6 border-t border-gray-700 text-sm text-gray-300 space-y-4 bg-black/40 p-4 rounded-xl border border-gray-800">
+              <h3 className="font-bold text-white text-base flex items-center gap-2">
+                <FaCode className="text-blue-400" /> College Intelligence REST API Reference
+              </h3>
+              <p className="text-gray-400 text-xs">
+                You can query this API programmatically from any frontend, mobile app, or external script:
+              </p>
+
+              <div className="space-y-3 font-mono text-xs">
+                <div className="bg-gray-900 p-3 rounded-lg border border-gray-800">
+                  <span className="text-green-400 font-bold">GET</span>{" "}
+                  <span className="text-blue-300">/api/colleges</span>
+                  <p className="text-gray-400 font-sans mt-1">
+                    List colleges with optional filters: <code className="text-purple-300">?search=IIT&category=Engineering&sort=placement</code>
+                  </p>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <FaLink className="text-blue-400" />
-                  <a
-                    href={nfsuData.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-blue-300 transition"
-                  >
-                    Official Website
-                  </a>
+
+                <div className="bg-gray-900 p-3 rounded-lg border border-gray-800">
+                  <span className="text-green-400 font-bold">GET</span>{" "}
+                  <span className="text-blue-300">/api/colleges/:id</span>
+                  <p className="text-gray-400 font-sans mt-1">
+                    Retrieve complete verified profile by college slug (e.g. <code className="text-purple-300">/api/colleges/iit-bombay</code>)
+                  </p>
+                </div>
+
+                <div className="bg-gray-900 p-3 rounded-lg border border-gray-800">
+                  <span className="text-yellow-400 font-bold">POST</span>{" "}
+                  <span className="text-blue-300">/api/colleges/fetch</span>
+                  <p className="text-gray-400 font-sans mt-1">
+                    Body: <code className="text-yellow-300">&#123; "name": "Stanford University", "stream": "Engineering" &#125;</code>
+                  </p>
                 </div>
               </div>
             </div>
-            <div className="flex items-center space-x-4 mt-4 md:mt-0">
-              <span className="text-sm px-4 py-2 bg-blue-900 text-blue-300 rounded-full">
-                Established: {nfsuData.established}
-              </span>
-              <span className="text-sm px-4 py-2 bg-green-900 text-green-300 rounded-full">
-                {nfsuData.type}
-              </span>
-              <Link
-                to="/book-mentor"
-                className="
-                  flex items-center space-x-2
-                  bg-gradient-to-r from-blue-600 to-purple-700 
-                  text-white 
-                  px-6 py-3 
-                  rounded-full 
-                  font-semibold 
-                  hover:scale-105 
-                  transition-all 
-                  duration-300 
-                  shadow-lg 
-                  hover:shadow-xl
-                "
-              >
-                <FaChalkboard className="mr-2" />
-                Meet the Mentor
-              </Link>
+          )}
+        </div>
+
+        {/* College Selector / Filter Bar */}
+        <div className="space-y-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            {/* Category Filter Pills */}
+            <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
+              {[
+                "All",
+                "Engineering",
+                "Management",
+                "Medical",
+                "Forensic & Cyber",
+                "Law",
+              ].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setCategoryFilter(cat)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition ${
+                    categoryFilter === cat
+                      ? "bg-blue-600 text-white shadow-md"
+                      : "bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            {/* Search Input with Autocomplete Dropdown */}
+            <div className="relative w-full sm:w-80">
+              <FaSearch className="absolute left-3 top-3 text-gray-500 text-sm z-10" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    if (filteredColleges.length > 0) {
+                      setSelectedCollegeId(filteredColleges[0].id);
+                      setSearchTerm("");
+                      if (activeTab === "integration") setActiveTab("overview");
+                    } else if (searchTerm.trim()) {
+                      handleAiSearch(searchTerm);
+                    }
+                  }
+                }}
+                placeholder="Search or press Enter to fetch with AI..."
+                className="w-full bg-gray-800 border border-gray-700 rounded-xl pl-9 pr-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+
+              {searchTerm.trim().length > 0 && (
+                <div className="absolute left-0 right-0 mt-2 bg-gray-800 border border-gray-700 rounded-xl shadow-2xl z-50 overflow-hidden max-h-60 overflow-y-auto">
+                  {filteredColleges.slice(0, 5).map((c) => (
+                    <button
+                      key={c.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedCollegeId(c.id);
+                        setSearchTerm("");
+                        if (activeTab === "integration") setActiveTab("overview");
+                      }}
+                      className="w-full text-left px-4 py-2.5 hover:bg-gray-700 text-sm flex items-center justify-between border-b border-gray-700/50"
+                    >
+                      <div>
+                        <span className="font-semibold text-white">{c.name}</span>
+                        <span className="block text-xs text-gray-400">{c.location}</span>
+                      </div>
+                      <span className="text-xs bg-blue-900/60 text-blue-300 px-2 py-0.5 rounded">
+                        {c.category}
+                      </span>
+                    </button>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => handleAiSearch(searchTerm)}
+                    disabled={aiFetching}
+                    className="w-full text-left px-4 py-3 bg-blue-900/40 hover:bg-blue-800/60 text-blue-300 text-xs font-semibold flex items-center gap-2 border-t border-blue-800/50 transition cursor-pointer"
+                  >
+                    <FaRobot className="text-blue-400" />
+                    <span>{aiFetching ? "Gemini AI is analyzing..." : `Search & Fetch "${searchTerm}" with AI Mode`}</span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
-        </AnimatedCard>
 
-        <nav className="mb-12 flex justify-center space-x-6">
-          {["overview", "programs", "rankings"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`
-                capitalize px-6 py-3 rounded-full transition duration-300 
-                font-semibold tracking-wide
-                ${
-                  activeTab === tab
-                    ? "bg-blue-600 text-white shadow-lg scale-110"
-                    : "bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white"
-                }
-              `}
-            >
-              {tab}
-            </button>
-          ))}
-        </nav>
+          {/* Quick College Selector Tabs */}
+          <div className="flex gap-2 overflow-x-auto pb-2 border-b border-gray-800">
+            {loading ? (
+              <div className="text-sm text-gray-500 py-2">Loading colleges...</div>
+            ) : filteredColleges.length === 0 ? (
+              <div className="flex items-center gap-3 py-2">
+                <span className="text-sm text-gray-400">
+                  No college matched "{searchTerm}".
+                </span>
+                <button
+                  onClick={() => handleAiSearch(searchTerm)}
+                  disabled={aiFetching}
+                  className="px-3 py-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition cursor-pointer"
+                >
+                  <FaRobot /> {aiFetching ? "Analyzing with AI..." : `Fetch "${searchTerm}" with AI Mode`}
+                </button>
+              </div>
+            ) : (
+              filteredColleges.map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => {
+                    setSelectedCollegeId(c.id);
+                    if (activeTab === "integration") setActiveTab("overview");
+                  }}
+                  className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition flex items-center gap-2 ${
+                    selectedCollege?.id === c.id
+                      ? "bg-blue-600 text-white shadow-lg shadow-blue-900/30"
+                      : "bg-gray-800/80 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-700/50"
+                  }`}
+                >
+                  <span>{c.shortName || c.name}</span>
+                  {c.source === "live_fetch" && (
+                    <span className="text-[10px] bg-purple-500/30 text-purple-200 px-1.5 py-0.5 rounded">
+                      Live
+                    </span>
+                  )}
+                </button>
+              ))
+            )}
+          </div>
+        </div>
 
-        <main className="bg-transparent">{renderTabContent()}</main>
+        {/* Selected College Main Display */}
+        {selectedCollege && (
+          <div>
+            <AnimatedCard className="mb-10 p-8">
+              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                <div className="flex items-start gap-5">
+                  {selectedCollege.imageUrl && (
+                    <div className="hidden sm:flex w-20 h-20 bg-white p-2 rounded-2xl items-center justify-center flex-shrink-0 shadow-md">
+                      <img
+                        src={selectedCollege.imageUrl}
+                        alt={`${selectedCollege.name} crest`}
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <div className="flex items-center gap-3 mb-2 flex-wrap">
+                      <h2 className="text-3xl md:text-4xl font-extrabold text-blue-300 tracking-tight">
+                        {selectedCollege.name}
+                      </h2>
+                      {selectedCollege.verifiedSource ? (
+                        <span className="text-xs bg-emerald-950/90 text-emerald-300 border border-emerald-500/60 px-3 py-1 rounded-full font-medium flex items-center gap-1.5 shadow-sm">
+                          <FaCheckCircle className="text-emerald-400 text-xs" />
+                          <span>Audited Source: {selectedCollege.verifiedSource}</span>
+                        </span>
+                      ) : selectedCollege.source === "live_fetch" ? (
+                        <span className="text-xs bg-purple-600/40 text-purple-200 border border-purple-500/40 px-2.5 py-1 rounded-full font-medium">
+                          Fetched Live
+                        </span>
+                      ) : null}
+                    </div>
+                    <div className="flex flex-wrap items-center gap-4 text-gray-400 text-sm">
+                      <div className="flex items-center space-x-1.5">
+                        <FaMapMarkerAlt className="text-blue-400" />
+                        <span>{selectedCollege.location}</span>
+                      </div>
+                      {selectedCollege.website && (
+                        <div className="flex items-center space-x-1.5">
+                          <FaLink className="text-blue-400" />
+                          <a
+                            href={selectedCollege.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-blue-300 underline transition"
+                          >
+                            Official Website
+                          </a>
+                        </div>
+                      )}
+                      <span className="text-gray-500">•</span>
+                      <span className="text-blue-400 font-medium">
+                        Category: {selectedCollege.category}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-xs px-3.5 py-1.5 bg-blue-900/80 text-blue-300 rounded-full border border-blue-700">
+                    Est: {selectedCollege.established}
+                  </span>
+                  <span className="text-xs px-3.5 py-1.5 bg-green-900/80 text-green-300 rounded-full border border-green-700">
+                    {selectedCollege.type}
+                  </span>
+                  <Link
+                    to="/book-mentor"
+                    className="
+                      flex items-center space-x-2
+                      bg-gradient-to-r from-blue-600 to-purple-700 
+                      text-white 
+                      px-5 py-2.5 
+                      rounded-full 
+                      text-sm font-semibold 
+                      hover:scale-105 
+                      transition-all 
+                      duration-300 
+                      shadow-lg 
+                      hover:shadow-xl
+                    "
+                  >
+                    <FaChalkboard className="mr-1.5" />
+                    Meet the Mentor
+                  </Link>
+                </div>
+              </div>
+            </AnimatedCard>
+
+            {/* Navigation Tabs */}
+            <nav className="mb-10 flex justify-center space-x-3 md:space-x-6 flex-wrap gap-y-2">
+              {[
+                { id: "overview", label: "Overview" },
+                { id: "programs", label: "Programs & Fees" },
+                { id: "rankings", label: "Rankings & Metrics" },
+                { id: "integration", label: "Integration Guide" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`
+                    capitalize px-5 py-2.5 rounded-full transition duration-300 
+                    font-semibold tracking-wide text-sm md:text-base
+                    ${
+                      activeTab === tab.id
+                        ? "bg-blue-600 text-white shadow-lg scale-105 shadow-blue-600/30"
+                        : "bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white"
+                    }
+                  `}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </nav>
+
+            {/* Tab Body */}
+            <main className="bg-transparent">{renderTabContent()}</main>
+          </div>
+        )}
       </div>
     </div>
   );

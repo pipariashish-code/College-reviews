@@ -1,4 +1,3 @@
-import CollegeSearchBar from './CollegeSearchBar';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Header from "./Header";
@@ -24,6 +23,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/signup" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route
             path="/tools/college-fee-comparison"

@@ -1,6 +1,10 @@
-// Backend URL. On Vercel, set VITE_API_URL in Project Settings -> Environment Variables.
-// Locally it falls back to your Flask dev server.
-export const API_URL = (import.meta.env.VITE_API_URL || "http://127.0.0.1:5000").replace(/\/$/, "");
+// Backend URL. In the integrated full-stack app, it calls the local Express API by default.
+// Only use VITE_API_URL if it is an explicit absolute http(s) URL.
+const rawApiUrl = (import.meta.env.VITE_API_URL || "").trim();
+export const API_URL =
+  rawApiUrl.startsWith("http://") || rawApiUrl.startsWith("https://")
+    ? rawApiUrl.replace(/\/$/, "")
+    : "";
 
 // Email shown in the footer.
 export const CONTACT_EMAIL = "admin@mentorex.co.in";
@@ -9,5 +13,7 @@ export const CONTACT_EMAIL = "admin@mentorex.co.in";
 // After activating FormSubmit, you can set VITE_SUBSCRIBE_ENDPOINT in Vercel to the
 // random-string address FormSubmit gives you, so your email isn't visible in the site code.
 export const SUBSCRIBE_ENDPOINT =
-  import.meta.env.VITE_SUBSCRIBE_ENDPOINT ||
-  `https://formsubmit.co/ajax/${CONTACT_EMAIL}`;
+  (import.meta.env.VITE_SUBSCRIBE_ENDPOINT &&
+   import.meta.env.VITE_SUBSCRIBE_ENDPOINT.startsWith("http"))
+    ? import.meta.env.VITE_SUBSCRIBE_ENDPOINT
+    : `https://formsubmit.co/ajax/${CONTACT_EMAIL}`;

@@ -2,7 +2,6 @@ import { useState, useMemo } from "react";
 import {
   FaVideo,
   FaCommentDots,
-  FaGraduationCap,
   FaBriefcase,
   FaUniversity,
   FaStar,

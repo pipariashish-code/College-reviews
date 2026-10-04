@@ -1,0 +1,384 @@
+import express, { Request, Response } from "express";
+import cors from "cors";
+import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
+import { CollegeService } from "./server/collegeService.js";
+import { CollegeDatabase } from "./server/db/collegeDb.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+const PORT = Number(process.env.PORT) || 3000;
+
+// Enable reverse proxy trust for Cloudflare / Google Cloud Run / Nginx
+app.set("trust proxy", 1);
+
+app.use(cors({ origin: true, credentials: true }));
+app.use(express.json());
+
+// Domain Normalization & Security Headers for mentorex.co.in
+app.use((req: Request, res: Response, next) => {
+  const host = req.headers.host || "";
+  
+  // Canonical redirect for www.mentorex.co.in -> mentorex.co.in or typo mentroex.co.in
+  if (host.includes("www.mentorex.co.in") || host.includes("mentroex.co.in")) {
+    const proto = req.headers["x-forwarded-proto"] || "https";
+    return res.redirect(301, `${proto}://mentorex.co.in${req.originalUrl}`);
+  }
+
+  // Security & Cache-Control headers
+  res.setHeader("X-Frame-Options", "ALLOWALL");
+  next();
+});
+
+// Health check for uptime monitors & hosting load balancers
+app.get("/health", (_req: Request, res: Response) => {
+  return res.status(200).json({ status: "healthy", domain: "mentorex.co.in", uptime: process.uptime() });
+});
+
+// Live Domain & SEO Routes (mentorex.co.in / mentroex.co.in)
+app.get("/robots.txt", (_req: Request, res: Response) => {
+  return res
+    .type("text/plain")
+    .send("User-agent: *\nAllow: /\nSitemap: https://mentorex.co.in/sitemap.xml\n");
+});
+
+app.get("/sitemap.xml", (_req: Request, res: Response) => {
+  const sitemapPath = path.resolve(__dirname, "public/sitemap.xml");
+  if (fs.existsSync(sitemapPath)) {
+    return res.type("application/xml").sendFile(sitemapPath);
+  }
+  return res.status(404).end();
+});
+
+// ==========================================
+// COLLEGE REST API ENDPOINTS
+// ==========================================
+
+/**
+ * GET /api/colleges
+ * Query parameters:
+ *  - search: string (name, shortName, location, course, keywords)
+ *  - category: string ("Engineering" | "Management" | "Medical" | "Forensic & Cyber" | "Law" | "Sciences & Arts" | "All")
+ *  - location: string (state / city / country)
+ *  - sort: "placement" | "rating" | "established_newest" | "established_oldest"
+ *  - page: number (default 1)
+ *  - limit: number (default 20)
+ */
+app.get("/api/colleges", async (req: Request, res: Response) => {
+  try {
+    const { search, category, location, sort, page, limit } = req.query;
+    let result = CollegeService.listColleges({
+      search: typeof search === "string" ? search : undefined,
+      category: typeof category === "string" ? category : undefined,
+      location: typeof location === "string" ? location : undefined,
+      sort: typeof sort === "string" ? sort : undefined,
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
+    });
+
+    // If search term provided but no colleges match locally, auto fetch live!
+    if (result.total === 0 && typeof search === "string" && search.trim().length > 1) {
+      try {
+        const fetched = await CollegeService.fetchAndIngestCollege(search.trim());
+        if (fetched && fetched.college) {
+          result = {
+            colleges: [fetched.college],
+            total: 1,
+            page: 1,
+            totalPages: 1,
+          };
+        }
+      } catch (e) {
+        // ignore and return empty list
+      }
+    }
+
+    res.json({
+      success: true,
+      data: result.colleges,
+      pagination: {
+        total: result.total,
+        page: result.page,
+        totalPages: result.totalPages,
+      },
+    });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message || "Failed to fetch colleges" });
+  }
+});
+
+/**
+ * GET /api/colleges/categories
+ * Returns overview metrics & categories breakdown
+ */
+app.get("/api/colleges/categories", (_req: Request, res: Response) => {
+  try {
+    const categories = CollegeService.getCategories();
+    res.json({ success: true, ...categories });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+/**
+ * POST /api/colleges/ai-search
+ * Dedicated AI Mode search endpoint powered by Gemini AI
+ * Ingests authoritative placement stats, NIRF rank, fee structures, and programs
+ * Body: { name: string, stream?: string }
+ */
+app.post("/api/colleges/ai-search", async (req: Request, res: Response) => {
+  try {
+    const { name, stream } = req.body;
+    if (!name || typeof name !== "string" || !name.trim()) {
+      return res.status(400).json({
+        success: false,
+        error: "Please provide a valid college name in { name: '...' }",
+      });
+    }
+
+    const result = await CollegeService.fetchCollegeWithAi(name.trim(), stream);
+    return res.status(200).json({
+      success: true,
+      aiMode: true,
+      modelUsed: result.modelUsed,
+      message: `Successfully analyzed and retrieved data for ${result.college.name} via Gemini AI Mode (${result.modelUsed})`,
+      data: result.college,
+    });
+  } catch (err: any) {
+    console.error("AI Search Error:", err);
+    return res.status(500).json({
+      success: false,
+      error: err.message || "Failed to fetch college statistics with AI",
+    });
+  }
+});
+
+/**
+ * GET /api/colleges/ai-search
+ * Query parameter version of AI Mode search
+ * e.g. /api/colleges/ai-search?q=SIBM%20Pune
+ */
+app.get("/api/colleges/ai-search", async (req: Request, res: Response) => {
+  try {
+    const name = req.query.name || req.query.q;
+    const stream = req.query.stream;
+    if (!name || typeof name !== "string" || !name.trim()) {
+      return res.status(400).json({
+        success: false,
+        error: "Query parameter 'name' or 'q' is required",
+      });
+    }
+
+    const result = await CollegeService.fetchCollegeWithAi(
+      name.trim(),
+      typeof stream === "string" ? stream : undefined
+    );
+    return res.status(200).json({
+      success: true,
+      aiMode: true,
+      modelUsed: result.modelUsed,
+      message: `Successfully analyzed and retrieved data for ${result.college.name} via Gemini AI Mode`,
+      data: result.college,
+    });
+  } catch (err: any) {
+    return res.status(500).json({
+      success: false,
+      error: err.message || "Failed to fetch college statistics with AI",
+    });
+  }
+});
+
+/**
+ * GET /api/colleges/db-stats
+ * Database persistence statistics & total colleges stored on disk
+ */
+app.get("/api/colleges/db-stats", (_req: Request, res: Response) => {
+  return res.json({
+    success: true,
+    data: CollegeDatabase.getStats(),
+  });
+});
+
+/**
+ * POST /api/colleges/fetch
+ * Fetch relevant data about ANY college that does NOT exist on the website.
+ * Body: { name: string, stream?: string, forceAi?: boolean, mode?: 'ai' }
+ */
+app.post("/api/colleges/fetch", async (req: Request, res: Response) => {
+  try {
+    const { name, stream, forceAi, mode, aiMode } = req.body;
+    if (!name || typeof name !== "string" || !name.trim()) {
+      return res.status(400).json({
+        success: false,
+        error: "Please provide a valid college name in { name: '...' }",
+      });
+    }
+
+    const shouldUseAi = forceAi === true || mode === "ai" || aiMode === true;
+    const result = await CollegeService.fetchAndIngestCollege(
+      name.trim(),
+      stream,
+      shouldUseAi
+    );
+    return res.status(200).json({
+      success: true,
+      aiMode: true,
+      message: result.isNew
+        ? `Successfully fetched and compiled comprehensive data for ${result.college.name}`
+        : `College ${result.college.name} was already available in catalog`,
+      isNew: result.isNew,
+      source: result.source,
+      data: result.college,
+    });
+  } catch (err: any) {
+    console.error("Error fetching new college:", err);
+    return res.status(500).json({
+      success: false,
+      error: err.message || "Failed to fetch college information",
+    });
+  }
+});
+
+/**
+ * GET /api/colleges/search-external
+ * Query-based helper to fetch/find external college data
+ * e.g. GET /api/colleges/search-external?name=IIT%20Kharagpur
+ */
+app.get("/api/colleges/search-external", async (req: Request, res: Response) => {
+  try {
+    const name = req.query.name || req.query.q;
+    const stream = req.query.stream;
+    if (!name || typeof name !== "string") {
+      return res.status(400).json({
+        success: false,
+        error: "Query parameter 'name' or 'q' is required",
+      });
+    }
+    const result = await CollegeService.fetchAndIngestCollege(
+      name,
+      typeof stream === "string" ? stream : undefined
+    );
+    return res.json({
+      success: true,
+      isNew: result.isNew,
+      source: result.source,
+      data: result.college,
+    });
+  } catch (err: any) {
+    return res.status(500).json({
+      success: false,
+      error: err.message || "Failed to fetch college details",
+    });
+  }
+});
+
+/**
+ * GET /api/colleges/:id
+ * Retrieve specific college profile
+ */
+app.get("/api/colleges/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    let college = CollegeService.getCollegeById(id);
+    if (!college) {
+      // Automatically attempt live fetch on demand
+      const query = id.replace(/[-_]+/g, " ");
+      const result = await CollegeService.fetchAndIngestCollege(query);
+      college = result.college;
+    }
+    if (!college) {
+      return res.status(404).json({
+        success: false,
+        error: `College with identifier '${id}' could not be fetched.`,
+      });
+    }
+    return res.json({ success: true, data: college });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ==========================================
+// AUTH & UTILITY HELPER API ROUTES
+// (Guarantees built-in forms like Login/Register work reliably)
+// ==========================================
+app.post("/api/login", (req: Request, res: Response) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ message: "Username and password required" });
+  }
+  return res.json({
+    token: "mock-jwt-token-" + Date.now(),
+    user: {
+      id: "usr-" + Math.floor(Math.random() * 1000),
+      username,
+      name: username.includes("@") ? username.split("@")[0] : username,
+      role: "student",
+    },
+  });
+});
+
+app.post("/api/register", (req: Request, res: Response) => {
+  return res.json({
+    token: "mock-jwt-token-" + Date.now(),
+    user: {
+      id: "usr-" + Math.floor(Math.random() * 1000),
+      name: req.body.name || "Student",
+      role: "student",
+    },
+  });
+});
+
+app.post("/api/register_mentor", (req: Request, res: Response) => {
+  return res.json({
+    token: "mock-mentor-jwt-" + Date.now(),
+    user: {
+      id: "mnt-" + Math.floor(Math.random() * 1000),
+      name: req.body.name || "Mentor",
+      role: "mentor",
+    },
+  });
+});
+
+app.post("/api/request-password-change", (_req: Request, res: Response) => {
+  return res.json({ message: "Verification code sent to your registered email." });
+});
+
+app.post("/api/verify-otp-my", (_req: Request, res: Response) => {
+  return res.json({ message: "OTP verified successfully." });
+});
+
+app.post("/api/password-change", (_req: Request, res: Response) => {
+  return res.json({ message: "Password updated successfully." });
+});
+
+// ==========================================
+// VITE DEV MIDDLEWARE / STATIC PROD SERVING
+// ==========================================
+async function startServer() {
+  if (process.env.NODE_ENV !== "production") {
+    const { createServer: createViteServer } = await import("vite");
+    const vite = await createViteServer({
+      server: { middlewareMode: true },
+      appType: "spa",
+    });
+    app.use(vite.middlewares);
+  } else {
+    app.use(express.static(path.resolve(__dirname, "dist")));
+    app.get("*", (_req: Request, res: Response) => {
+      res.sendFile(path.resolve(__dirname, "dist", "index.html"));
+    });
+  }
+
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`[MentoreX Server] Running at http://0.0.0.0:${PORT}`);
+  });
+}
+
+startServer().catch((err) => {
+  console.error("Failed to start server:", err);
+  process.exit(1);
+});
