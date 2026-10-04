@@ -499,8 +499,31 @@ export const CollegeService = {
     }
 
     const ai = getGeminiClient();
-    if (!ai) {
-      throw new Error("Gemini AI API key is not configured");
+
+// 1. Fetch live Wikipedia, domain, and web placement in parallel for grounding
+const [wikiData, domainData, liveWebPlacement] = await Promise.all([
+  fetchWikipediaUniversityData(collegeName),
+  fetchHipoLabsDomain(collegeName),
+  harvestLivePlacementData(collegeName),
+]);
+
+if (ai) {
+Scroll down past the for (const model of modelsToTry) loop (around line 720) and add the closing } and fallback log before const fallbackCollege = this.synthesizeDynamicCollege(...):
+code
+TypeScript
+}
+  } else {
+    console.log(`[CollegeService] GEMINI_API_KEY is not set; falling back to Wikipedia & web harvester for "${collegeName}"`);
+  }
+
+  // If all Gemini models failed or no API key, fall back to live web harvester
+  const fallbackCollege = this.synthesizeDynamicCollege(
+    collegeName,
+    wikiData,
+    domainData,
+    streamHint,
+    liveWebPlacement
+  );
     }
 
     // 1. Fetch live Wikipedia, domain, and web placement in parallel for grounding
