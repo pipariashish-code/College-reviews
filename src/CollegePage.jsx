@@ -30,6 +30,8 @@ import {
 
 import { resolveCollegeQuery } from "./utils/collegeResolver.js";
 import AiCollegeSearchBar from "./components/AiCollegeSearchBar";
+import { VERIFIED_COLLEGES_CLIENT, findClientCollege } from "./data/verifiedCollegesClient.js";
+import { fetchCollegeClientSide } from "./utils/collegeClientFetcher.js";
 
 const ProgramStarRating = ({ rating }) => {
   const renderStars = () => {
@@ -134,19 +136,22 @@ const IconMetric = ({ icon: Icon, value, label, bgColor }) => (
 );
 
 const CollegePage = () => {
-  const [colleges, setColleges] = useState([]);
-  const [selectedCollegeId, setSelectedCollegeId] = useState("");
+  const [colleges, setColleges] = useState(VERIFIED_COLLEGES_CLIENT);
+  const [selectedCollegeId, setSelectedCollegeId] = useState(
+    VERIFIED_COLLEGES_CLIENT[0]?.id || "gujarat-national-law-university"
+  );
   const [activeTab, setActiveTab] = useState("overview");
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [showApiDocs, setShowApiDocs] = useState(false);
   const [codeCopied, setCodeCopied] = useState("");
 
   const fetchCollegesList = useCallback(async (selectNewId = null) => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_URL}/api/colleges?limit=250`);
+      const endpoint = API_URL ? `${API_URL}/api/colleges?limit=250` : "/api/colleges?limit=250";
+      const res = await axios.get(endpoint);
       if (res.data && res.data.success && res.data.data?.length > 0) {
         setColleges(res.data.data);
         if (selectNewId) {
@@ -156,7 +161,8 @@ const CollegePage = () => {
         }
       }
     } catch (err) {
-      console.error("Failed to load colleges from API:", err);
+      console.warn("API load failed or running offline, using verified client colleges:", err.message);
+      // Keep preloaded VERIFIED_COLLEGES_CLIENT so UI is 100% operational
     } finally {
       setLoading(false);
     }
@@ -190,20 +196,32 @@ const CollegePage = () => {
     setAiFetching(true);
     try {
       let collegeData = null;
-      try {
-        const res = await axios.post(`${API_URL}/api/colleges/ai-search`, {
-          name: term.trim(),
-        });
-        if (res.data?.success && res.data?.data) {
-          collegeData = res.data.data;
+
+      // 1. Instant check in verified institutional registry
+      const localMatch = findClientCollege(term.trim());
+      if (localMatch) {
+        collegeData = localMatch;
+      }
+
+      // 2. Remote API search
+      if (!collegeData) {
+        try {
+          const endpoint = API_URL ? `${API_URL}/api/colleges/ai-search` : "/api/colleges/ai-search";
+          const res = await axios.post(endpoint, {
+            name: term.trim(),
+          });
+          if (res.data?.success && res.data?.data) {
+            collegeData = res.data.data;
+          }
+        } catch (e1) {
+          console.warn("AI search route fallback:", e1);
         }
-      } catch (e1) {
-        console.warn("AI search route fallback:", e1);
       }
 
       if (!collegeData) {
         try {
-          const res2 = await axios.post(`${API_URL}/api/colleges/fetch`, {
+          const endpoint = API_URL ? `${API_URL}/api/colleges/fetch` : "/api/colleges/fetch";
+          const res2 = await axios.post(endpoint, {
             name: term.trim(),
           });
           if (res2.data?.success && res2.data?.data) {
@@ -216,14 +234,24 @@ const CollegePage = () => {
 
       if (!collegeData) {
         try {
-          const res3 = await axios.get(
-            `${API_URL}/api/colleges?search=${encodeURIComponent(term.trim())}`
-          );
+          const endpoint = API_URL
+            ? `${API_URL}/api/colleges?search=${encodeURIComponent(term.trim())}`
+            : `/api/colleges?search=${encodeURIComponent(term.trim())}`;
+          const res3 = await axios.get(endpoint);
           if (res3.data?.success && Array.isArray(res3.data?.data) && res3.data.data.length > 0) {
             collegeData = res3.data.data[0];
           }
         } catch (e3) {
           console.warn("Search query fallback:", e3);
+        }
+      }
+
+      // 3. Client-side live intelligence fallback
+      if (!collegeData) {
+        try {
+          collegeData = await fetchCollegeClientSide(term.trim());
+        } catch (clientErr) {
+          console.warn("Client fallback failed:", clientErr);
         }
       }
 

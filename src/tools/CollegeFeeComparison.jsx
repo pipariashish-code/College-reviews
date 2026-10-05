@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../config";
 import { fetchCollegeClientSide } from "../utils/collegeClientFetcher.js";
+import { findClientCollege } from "../data/verifiedCollegesClient.js";
 import {
   GitCompare,
   School,
@@ -688,18 +689,27 @@ const CollegeFeesComparison = () => {
 
     let fetchedCollege = null;
 
+    // Route 0: Instant check against verified client registry
+    const localMatch = findClientCollege(collegeNameToFetch.trim());
+    if (localMatch) {
+      fetchedCollege = localMatch;
+    }
+
     // Route 1: Dedicated AI-search
-    try {
-      const aiRes = await axios.post(
-        `${API_URL}/api/colleges/ai-search`,
-        { name: collegeNameToFetch.trim() },
-        { timeout: 7000 }
-      );
-      if (aiRes.data && aiRes.data.success && aiRes.data.data) {
-        fetchedCollege = aiRes.data.data;
+    if (!fetchedCollege) {
+      try {
+        const endpoint = API_URL ? `${API_URL}/api/colleges/ai-search` : "/api/colleges/ai-search";
+        const aiRes = await axios.post(
+          endpoint,
+          { name: collegeNameToFetch.trim() },
+          { timeout: 7000 }
+        );
+        if (aiRes.data && aiRes.data.success && aiRes.data.data) {
+          fetchedCollege = aiRes.data.data;
+        }
+      } catch (err) {
+        console.warn("AI-search route fallback:", err);
       }
-    } catch (err) {
-      console.warn("AI-search route fallback:", err);
     }
 
     // Route 2: /api/colleges/fetch

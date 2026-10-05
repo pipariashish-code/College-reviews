@@ -1,4 +1,4 @@
-[
+export const VERIFIED_COLLEGES_CLIENT = [
   {
     "id": "nfsu-gandhinagar",
     "name": "National Forensic Sciences University (NFSU)",
@@ -3043,4 +3043,52 @@
     "source": "live_fetch",
     "aiMode": true
   }
-]
+];
+
+export function findClientCollege(searchTerm) {
+  if (!searchTerm || typeof searchTerm !== "string") return null;
+  const q = searchTerm.toLowerCase().trim();
+  // Exact or alias mapping
+  const aliasMap = {
+    "nfsu": "nfsu-gandhinagar",
+    "national forensic": "nfsu-gandhinagar",
+    "national forensic sciences university": "nfsu-gandhinagar",
+    "gnlu": "gujarat-national-law-university",
+    "gujarat national law": "gujarat-national-law-university",
+    "gujarat national law university": "gujarat-national-law-university",
+    "lsr": "lady-shri-ram-college",
+    "lady shri ram": "lady-shri-ram-college",
+    "srcc": "shri-ram-college-of-commerce",
+    "shri ram": "shri-ram-college-of-commerce",
+    "st xaviers": "st-xaviers-college-mumbai",
+    "xaviers mumbai": "st-xaviers-college-mumbai",
+    "nid": "national-institute-of-design",
+    "nid ahmedabad": "national-institute-of-design",
+    "nift": "national-institute-of-fashion-technology",
+    "ftii": "film-and-television-institute-of-india",
+    "ftii pune": "film-and-television-institute-of-india",
+    "wwi": "whistling-woods-international",
+    "whistling woods": "whistling-woods-international",
+    "christ": "christ-university",
+    "christ university": "christ-university",
+    "nlsiu": "nlsiu-bangalore",
+    "nls bangalore": "nlsiu-bangalore",
+    "sibm": "sibm-pune",
+    "sibm pune": "sibm-pune",
+    "coep": "coep-technological-university",
+    "rvce": "rv-college-of-engineering",
+    "fms": "faculty-of-management-studies-university-of-delhi"
+  };
+  const directId = aliasMap[q];
+  if (directId) {
+    const hit = VERIFIED_COLLEGES_CLIENT.find(c => c.id === directId);
+    if (hit) return hit;
+  }
+  return VERIFIED_COLLEGES_CLIENT.find(c => {
+    const cId = (c.id || "").toLowerCase();
+    const cName = (c.name || "").toLowerCase();
+    const cShort = (c.shortName || "").toLowerCase();
+    return cId === q || cShort === q || cName.includes(q) || (q.length >= 3 && (cId.includes(q) || cShort.includes(q)));
+  }) || null;
+}
+export default VERIFIED_COLLEGES_CLIENT;

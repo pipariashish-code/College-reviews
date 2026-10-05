@@ -46,6 +46,30 @@ def load_colleges():
 
 load_colleges()
 
+ALIAS_MAP = {
+    "nfsu": "nfsu-gandhinagar",
+    "national forensic": "nfsu-gandhinagar",
+    "national forensic sciences university": "nfsu-gandhinagar",
+    "gnlu": "gujarat-national-law-university",
+    "gujarat national law": "gujarat-national-law-university",
+    "gujarat national law university": "gujarat-national-law-university",
+    "lsr": "lady-shri-ram-college",
+    "lady shri ram": "lady-shri-ram-college",
+    "srcc": "shri-ram-college-of-commerce",
+    "st xaviers": "st-xaviers-college-mumbai",
+    "xaviers": "st-xaviers-college-mumbai",
+    "nid": "national-institute-of-design",
+    "nift": "national-institute-of-fashion-technology",
+    "ftii": "film-and-television-institute-of-india",
+    "wwi": "whistling-woods-international",
+    "christ": "christ-university",
+    "nlsiu": "nlsiu-bangalore",
+    "sibm": "sibm-pune",
+    "rvce": "rv-college-of-engineering",
+    "coep": "coep-technological-university",
+    "fms": "faculty-of-management-studies-university-of-delhi",
+}
+
 class SearchRequest(BaseModel):
     name: str
 
@@ -135,13 +159,24 @@ async def ai_search_college(body: SearchRequest):
     if not query:
         raise HTTPException(status_code=400, detail="Query name is required")
 
-    # 1. First look in loaded local database
+    # 1. First check alias mapping
+    target_id = ALIAS_MAP.get(query)
+    if target_id:
+        for c in COLLEGES_DB:
+            if c.get("id") == target_id:
+                return {"success": True, "source": "database", "data": c}
+
+    # 2. Look in loaded local database
     for c in COLLEGES_DB:
+        c_id = c.get("id", "").lower()
+        c_name = c.get("name", "").lower()
+        c_short = c.get("shortName", "").lower()
         if (
-            query == c.get("shortName", "").lower()
-            or query in c.get("name", "").lower()
-            or c.get("id", "").lower() == query
-            or (c.get("shortName") and query in c.get("shortName").lower())
+            query == c_short
+            or query in c_name
+            or c_id == query
+            or (c_short and query in c_short)
+            or (len(query) >= 3 and query in c_id)
         ):
             return {"success": True, "source": "database", "data": c}
 

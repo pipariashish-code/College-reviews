@@ -5,6 +5,7 @@
  */
 
 import { resolveCollegeQuery } from "./collegeResolver.js";
+import { findClientCollege } from "../data/verifiedCollegesClient.js";
 
 function slugify(text) {
   return text
@@ -16,7 +17,20 @@ function slugify(text) {
 }
 
 export async function fetchCollegeClientSide(collegeName) {
+  if (!collegeName || typeof collegeName !== "string") return null;
+
+  // 1. Instant check against pre-bundled verified institutional registry
+  const verifiedMatch = findClientCollege(collegeName.trim());
+  if (verifiedMatch) {
+    return JSON.parse(JSON.stringify(verifiedMatch));
+  }
+
   const query = resolveCollegeQuery(collegeName.trim());
+  const resolvedMatch = findClientCollege(query);
+  if (resolvedMatch) {
+    return JSON.parse(JSON.stringify(resolvedMatch));
+  }
+
   const id = slugify(query);
 
   let wikiData = null;
@@ -98,15 +112,23 @@ export async function fetchCollegeClientSide(collegeName) {
 
   // Category
   let category = "Engineering";
-  if (/medical|aiims|hospital|medicine|dental|health/i.test(lower)) {
+  if (/film|cinema|media|cinematography|television|whistling|screenplay|acting|ftii|srfti/i.test(lower + " " + description)) {
+    category = "Film & Media";
+  } else if (/design|fashion|apparel|textile|nid|nift|industrial design/i.test(lower + " " + description)) {
+    category = "Design";
+  } else if (/medical|aiims|hospital|medicine|dental|health|nursing|pharmacy|mbbs/i.test(lower + " " + description)) {
     category = "Medical";
-  } else if (/management|iim|business|commerce|finance|mba/i.test(lower)) {
-    category = "Management";
-  } else if (/law|nlsiu|nlu|legal|justice/i.test(lower)) {
+  } else if (/law|nlsiu|gnlu|nlu|legal|justice|jurisprudence|judiciary/i.test(lower + " " + description)) {
     category = "Law";
-  } else if (/forensic|cyber|security|police/i.test(lower)) {
+  } else if (/forensic|cyber|security|police|criminology|digital investigation|nfsu|gfsu/i.test(lower + " " + description)) {
     category = "Forensic & Cyber";
-  } else if (/science|arts|humanities|liberal/i.test(lower)) {
+  } else if (/psychology|humanities|liberal arts|social science|philosophy|literature|history|sociology|political science/i.test(lower + " " + description)) {
+    category = "Arts & Psychology";
+  } else if (/commerce|bms|bba|accounting|finance|banking|srcc|xavier/i.test(lower + " " + description)) {
+    category = "Commerce & BMS";
+  } else if (/management|iim|business|mba|pgdm/i.test(lower + " " + description)) {
+    category = "Management";
+  } else if (/science|arts|liberal/i.test(lower + " " + description)) {
     category = "Sciences & Arts";
   }
 
@@ -263,6 +285,304 @@ export async function fetchCollegeClientSide(collegeName) {
     extract ||
     `${rawName} is a recognized institution providing undergraduate, postgraduate, and doctoral degree programs with dedicated faculty and strong placement connections.`;
 
+  // Generate realistic, category-specific academic programs
+  let academicPrograms = [];
+  let popularPrograms = [];
+
+  if (category === "Law") {
+    academicPrograms = [
+      "B.A. LL.B. (Hons.)",
+      "B.Com. LL.B. (Hons.)",
+      "B.B.A. LL.B. (Hons.)",
+      "B.Sc. LL.B. (Hons.)",
+      "LL.M. in Corporate & Commercial Law",
+      "LL.M. in Constitutional Law & Human Rights",
+      "Ph.D. in Legal Studies"
+    ];
+    popularPrograms = [
+      {
+        name: "B.A. LL.B. (Hons.)",
+        degree: "Undergraduate Integrated",
+        duration: "5 Years",
+        annualFee: annualFee || 260000,
+        seats: 180,
+      },
+      {
+        name: "B.Com. LL.B. (Hons.)",
+        degree: "Undergraduate Integrated",
+        duration: "5 Years",
+        annualFee: annualFee || 260000,
+        seats: 60,
+      },
+      {
+        name: "LL.M. in Corporate & Commercial Law",
+        degree: "Postgraduate",
+        duration: "1 Year",
+        annualFee: Math.round((annualFee || 260000) * 0.85),
+        seats: 50,
+      },
+    ];
+  } else if (category === "Forensic & Cyber") {
+    academicPrograms = [
+      "M.Tech Cyber Security",
+      "M.Sc Forensic Science",
+      "B.Tech - M.Tech Integrated Cyber Security",
+      "M.Sc Digital Forensics & Information Security",
+      "M.Sc Homeland Security",
+      "Post Graduate Diploma in Cyber Law"
+    ];
+    popularPrograms = [
+      {
+        name: "M.Tech Cyber Security",
+        degree: "Postgraduate",
+        duration: "2 Years",
+        annualFee: annualFee || 160000,
+        seats: 60,
+      },
+      {
+        name: "M.Sc Forensic Science",
+        degree: "Postgraduate",
+        duration: "2 Years",
+        annualFee: annualFee ? Math.round(annualFee * 0.88) : 140000,
+        seats: 40,
+      },
+      {
+        name: "B.Tech + M.Tech Integrated Cyber Security",
+        degree: "Integrated",
+        duration: "5 Years",
+        annualFee: annualFee ? Math.round(annualFee * 1.1) : 180000,
+        seats: 60,
+      },
+    ];
+  } else if (category === "Arts & Psychology") {
+    academicPrograms = [
+      "B.A. (Hons.) Psychology",
+      "B.A. (Hons.) Economics",
+      "B.A. (Hons.) English Literature",
+      "B.A. (Hons.) Journalism & Mass Communication",
+      "B.A. (Hons.) Political Science",
+      "M.A. Applied Psychology"
+    ];
+    popularPrograms = [
+      {
+        name: "B.A. (Hons.) Psychology",
+        degree: "Undergraduate",
+        duration: "3 Years",
+        annualFee: annualFee || 35000,
+        seats: 75,
+      },
+      {
+        name: "B.A. (Hons.) Economics",
+        degree: "Undergraduate",
+        duration: "3 Years",
+        annualFee: annualFee || 30000,
+        seats: 110,
+      },
+      {
+        name: "M.A. Applied Psychology",
+        degree: "Postgraduate",
+        duration: "2 Years",
+        annualFee: annualFee || 35000,
+        seats: 40,
+      },
+    ];
+  } else if (category === "Commerce & BMS") {
+    academicPrograms = [
+      "BMS (Bachelor of Management Studies)",
+      "B.Com. (Hons.) Accounting & Finance",
+      "BBA in Finance and International Business",
+      "B.Com. Banking & Insurance",
+      "M.Com. Advanced Accounting & Taxation"
+    ];
+    popularPrograms = [
+      {
+        name: "BMS (Bachelor of Management Studies)",
+        degree: "Undergraduate",
+        duration: "3 Years",
+        annualFee: annualFee || 55000,
+        seats: 120,
+      },
+      {
+        name: "B.Com. (Hons.) Accounting & Finance",
+        degree: "Undergraduate",
+        duration: "3 Years",
+        annualFee: annualFee || 45000,
+        seats: 250,
+      },
+      {
+        name: "BBA in Finance and International Business",
+        degree: "Undergraduate",
+        duration: "3 Years",
+        annualFee: annualFee ? Math.round(annualFee * 1.25) : 75000,
+        seats: 80,
+      },
+    ];
+  } else if (category === "Design") {
+    academicPrograms = [
+      "B.Des in Product Design",
+      "B.Des in Interaction & UI/UX Design",
+      "B.Des in Communication & Graphic Design",
+      "B.Des in Fashion Design",
+      "M.Des in Strategic Design Management"
+    ];
+    popularPrograms = [
+      {
+        name: "B.Des in Product Design",
+        degree: "Undergraduate",
+        duration: "4 Years",
+        annualFee: annualFee || 320000,
+        seats: 50,
+      },
+      {
+        name: "B.Des in Interaction & UI/UX Design",
+        degree: "Undergraduate",
+        duration: "4 Years",
+        annualFee: annualFee || 320000,
+        seats: 45,
+      },
+      {
+        name: "B.Des in Fashion Design",
+        degree: "Undergraduate",
+        duration: "4 Years",
+        annualFee: annualFee ? Math.round(annualFee * 0.95) : 300000,
+        seats: 60,
+      },
+    ];
+  } else if (category === "Film & Media") {
+    academicPrograms = [
+      "B.A. in Filmmaking (Direction / Cinematography)",
+      "B.A. in Animation & Visual Effects (VFX)",
+      "BBA in Media & Entertainment Management",
+      "B.A. in Screenwriting & Creative Writing",
+      "PG Diploma in Sound Recording & Audio Design"
+    ];
+    popularPrograms = [
+      {
+        name: "B.A. in Filmmaking (Direction / Cinematography)",
+        degree: "Undergraduate",
+        duration: "3 Years",
+        annualFee: annualFee || 160000,
+        seats: 40,
+      },
+      {
+        name: "B.A. in Animation & Visual Effects (VFX)",
+        degree: "Undergraduate",
+        duration: "3 Years",
+        annualFee: annualFee ? Math.round(annualFee * 1.1) : 175000,
+        seats: 40,
+      },
+      {
+        name: "PG Diploma in Film Direction & Screenplay Writing",
+        degree: "Postgraduate Diploma",
+        duration: "3 Years",
+        annualFee: annualFee || 150000,
+        seats: 25,
+      },
+    ];
+  } else if (category === "Medical") {
+    academicPrograms = [
+      "MBBS (Bachelor of Medicine & Bachelor of Surgery)",
+      "MD General Medicine",
+      "MS General Surgery",
+      "B.Sc (Hons.) Nursing",
+      "M.Ch Surgical Specializations"
+    ];
+    popularPrograms = [
+      {
+        name: "MBBS",
+        degree: "Undergraduate",
+        duration: "5.5 Years",
+        annualFee: annualFee || 1628,
+        seats: 125,
+      },
+      {
+        name: "MD General Medicine",
+        degree: "Postgraduate",
+        duration: "3 Years",
+        annualFee: annualFee || 2500,
+        seats: 30,
+      },
+    ];
+  } else if (category === "Management") {
+    academicPrograms = [
+      "Post Graduate Programme in Management (MBA / PGDM)",
+      "Executive MBA",
+      "MBA in Business Analytics & Data Science",
+      "Fellow Programme in Management (Ph.D.)"
+    ];
+    popularPrograms = [
+      {
+        name: "Master of Business Administration (MBA - Flagship)",
+        degree: "Postgraduate",
+        duration: "2 Years",
+        annualFee: annualFee || 1250000,
+        seats: 180,
+      },
+      {
+        name: "Executive MBA",
+        degree: "Executive Postgraduate",
+        duration: "1 Year",
+        annualFee: annualFee ? Math.round(annualFee * 1.15) : 1400000,
+        seats: 60,
+      },
+    ];
+  } else if (category === "Sciences & Arts") {
+    academicPrograms = [
+      "B.A. (Hons.) Economics & Politics",
+      "B.Sc. Applied Mathematics & Computing",
+      "B.Com. (Hons.) Professional",
+      "M.Sc. Data Science & Applied Statistics"
+    ];
+    popularPrograms = [
+      {
+        name: "B.A. (Hons.) Economics",
+        degree: "Undergraduate",
+        duration: "3 Years",
+        annualFee: annualFee || 85000,
+        seats: 120,
+      },
+      {
+        name: "B.Sc. Applied Computing & Analytics",
+        degree: "Undergraduate",
+        duration: "3 Years",
+        annualFee: annualFee ? Math.round(annualFee * 1.1) : 95000,
+        seats: 60,
+      },
+    ];
+  } else {
+    // Engineering default
+    academicPrograms = [
+      "B.Tech Computer Science & Engineering",
+      "B.Tech Artificial Intelligence & Machine Learning",
+      "B.Tech Electronics & Communication",
+      "B.Tech Mechanical Engineering",
+      "M.Tech Data Science & AI"
+    ];
+    popularPrograms = [
+      {
+        name: "B.Tech Computer Science & Engineering",
+        degree: "Undergraduate",
+        duration: "4 Years",
+        annualFee: annualFee || 220000,
+        seats: 180,
+      },
+      {
+        name: "B.Tech Electronics & Communication",
+        degree: "Undergraduate",
+        duration: "4 Years",
+        annualFee: annualFee ? Math.round(annualFee * 0.95) : 210000,
+        seats: 120,
+      },
+      {
+        name: "M.Tech Data Science & AI",
+        degree: "Postgraduate",
+        duration: "2 Years",
+        annualFee: annualFee ? Math.round(annualFee * 0.8) : 180000,
+        seats: 40,
+      },
+    ];
+  }
+
   return {
     id,
     name: rawName,
@@ -280,13 +600,7 @@ export async function fetchCollegeClientSide(collegeName) {
       averagePackage: avgPkg,
       highestPackage: highPkg,
       professorStudentRatio: "Varies by Dept & Level (UGC ~1:15-1:20)",
-      academicPrograms: [
-        "Computer Science & Engineering",
-        "Information Technology",
-        "Electronics and Communication",
-        "Applied Artificial Intelligence",
-        "Business & Analytics",
-      ],
+      academicPrograms,
       topRecruiters,
       financialAid: {
         scholarships: "Merit-based scholarships covering 25% to 100% tuition for top rankers",
@@ -307,31 +621,16 @@ export async function fetchCollegeClientSide(collegeName) {
       },
     },
     facilities: [
-      "High-Tech Computing & AI Laboratories",
+      "Modern Department Laboratories & Creative Studios",
       "Central Air-Conditioned Digital Library",
       "Incubation Centre for Student Startups",
       "Modern Sports Arena and Gymnasiums",
       "24x7 Wi-Fi Enabled Campus and Hostels",
     ],
     admissionProcess:
-      "Admissions granted based on national/state entrance examinations (e.g. JEE, NEET, CAT, SAT) and qualifying academic merit.",
+      "Admissions granted based on national/state entrance examinations (e.g. CLAT, NFAT, NID DAT, NIFT, CUET, JEE, NEET, CAT) and qualifying academic merit.",
     feeRange,
-    popularPrograms: [
-      {
-        name: category === "Medical" ? "MBBS" : category === "Management" ? "MBA" : "B.Tech Computer Science",
-        degree: category === "Management" ? "Postgraduate" : "Undergraduate",
-        duration: category === "Medical" ? "5.5 Years" : category === "Management" ? "2 Years" : "4 Years",
-        annualFee,
-        seats: 120,
-      },
-      {
-        name: category === "Medical" ? "MD General Medicine" : "M.Tech Data Science & AI",
-        degree: "Postgraduate",
-        duration: "2 Years",
-        annualFee: Math.round(annualFee * 0.7),
-        seats: 40,
-      },
-    ],
+    popularPrograms,
     verifiedSource,
     source: "live_fetch",
   };

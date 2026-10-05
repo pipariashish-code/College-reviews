@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
+import { findClientCollege } from "../data/verifiedCollegesClient.js";
+import { fetchCollegeClientSide } from "../utils/collegeClientFetcher.js";
 import {
   FaSearch,
   FaRobot,
@@ -55,23 +58,35 @@ export default function AiCollegeSearchBar({
 
     try {
       let collegeResult = null;
-      try {
-        const response = await fetch("/api/colleges/ai-search", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: targetName }),
-        });
-        const data = await response.json();
-        if (response.ok && data.success && data.data) {
-          collegeResult = data.data;
+
+      // 1. Direct match in local verified institutional database (instant 0ms resolution)
+      const directMatch = findClientCollege(targetName);
+      if (directMatch) {
+        collegeResult = directMatch;
+      }
+
+      // 2. Try remote API search if not found in local verified set
+      if (!collegeResult) {
+        try {
+          const endpoint = API_URL ? `${API_URL}/api/colleges/ai-search` : "/api/colleges/ai-search";
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: targetName }),
+          });
+          const data = await response.json();
+          if (response.ok && data.success && data.data) {
+            collegeResult = data.data;
+          }
+        } catch (e) {
+          console.warn("AI-search route failed, trying fetch route:", e);
         }
-      } catch (e) {
-        console.warn("AI-search route failed, trying /api/colleges/fetch:", e);
       }
 
       if (!collegeResult) {
         try {
-          const fetchRes = await fetch("/api/colleges/fetch", {
+          const endpoint = API_URL ? `${API_URL}/api/colleges/fetch` : "/api/colleges/fetch";
+          const fetchRes = await fetch(endpoint, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name: targetName }),
@@ -87,13 +102,25 @@ export default function AiCollegeSearchBar({
 
       if (!collegeResult) {
         try {
-          const searchRes = await fetch(`/api/colleges?search=${encodeURIComponent(targetName)}`);
+          const endpoint = API_URL
+            ? `${API_URL}/api/colleges?search=${encodeURIComponent(targetName)}`
+            : `/api/colleges?search=${encodeURIComponent(targetName)}`;
+          const searchRes = await fetch(endpoint);
           const sData = await searchRes.json();
           if (searchRes.ok && sData.success && Array.isArray(sData.data) && sData.data.length > 0) {
             collegeResult = sData.data[0];
           }
         } catch (e3) {
           console.warn("api search query failed:", e3);
+        }
+      }
+
+      // 3. Fallback to client-side live intelligence fetcher
+      if (!collegeResult) {
+        try {
+          collegeResult = await fetchCollegeClientSide(targetName);
+        } catch (clientErr) {
+          console.warn("Client fallback failed:", clientErr);
         }
       }
 
