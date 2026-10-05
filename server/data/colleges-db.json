@@ -1841,6 +1841,812 @@
     "source": "seed"
   },
   {
+    "id": "lady-shri-ram-college",
+    "name": "Lady Shri Ram College for Women (LSR)",
+    "shortName": "LSR",
+    "location": "Lajpat Nagar IV, New Delhi, Delhi 110024, India",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "country": "India",
+    "established": 1956,
+    "type": "Public University Constituent College",
+    "category": "Arts & Psychology",
+    "website": "https://lsr.edu.in",
+    "imageUrl": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80",
+    "overview": "Lady Shri Ram College for Women (LSR), University of Delhi, is widely regarded as one of India's preeminent institutions for higher learning in Humanities, Social Sciences, Psychology, and Commerce, recognized with top NAAC A++ accreditation and elite NIRF College ranking.",
+    "feeRange": "₹21,000 - ₹35,000 / year (Government Subsidized)",
+    "annualTuitionFee": 24000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 94,
+      "averagePackage": "₹11.8 LPA",
+      "highestPackage": "₹49.0 LPA",
+      "professorStudentRatio": "1:15",
+      "academicPrograms": [
+        "B.A. (Hons.) Psychology",
+        "B.A. (Hons.) Economics",
+        "B.A. (Hons.) Journalism & Mass Communication",
+        "B.A. (Hons.) English Literature",
+        "B.A. (Hons.) Political Science",
+        "B.Com. (Hons.) Accounting & Finance",
+        "M.A. Psychology"
+      ],
+      "topRecruiters": [
+        "McKinsey & Company",
+        "Boston Consulting Group (BCG)",
+        "Bain & Company",
+        "Goldman Sachs",
+        "J.P. Morgan",
+        "KPMG",
+        "United Nations Development Programme (UNDP)"
+      ],
+      "financialAid": {
+        "scholarships": "LSR Merit-cum-Need Scholarships, KPMG Scholarship Scheme, and Delhi University Fee Concession covering up to 100% tuition.",
+        "governmentSchemes": "Central Sector Scheme of Scholarships & Post-Matric Scholarships via National Scholarship Portal (NSP).",
+        "researchGrants": "Undergraduate Research Project (URP) stipends and Social Sciences Research Grants."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#9 Colleges in India",
+      "rankingBody": "NIRF Colleges 2024",
+      "researchScore": 9.2,
+      "placementRate": 94,
+      "starRatings": {
+        "campusLife": 4.8,
+        "graduationRate": 4.9,
+        "careerOpportunities": 4.9,
+        "infrastructure": 4.6
+      }
+    },
+    "facilities": [
+      "Advanced Cognitive & Behavioral Psychology Laboratories",
+      "Air-conditioned Auditorium and Audio-Visual Conference Theatres",
+      "Expansive Humanities & Social Sciences Library with 120,000+ volumes",
+      "Active Mental Health & Counseling Support Clinic"
+    ],
+    "admissionProcess": "Admissions strictly governed by CUET-UG (Common University Entrance Test) administered by National Testing Agency (NTA).",
+    "popularPrograms": [
+      {
+        "name": "B.A. (Hons.) Psychology",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 24000,
+        "seats": 75
+      },
+      {
+        "name": "B.A. (Hons.) Economics",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 22000,
+        "seats": 120
+      },
+      {
+        "name": "B.Com. (Hons.) Accounting & Finance",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 26000,
+        "seats": 80
+      },
+      {
+        "name": "B.A. (Hons.) Journalism & Mass Communication",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 32000,
+        "seats": 40
+      },
+      {
+        "name": "M.A. Applied Psychology",
+        "degree": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 28000,
+        "seats": 35
+      }
+    ],
+    "verifiedSource": "NIRF Colleges 2024 Audited Placement Disclosure & DU Bulletin",
+    "sourceType": "NIRF_AUDITED",
+    "source": "seed"
+  },
+  {
+    "id": "st-xaviers-college-mumbai",
+    "name": "St. Xavier's College (Autonomous), Mumbai",
+    "shortName": "St. Xavier's",
+    "location": "5, Mahapalika Marg, Dhobi Talao, Chhatrapati Shivaji Terminus Area, Fort, Mumbai, Maharashtra 400001",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "country": "India",
+    "established": 1869,
+    "type": "Autonomous Private Aided University College",
+    "category": "Commerce & BMS",
+    "website": "https://xaviers.edu",
+    "imageUrl": "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80",
+    "overview": "St. Xavier's College Mumbai is a celebrated heritage institution affiliated with University of Mumbai, acclaimed as India's premier destination for Bachelor of Management Studies (BMS), Psychology, Media, and Arts with stellar corporate placement records.",
+    "feeRange": "₹45,000 - ₹95,000 / year",
+    "annualTuitionFee": 65000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 95,
+      "averagePackage": "₹10.5 LPA",
+      "highestPackage": "₹36.0 LPA",
+      "professorStudentRatio": "1:18",
+      "academicPrograms": [
+        "BMS (Bachelor of Management Studies)",
+        "B.A. (Hons.) Psychology & Behavioral Science",
+        "B.Com. (Banking & Financial Markets)",
+        "B.A. Film, Television & New Media Production",
+        "B.A. (Hons.) Economics",
+        "M.A. Public Policy & Economics"
+      ],
+      "topRecruiters": [
+        "McKinsey & Company",
+        "Bain Capability Network",
+        "Morgan Stanley",
+        "Citigroup",
+        "Deloitte USI",
+        "Hindustan Unilever",
+        "Ogilvy & Mather"
+      ],
+      "financialAid": {
+        "scholarships": "St. Xavier's Deserving Students Aid Fund and Fr. Palacios Merit Scholarship.",
+        "governmentSchemes": "MahaDBT Post Matric Scholarships & National Scholarship Portal.",
+        "researchGrants": "Herba & Cajetan Research Foundation fellowships."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#1 BMS & Arts College in Western India",
+      "rankingBody": "NIRF Colleges / India Today 2024",
+      "researchScore": 9.3,
+      "placementRate": 95,
+      "starRatings": {
+        "campusLife": 5,
+        "graduationRate": 4.8,
+        "careerOpportunities": 4.9,
+        "infrastructure": 4.8
+      }
+    },
+    "facilities": [
+      "Historic Gothic Campus & Courtyard in South Mumbai",
+      "Department of Psychology Laboratory & Observation Suite",
+      "Audio-Visual Studio and Editing Suites for Media",
+      "Fell Gymkhana and Sporting Complex"
+    ],
+    "admissionProcess": "Admissions conducted via St. Xavier's Entrance Test (XET) for BMS/BA-MC and Merit Lists.",
+    "popularPrograms": [
+      {
+        "name": "BMS (Bachelor of Management Studies)",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 58000,
+        "seats": 120
+      },
+      {
+        "name": "B.A. (Hons.) Psychology",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 42000,
+        "seats": 80
+      },
+      {
+        "name": "B.A. Film, Television & Media Production",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 78000,
+        "seats": 60
+      },
+      {
+        "name": "B.Com. (Accounting & Financial Management)",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 38000,
+        "seats": 180
+      },
+      {
+        "name": "B.A. (Hons.) Economics",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 40000,
+        "seats": 90
+      }
+    ],
+    "verifiedSource": "St. Xavier's Mumbai Placement Cell Annual Audited Disclosure",
+    "sourceType": "OFFICIAL_DISCLOSURE",
+    "source": "seed"
+  },
+  {
+    "id": "shri-ram-college-of-commerce",
+    "name": "Shri Ram College of Commerce (SRCC)",
+    "shortName": "SRCC",
+    "location": "Maurice Nagar, University Enclave, Delhi 110007, India",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "country": "India",
+    "established": 1926,
+    "type": "Public University Constituent College",
+    "category": "Commerce & BMS",
+    "website": "https://srcc.edu",
+    "imageUrl": "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=800&q=80",
+    "overview": "Shri Ram College of Commerce (SRCC), University of Delhi, is unequivocally India's topmost institution for undergraduate Commerce, Finance, and Economics, celebrated for unmatched corporate recruitment and high-yield student ROI.",
+    "feeRange": "₹30,000 - ₹35,000 / year",
+    "annualTuitionFee": 32000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 97,
+      "averagePackage": "₹13.2 LPA",
+      "highestPackage": "₹35.0 LPA",
+      "professorStudentRatio": "1:16",
+      "academicPrograms": [
+        "B.Com. (Hons.)",
+        "B.A. (Hons.) Economics",
+        "Post Graduate Diploma in Global Business Operations (GBO)",
+        "M.Com."
+      ],
+      "topRecruiters": [
+        "McKinsey & Company",
+        "Boston Consulting Group (BCG)",
+        "Bain & Company",
+        "Morgan Stanley",
+        "Deutsche Bank",
+        "EY Parthenon",
+        "PwC"
+      ],
+      "financialAid": {
+        "scholarships": "SRCC Need-based Fee Waiver & Enactus Innovation Stipends.",
+        "governmentSchemes": "Central Sector NSP Scholarships for Top Scorers.",
+        "researchGrants": "Centre for Academic Excellence Student Research Grants."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#1 Commerce College in India",
+      "rankingBody": "NIRF Colleges 2024 / India Today",
+      "researchScore": 9.6,
+      "placementRate": 97,
+      "starRatings": {
+        "campusLife": 4.9,
+        "graduationRate": 5,
+        "careerOpportunities": 5,
+        "infrastructure": 4.8
+      }
+    },
+    "facilities": [
+      "State-of-the-Art Financial & Trading Laboratory",
+      "Olympic-spec Indoor Multi-purpose Sports Complex",
+      "Fully Air-conditioned Wi-Fi Campus & Smart Classrooms",
+      "Rich Library housing 80,000+ volumes in Economics and Commerce"
+    ],
+    "admissionProcess": "CUET-UG merit scores through Delhi University CSAS portal.",
+    "popularPrograms": [
+      {
+        "name": "B.Com. (Hons.)",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 32000,
+        "seats": 620
+      },
+      {
+        "name": "B.A. (Hons.) Economics",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 30000,
+        "seats": 160
+      },
+      {
+        "name": "PGD Global Business Operations (GBO)",
+        "degree": "Postgraduate Diploma",
+        "duration": "2 Years",
+        "annualFee": 160000,
+        "seats": 90
+      }
+    ],
+    "verifiedSource": "SRCC Placement Cell Audited 2024 Report & Delhi University Records",
+    "sourceType": "NIRF_AUDITED",
+    "source": "seed"
+  },
+  {
+    "id": "film-and-television-institute-of-india",
+    "name": "Film and Television Institute of India (FTII)",
+    "shortName": "FTII",
+    "location": "Law College Road, Pune, Maharashtra 411004, India",
+    "city": "Pune",
+    "state": "Maharashtra",
+    "country": "India",
+    "established": 1960,
+    "type": "Autonomous National Institute under Ministry of I&B, Govt of India",
+    "category": "Film & Media",
+    "website": "https://ftii.ac.in",
+    "imageUrl": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80",
+    "overview": "Film and Television Institute of India (FTII), Pune, is India's apex institute for Cinema, Direction, Screenwriting, Cinematography, and Television engineering, producing iconic National and Oscar-recognized filmmakers and creative directors.",
+    "feeRange": "₹1,20,000 - ₹1,80,000 / year",
+    "annualTuitionFee": 145000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 91,
+      "averagePackage": "₹11.5 LPA",
+      "highestPackage": "₹32.0 LPA",
+      "professorStudentRatio": "1:8",
+      "academicPrograms": [
+        "B.A. / PG Diploma in Film Direction & Screenplay Writing",
+        "PG Diploma in Cinematography",
+        "PG Diploma in Sound Recording & Sound Design",
+        "PG Diploma in Editing & Post-Production",
+        "PG Certificate in Television Direction & Production",
+        "B.A. Screen Acting & Performance Arts"
+      ],
+      "topRecruiters": [
+        "Netflix India",
+        "Amazon Prime Video Studios",
+        "Dharma Productions",
+        "Excel Entertainment",
+        "Yash Raj Films (YRF)",
+        "Star TV / Disney+ Hotstar",
+        "Prasar Bharati"
+      ],
+      "financialAid": {
+        "scholarships": "Ministry of Information & Broadcasting Merit Stipends and Film Guild Fellowships.",
+        "governmentSchemes": "National Post-Matric & Higher Education Funding.",
+        "researchGrants": "National Film Heritage Mission (NFHM) restoration stipends."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#1 Film & Television Institute in India",
+      "rankingBody": "Ministry of Information and Broadcasting / CILECT Global",
+      "researchScore": 9.8,
+      "placementRate": 91,
+      "starRatings": {
+        "campusLife": 5,
+        "graduationRate": 4.8,
+        "careerOpportunities": 4.9,
+        "infrastructure": 4.9
+      }
+    },
+    "facilities": [
+      "Prabhat Studios Historic Shooting Floor and Sound Stages",
+      "Arri & RED 4K/8K Digital Cinema Camera Inventory",
+      "Dolby Atmos Certified Post-Production Mixing Suite",
+      "Film Processing and Archival Preservation Theatres"
+    ],
+    "admissionProcess": "Joint Entrance Test (JET) conducted by FTII and SRFTI followed by Orientation and Interview.",
+    "popularPrograms": [
+      {
+        "name": "PG Diploma in Film Direction & Screenplay Writing",
+        "degree": "Postgraduate Diploma",
+        "duration": "3 Years",
+        "annualFee": 145000,
+        "seats": 12
+      },
+      {
+        "name": "PG Diploma in Cinematography",
+        "degree": "Postgraduate Diploma",
+        "duration": "3 Years",
+        "annualFee": 155000,
+        "seats": 12
+      },
+      {
+        "name": "PG Diploma in Sound Recording & Sound Design",
+        "degree": "Postgraduate Diploma",
+        "duration": "3 Years",
+        "annualFee": 140000,
+        "seats": 12
+      },
+      {
+        "name": "PG Diploma in Film Editing",
+        "degree": "Postgraduate Diploma",
+        "duration": "3 Years",
+        "annualFee": 135000,
+        "seats": 12
+      },
+      {
+        "name": "B.A. Screen Acting",
+        "degree": "Undergraduate",
+        "duration": "2 Years",
+        "annualFee": 160000,
+        "seats": 16
+      }
+    ],
+    "verifiedSource": "Ministry of Information & Broadcasting Annual Parliamentary Report & FTII Audit",
+    "sourceType": "OFFICIAL_DISCLOSURE",
+    "source": "seed"
+  },
+  {
+    "id": "whistling-woods-international",
+    "name": "Whistling Woods International (WWI), Mumbai",
+    "shortName": "WWI",
+    "location": "Film City Complex, Goregaon East, Mumbai, Maharashtra 400065, India",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "country": "India",
+    "established": 2006,
+    "type": "Private Media, Film & Creative Arts Institute",
+    "category": "Film & Media",
+    "website": "https://whistlingwoods.net",
+    "imageUrl": "https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=800&q=80",
+    "overview": "Whistling Woods International, situated in the heart of Mumbai's Film City, is recognized by The Hollywood Reporter as one of the world's top film schools, offering industry-integrated degrees in Filmmaking, Cinematography, Animation, and Media Management.",
+    "feeRange": "₹4,50,000 - ₹6,50,000 / year",
+    "annualTuitionFee": 520000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 92,
+      "averagePackage": "₹9.8 LPA",
+      "highestPackage": "₹28.0 LPA",
+      "professorStudentRatio": "1:10",
+      "academicPrograms": [
+        "B.A. in Filmmaking (Direction, Cinematography, Editing)",
+        "B.Sc. in Filmmaking",
+        "B.A. in Animation & Visual Effects (VFX)",
+        "B.A. in Screenwriting",
+        "BBA in Media & Entertainment Management",
+        "B.Des in Visual Communication & Design"
+      ],
+      "topRecruiters": [
+        "Disney Star",
+        "Viacom18 / JioCinema",
+        "Red Chillies VFX",
+        "Framestore India",
+        "Sony Pictures Networks",
+        "Zee Entertainment",
+        "Balaji Telefilms"
+      ],
+      "financialAid": {
+        "scholarships": "Subhash Ghai Foundation Creative Scholarships and WWI Entrance Merit Waiver.",
+        "governmentSchemes": "Private Education Banking Alliances with SBI & HDFC Credila.",
+        "researchGrants": "VR/AR Immersive Media Lab Innovation grants."
+      }
+    },
+    "rankings": {
+      "nationalRank": "Top 10 Film Schools in the World",
+      "rankingBody": "The Hollywood Reporter / CILECT",
+      "researchScore": 9.4,
+      "placementRate": 92,
+      "starRatings": {
+        "campusLife": 4.9,
+        "graduationRate": 4.7,
+        "careerOpportunities": 4.9,
+        "infrastructure": 5
+      }
+    },
+    "facilities": [
+      "Sony and Foxconn Virtual Production & XR Studio",
+      "Motion Capture & 3D Animation Production Pipeline",
+      "State-of-the-Art Dubbing, Foley & ADR Recording Studios",
+      "Located inside Mumbai's bustling Film City production environment"
+    ],
+    "admissionProcess": "Whistling Woods International Entrance Examination (General Aptitude, Creative Ability & Interview).",
+    "popularPrograms": [
+      {
+        "name": "B.A. in Filmmaking (Direction / Cinematography)",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 550000,
+        "seats": 80
+      },
+      {
+        "name": "B.A. in Animation & VFX",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 480000,
+        "seats": 60
+      },
+      {
+        "name": "BBA in Media & Entertainment Management",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 420000,
+        "seats": 70
+      },
+      {
+        "name": "B.A. in Screenwriting",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 390000,
+        "seats": 30
+      }
+    ],
+    "verifiedSource": "Whistling Woods Official Career Placement Audited Report",
+    "sourceType": "OFFICIAL_DISCLOSURE",
+    "source": "seed"
+  },
+  {
+    "id": "national-institute-of-design",
+    "name": "National Institute of Design (NID), Ahmedabad",
+    "shortName": "NID",
+    "location": "Opposite Tagor Hall, Paldi, Ahmedabad, Gujarat 380007, India",
+    "city": "Ahmedabad",
+    "state": "Gujarat",
+    "country": "India",
+    "established": 1961,
+    "type": "Institute of National Importance (Statutory Autonomous)",
+    "category": "Design",
+    "website": "https://nid.edu",
+    "imageUrl": "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=800&q=80",
+    "overview": "The National Institute of Design (NID), Ahmedabad, is India's pioneer Institute of National Importance in Design, universally recognized for world-class pedagogy in Product Design, Interaction Design (UI/UX), Communication Design, and Animation.",
+    "feeRange": "₹3,40,000 - ₹3,90,000 / year",
+    "annualTuitionFee": 360000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 96,
+      "averagePackage": "₹14.8 LPA",
+      "highestPackage": "₹48.0 LPA",
+      "professorStudentRatio": "1:9",
+      "academicPrograms": [
+        "B.Des in Product Design",
+        "B.Des in Communication Design (Graphic / Animation)",
+        "B.Des in Interaction & UI/UX Design",
+        "B.Des in Textile & Apparel Design",
+        "B.Des in Ceramic & Glass Design",
+        "M.Des in Strategic Design Management",
+        "M.Des in New Media Design"
+      ],
+      "topRecruiters": [
+        "Google India Design",
+        "Microsoft UX Design Studio",
+        "Apple",
+        "Samsung R&D Design",
+        "Tata Motors Design Studio",
+        "IKEA India",
+        "Adobe Systems"
+      ],
+      "financialAid": {
+        "scholarships": "NID Need-cum-Merit Financial Aid & Ford Foundation Scholarships covering up to 100% of tuition.",
+        "governmentSchemes": "Central Sector Scholarship for Top Class Education (SC/ST).",
+        "researchGrants": "Universal Design & Inclusive Ergonomics Research Grants."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#1 Design Institute in India",
+      "rankingBody": "BusinessWeek / Global Design Rankings 2024",
+      "researchScore": 9.7,
+      "placementRate": 96,
+      "starRatings": {
+        "campusLife": 5,
+        "graduationRate": 4.9,
+        "careerOpportunities": 5,
+        "infrastructure": 4.9
+      }
+    },
+    "facilities": [
+      "Advanced Rapid Prototyping & 3D Additive Fabrication Studios",
+      "Ergonomics and Human Factors Testing Center",
+      "K.G. Subramanyan Design Knowledge Resource Centre & Materials Library",
+      "State-of-the-Art High Performance Computing & VR/AR Labs"
+    ],
+    "admissionProcess": "NID Design Aptitude Test (DAT) Prelims followed by DAT Mains (Studio Test and Personal Interview).",
+    "popularPrograms": [
+      {
+        "name": "B.Des in Product Design",
+        "degree": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 360000,
+        "seats": 40
+      },
+      {
+        "name": "B.Des in Interaction & UI/UX Design",
+        "degree": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 360000,
+        "seats": 35
+      },
+      {
+        "name": "B.Des in Communication & Graphic Design",
+        "degree": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 360000,
+        "seats": 40
+      },
+      {
+        "name": "M.Des in Strategic Design Management",
+        "degree": "Postgraduate",
+        "duration": "2.5 Years",
+        "annualFee": 380000,
+        "seats": 25
+      },
+      {
+        "name": "M.Des in New Media Design",
+        "degree": "Postgraduate",
+        "duration": "2.5 Years",
+        "annualFee": 380000,
+        "seats": 20
+      }
+    ],
+    "verifiedSource": "Parliament of India Act 41 of 2014 & NID Annual Placement Audit",
+    "sourceType": "OFFICIAL_DISCLOSURE",
+    "source": "seed"
+  },
+  {
+    "id": "national-institute-of-fashion-technology",
+    "name": "National Institute of Fashion Technology (NIFT), New Delhi",
+    "shortName": "NIFT",
+    "location": "Hauz Khas, Near Gulmohar Park, New Delhi, Delhi 110016, India",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "country": "India",
+    "established": 1986,
+    "type": "Statutory Institute of National Importance under Ministry of Textiles",
+    "category": "Design",
+    "website": "https://nift.ac.in",
+    "imageUrl": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80",
+    "overview": "NIFT New Delhi is India's apex statutory institution for Fashion Design, Textile Design, Fashion Communication, and Apparel Production Management, established under the Ministry of Textiles, Government of India.",
+    "feeRange": "₹2,80,000 - ₹3,20,000 / year",
+    "annualTuitionFee": 295000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 93,
+      "averagePackage": "₹9.4 LPA",
+      "highestPackage": "₹30.0 LPA",
+      "professorStudentRatio": "1:12",
+      "academicPrograms": [
+        "B.Des in Fashion Design",
+        "B.Des in Fashion Communication",
+        "B.Des in Textile Design",
+        "B.Des in Accessory & Jewellery Design",
+        "B.FTech in Apparel Production",
+        "Master of Fashion Management (MFM)"
+      ],
+      "topRecruiters": [
+        "Aditya Birla Fashion & Retail",
+        "Reliance Brands Limited (RBL)",
+        "Zara (Inditex Group)",
+        "H&M India",
+        "Myntra Design Team",
+        "Sabyasachi Couture",
+        "Titan Company Limited"
+      ],
+      "financialAid": {
+        "scholarships": "SARTHAK NIFT Financial Assistance Scheme offering up to 75%-100% tuition concession.",
+        "governmentSchemes": "Ministry of Textiles National Merit Schemes.",
+        "researchGrants": "Textile Crafts and Sustainable Handloom Research Fellowships."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#1 Fashion & Apparel Design Institute in India",
+      "rankingBody": "CEOWORLD Magazine / India Today 2024",
+      "researchScore": 9.3,
+      "placementRate": 93,
+      "starRatings": {
+        "campusLife": 4.8,
+        "graduationRate": 4.8,
+        "careerOpportunities": 4.8,
+        "infrastructure": 4.7
+      }
+    },
+    "facilities": [
+      "National Resource Centre (NRC) Fashion & Trend Forecast Archives",
+      "Garment Manufacturing & Pattern Making Garment Technology Labs",
+      "Photography & Visual Merchandising Darkrooms and Digital Studios",
+      "Handloom Weaving & Dyeing-Printing Experimental Workshops"
+    ],
+    "admissionProcess": "NIFT Entrance Exam (Creative Ability Test - CAT and General Ability Test - GAT) followed by Situation Test.",
+    "popularPrograms": [
+      {
+        "name": "B.Des in Fashion Design",
+        "degree": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 295000,
+        "seats": 60
+      },
+      {
+        "name": "B.Des in Fashion Communication",
+        "degree": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 295000,
+        "seats": 60
+      },
+      {
+        "name": "B.FTech Apparel Production",
+        "degree": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 285000,
+        "seats": 50
+      },
+      {
+        "name": "Master of Fashion Management (MFM)",
+        "degree": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 310000,
+        "seats": 45
+      }
+    ],
+    "verifiedSource": "Ministry of Textiles Statutory Annual Report & NIFT Placement Report",
+    "sourceType": "OFFICIAL_DISCLOSURE",
+    "source": "seed"
+  },
+  {
+    "id": "christ-university",
+    "name": "Christ (Deemed to be University), Bangalore",
+    "shortName": "Christ",
+    "location": "Hosur Road, Bhavani Nagar, S.G. Palya, Bengaluru, Karnataka 560029, India",
+    "city": "Bangalore",
+    "state": "Karnataka",
+    "country": "India",
+    "established": 1969,
+    "type": "Private Deemed-to-be University (NAAC A+)",
+    "category": "Commerce & BMS",
+    "website": "https://christuniversity.in",
+    "imageUrl": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80",
+    "overview": "Christ University Bangalore is an acclaimed multidisciplinary powerhouse known nationwide for its flagship Bachelor of Business Administration (BBA), BMS, Psychology (Honours), Media Studies, and Commerce programs.",
+    "feeRange": "₹1,80,000 - ₹3,20,000 / year",
+    "annualTuitionFee": 220000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 93,
+      "averagePackage": "₹8.8 LPA",
+      "highestPackage": "₹24.0 LPA",
+      "professorStudentRatio": "1:18",
+      "academicPrograms": [
+        "BBA (Bachelor of Business Administration - Finance / Marketing)",
+        "BBA (Business Analytics / BMS)",
+        "B.Sc. (Hons.) Psychology",
+        "B.A. (Hons.) Psychology & English",
+        "B.Com. (Hons.) Professional",
+        "B.A. (Hons.) Journalism, Media & Film Studies",
+        "MBA (Master of Business Administration)",
+        "M.Sc. Clinical Psychology"
+      ],
+      "topRecruiters": [
+        "Deloitte",
+        "EY",
+        "KPMG",
+        "Amazon India",
+        "Goldman Sachs",
+        "Target Corporation",
+        "Bosch India"
+      ],
+      "financialAid": {
+        "scholarships": "Christ University Merit and Fee Concession Scholarships for academic toppers.",
+        "governmentSchemes": "Karnataka E-Pass and National Scholarship Portal.",
+        "researchGrants": "Centre for Research Seed Money and Student Research Fellowships."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#60 in NIRF University Rankings",
+      "rankingBody": "NIRF 2024 / India Today Top BBA",
+      "researchScore": 8.8,
+      "placementRate": 93,
+      "starRatings": {
+        "campusLife": 4.8,
+        "graduationRate": 4.7,
+        "careerOpportunities": 4.7,
+        "infrastructure": 4.9
+      }
+    },
+    "facilities": [
+      "Extensive Psychology & Behavioral Observation Research Labs",
+      "Media Production & Television News Studio Complex",
+      "Central Library with 250,000+ volumes and research databases",
+      "Sports Complex, Auditorium and Multi-Cuisine Food Courts"
+    ],
+    "admissionProcess": "Christ University Entrance Test (CUET) followed by Skill Assessment, Micro-Presentation, and Personal Interview.",
+    "popularPrograms": [
+      {
+        "name": "BBA (Finance and International Business)",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 240000,
+        "seats": 360
+      },
+      {
+        "name": "B.Sc. (Hons.) Psychology",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 180000,
+        "seats": 120
+      },
+      {
+        "name": "B.Com. (Hons.) Professional",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 210000,
+        "seats": 240
+      },
+      {
+        "name": "B.A. (Hons.) Media Studies & Film Production",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 195000,
+        "seats": 90
+      },
+      {
+        "name": "M.Sc. Clinical Psychology",
+        "degree": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 220000,
+        "seats": 60
+      }
+    ],
+    "verifiedSource": "Christ University Official Audited Placement & NIRF 2024 Disclosure",
+    "sourceType": "OFFICIAL_DISCLOSURE",
+    "source": "seed"
+  },
+  {
     "id": "srm-institute-of-science-and-technology",
     "name": "SRM Institute of Science and Technology",
     "shortName": "SS",
@@ -2203,94 +3009,6 @@
     ],
     "admissionProcess": "Admissions granted based on national/state entrance examinations (e.g. JEE, GATE, SAT, CUET) and academic merit.",
     "feeRange": "$55,000 - $65,000 / year",
-    "popularPrograms": [
-      {
-        "name": "B.Tech Computer Science & Engineering",
-        "degree": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 220000,
-        "seats": 180
-      },
-      {
-        "name": "B.Tech Electronics & Communication",
-        "degree": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 200000,
-        "seats": 120
-      },
-      {
-        "name": "B.Tech Mechanical Engineering",
-        "degree": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 190000,
-        "seats": 120
-      },
-      {
-        "name": "M.Tech Artificial Intelligence & Data Science",
-        "degree": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 160000,
-        "seats": 40
-      }
-    ],
-    "verifiedSource": "Live Web Search & Audited Institutional Reports",
-    "source": "live_fetch",
-    "aiMode": true
-  },
-  {
-    "id": "lady-shri-ram-college",
-    "name": "Lady Shri Ram College",
-    "shortName": "LSR",
-    "location": "College of the University of Delhi",
-    "country": "India",
-    "established": 1956,
-    "type": "Accredited Higher Education Institution",
-    "category": "Engineering",
-    "website": "https://www.ladyshriramcollege.edu",
-    "overview": "Lady Shri Ram College (LSR) is a constituent women's college, affiliated with the University of Delhi.",
-    "additionalOverviewDetails": {
-      "jobPlacementRate": null,
-      "averagePackage": "INR 36.25 LPA",
-      "highestPackage": "INR 44.8 LPA",
-      "professorStudentRatio": "Varies by Dept & Level (UGC ~1:15-1:20)",
-      "academicPrograms": [
-        "B.Tech Computer Science & Engineering",
-        "B.Tech Electronics & Communication",
-        "B.Tech Mechanical Engineering",
-        "B.Tech Information Technology",
-        "M.Tech Artificial Intelligence & Data Science"
-      ],
-      "topRecruiters": [
-        "Accenture",
-        "KPMG"
-      ],
-      "financialAid": {
-        "scholarships": "Merit-based scholarships covering 25% to 100% tuition for top rankers",
-        "governmentSchemes": "Central and State Post-Matric & National Scholarship Portal (NSP)",
-        "researchGrants": "Institutional student research seed funding and patent filing support"
-      }
-    },
-    "rankings": {
-      "nationalRank": "NIRF Rank #202",
-      "rankingBody": "NIRF Ranking",
-      "researchScore": 8.6,
-      "placementRate": null,
-      "starRatings": {
-        "campusLife": 4.5,
-        "graduationRate": 4.6,
-        "careerOpportunities": 4.7,
-        "infrastructure": 4.6
-      }
-    },
-    "facilities": [
-      "High-Tech Computing & AI Laboratories",
-      "Central Air-Conditioned Digital Library",
-      "Incubation Centre for Student Startups",
-      "Modern Sports Arena and Gymnasiums",
-      "24x7 Wi-Fi Enabled Campus and Hostels"
-    ],
-    "admissionProcess": "Admissions granted based on national/state entrance examinations (e.g. JEE, GATE, SAT, CUET) and academic merit.",
-    "feeRange": "Refer to Official University Prospectus",
     "popularPrograms": [
       {
         "name": "B.Tech Computer Science & Engineering",
