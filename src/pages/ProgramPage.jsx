@@ -303,9 +303,13 @@ const ProgramPage = () => {
   const getDisciplineKeywords = (discipline) => {
     const keywordMap = {
       Management: ["management", "business", "mba", "commerce"],
-      Technology: ["tech", "technology", "engineering", "computer"],
+      Technology: ["tech", "technology", "engineering", "computer", "cyber"],
       Forensic: ["forensic", "criminology", "investigation"],
-      Law: ["law", "legal", "justice", "advocate"],
+      Law: ["law", "legal", "justice", "advocate", "ll.b", "ll.m"],
+      "Psychology & Arts": ["psychology", "behavioral", "arts", "humanities", "economics", "english", "journalism"],
+      "Commerce & BMS": ["bms", "commerce", "accounting", "finance", "banking", "bba"],
+      "Film & Media": ["film", "cinema", "media", "cinematography", "direction", "screenplay", "animation", "vfx"],
+      Design: ["design", "fashion", "product", "ui/ux", "interaction", "apparel", "textile"],
     };
     return keywordMap[discipline] || [];
   };
@@ -426,8 +430,16 @@ const ProgramPage = () => {
             <div className="mb-4">
               <label className="block mb-2 font-semibold">Discipline</label>
               <div className="space-y-2">
-                {["Management", "Technology", "Forensic", "Law"].map(
-                  (discipline) => (
+                {[
+                  "Management",
+                  "Technology",
+                  "Forensic",
+                  "Law",
+                  "Psychology & Arts",
+                  "Commerce & BMS",
+                  "Film & Media",
+                  "Design",
+                ].map((discipline) => (
                     <label
                       key={discipline}
                       className="flex items-center space-x-2"

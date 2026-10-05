@@ -208,7 +208,55 @@ export const COLLEGE_ALIASES: Record<string, string> = {
   "nlu delhi": "National Law University, Delhi",
   nluj: "National Law University, Jodhpur",
   gnlu: "Gujarat National Law University",
+  "gnlu gandhinagar": "Gujarat National Law University",
+  "gujarat national law university": "Gujarat National Law University",
   nliu: "National Law Institute University, Bhopal",
+
+  // Arts, Humanities & Psychology
+  lsr: "Lady Shri Ram College for Women (LSR)",
+  "lady shri ram": "Lady Shri Ram College for Women (LSR)",
+  "lady shri ram college": "Lady Shri Ram College for Women (LSR)",
+  "st stephens": "St. Stephen's College, Delhi",
+  "st stephens college": "St. Stephen's College, Delhi",
+  fergusson: "Fergusson College, Pune",
+  "fergusson college": "Fergusson College, Pune",
+  ashoka: "Ashoka University",
+  "ashoka university": "Ashoka University",
+  "miranda house": "Miranda House, University of Delhi",
+  "hindu college": "Hindu College, University of Delhi",
+
+  // Commerce & BMS
+  srcc: "Shri Ram College of Commerce (SRCC)",
+  "shri ram college of commerce": "Shri Ram College of Commerce (SRCC)",
+  "st xaviers": "St. Xavier's College (Autonomous), Mumbai",
+  "st xavier": "St. Xavier's College (Autonomous), Mumbai",
+  "xaviers mumbai": "St. Xavier's College (Autonomous), Mumbai",
+  "st xaviers mumbai": "St. Xavier's College (Autonomous), Mumbai",
+  christ: "Christ (Deemed to be University), Bangalore",
+  "christ university": "Christ (Deemed to be University), Bangalore",
+  mithibai: "Mithibai College, Mumbai",
+  "nm college": "Narsee Monjee College of Commerce and Economics",
+  loyola: "Loyola College, Chennai",
+
+  // Film, Cinema & Mass Media
+  ftii: "Film and Television Institute of India (FTII)",
+  "ftii pune": "Film and Television Institute of India (FTII)",
+  "film and television institute of india": "Film and Television Institute of India (FTII)",
+  "whistling woods": "Whistling Woods International (WWI), Mumbai",
+  wwi: "Whistling Woods International (WWI), Mumbai",
+  "whistling woods international": "Whistling Woods International (WWI), Mumbai",
+  srfti: "Satyajit Ray Film and Television Institute (SRFTI)",
+  "jamia mcrc": "A.J.K. Mass Communication Research Centre (MCRC)",
+  simc: "Symbiosis Institute of Media & Communication",
+
+  // Design, Fashion & Fine Arts
+  nid: "National Institute of Design (NID), Ahmedabad",
+  "nid ahmedabad": "National Institute of Design (NID), Ahmedabad",
+  "national institute of design": "National Institute of Design (NID), Ahmedabad",
+  nift: "National Institute of Fashion Technology (NIFT), New Delhi",
+  "nift delhi": "National Institute of Fashion Technology (NIFT), New Delhi",
+  "national institute of fashion technology": "National Institute of Fashion Technology (NIFT), New Delhi",
+  srishti: "Srishti Manipal Institute of Art, Design and Technology",
 
   // Top Global Universities
   purdue: "Purdue University",

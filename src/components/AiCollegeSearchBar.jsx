@@ -54,26 +54,61 @@ export default function AiCollegeSearchBar({
     const step3Timer = setTimeout(() => setLoadingStep(3), 1400);
 
     try {
-      const response = await fetch("/api/colleges/ai-search", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: targetName }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.error || "Failed to fetch college stats with AI mode");
+      let collegeResult = null;
+      try {
+        const response = await fetch("/api/colleges/ai-search", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: targetName }),
+        });
+        const data = await response.json();
+        if (response.ok && data.success && data.data) {
+          collegeResult = data.data;
+        }
+      } catch (e) {
+        console.warn("AI-search route failed, trying /api/colleges/fetch:", e);
       }
 
-      setResult(data.data);
+      if (!collegeResult) {
+        try {
+          const fetchRes = await fetch("/api/colleges/fetch", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: targetName }),
+          });
+          const fData = await fetchRes.json();
+          if (fetchRes.ok && fData.success && fData.data) {
+            collegeResult = fData.data;
+          }
+        } catch (e2) {
+          console.warn("fetch route failed:", e2);
+        }
+      }
+
+      if (!collegeResult) {
+        try {
+          const searchRes = await fetch(`/api/colleges?search=${encodeURIComponent(targetName)}`);
+          const sData = await searchRes.json();
+          if (searchRes.ok && sData.success && Array.isArray(sData.data) && sData.data.length > 0) {
+            collegeResult = sData.data[0];
+          }
+        } catch (e3) {
+          console.warn("api search query failed:", e3);
+        }
+      }
+
+      if (!collegeResult) {
+        throw new Error(`Could not find college "${targetName}". Please verify the spelling or try another university.`);
+      }
+
+      setResult(collegeResult);
 
       if (onSelectCollege) {
-        onSelectCollege(data.data);
+        onSelectCollege(collegeResult);
       }
 
-      if (autoNavigate && data.data?.id) {
-        navigate(`/colleges?college=${encodeURIComponent(data.data.id)}`);
+      if (autoNavigate && collegeResult?.id) {
+        navigate(`/colleges?college=${encodeURIComponent(collegeResult.id)}`);
       }
     } catch (err) {
       console.error("AI Search Error:", err);

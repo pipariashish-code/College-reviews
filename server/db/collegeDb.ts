@@ -49,10 +49,8 @@ class CollegeDatabaseManager {
             savedColleges.forEach((c: College) => {
               if (c && c.id) {
                 // If it's in verified registry, keep the verified authoritative data
-                const existing = this.collegesMap.get(c.id);
-                if (existing && existing.sourceType?.includes("AUDITED")) {
-                  // Keep authoritative
-                } else {
+                const isVerified = Boolean(VERIFIED_REGISTRY[c.id]);
+                if (!isVerified) {
                   this.collegesMap.set(c.id, c);
                 }
               }

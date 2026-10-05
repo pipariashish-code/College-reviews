@@ -189,11 +189,46 @@ const CollegePage = () => {
     if (!term || !term.trim()) return;
     setAiFetching(true);
     try {
-      const res = await axios.post(`${API_URL}/api/colleges/ai-search`, {
-        name: term.trim(),
-      });
-      if (res.data?.success && res.data?.data) {
-        handleAiSelect(res.data.data);
+      let collegeData = null;
+      try {
+        const res = await axios.post(`${API_URL}/api/colleges/ai-search`, {
+          name: term.trim(),
+        });
+        if (res.data?.success && res.data?.data) {
+          collegeData = res.data.data;
+        }
+      } catch (e1) {
+        console.warn("AI search route fallback:", e1);
+      }
+
+      if (!collegeData) {
+        try {
+          const res2 = await axios.post(`${API_URL}/api/colleges/fetch`, {
+            name: term.trim(),
+          });
+          if (res2.data?.success && res2.data?.data) {
+            collegeData = res2.data.data;
+          }
+        } catch (e2) {
+          console.warn("Fetch route fallback:", e2);
+        }
+      }
+
+      if (!collegeData) {
+        try {
+          const res3 = await axios.get(
+            `${API_URL}/api/colleges?search=${encodeURIComponent(term.trim())}`
+          );
+          if (res3.data?.success && Array.isArray(res3.data?.data) && res3.data.data.length > 0) {
+            collegeData = res3.data.data[0];
+          }
+        } catch (e3) {
+          console.warn("Search query fallback:", e3);
+        }
+      }
+
+      if (collegeData) {
+        handleAiSelect(collegeData);
         setSearchTerm("");
       }
     } catch (e) {
@@ -207,26 +242,42 @@ const CollegePage = () => {
     colleges.find((c) => c.id === selectedCollegeId) || colleges[0];
 
   const filteredColleges = colleges.filter((c) => {
+    if (!c) return false;
+    const cat = (c.category || "").toLowerCase();
+    const catMatches =
+      categoryFilter === "All" || cat.includes(categoryFilter.toLowerCase());
+
     if (!searchTerm.trim()) {
-      return (
-        categoryFilter === "All" ||
-        c.category.toLowerCase().includes(categoryFilter.toLowerCase())
-      );
+      return catMatches;
     }
 
     const term = searchTerm.toLowerCase().trim();
     const resolved = resolveCollegeQuery(searchTerm).toLowerCase().trim();
 
-    // When searching for a specific institution name or acronym, match flexibly
-    const matchesSearch =
-      c.name.toLowerCase().includes(term) ||
-      c.shortName.toLowerCase().includes(term) ||
-      c.id.toLowerCase().includes(term) ||
-      c.name.toLowerCase().includes(resolved) ||
-      c.shortName.toLowerCase().includes(resolved) ||
-      c.location.toLowerCase().includes(term);
+    const name = (c.name || "").toLowerCase();
+    const shortName = (c.shortName || "").toLowerCase();
+    const id = (c.id || "").toLowerCase();
+    const location = (c.location || "").toLowerCase();
 
-    return matchesSearch;
+    const coursesMatch =
+      c.additionalOverviewDetails?.academicPrograms?.some((p) =>
+        p.toLowerCase().includes(term)
+      ) ||
+      c.popularPrograms?.some((p) =>
+        p.name.toLowerCase().includes(term)
+      );
+
+    const matchesSearch =
+      name.includes(term) ||
+      shortName.includes(term) ||
+      id.includes(term) ||
+      cat.includes(term) ||
+      (resolved && name.includes(resolved)) ||
+      (resolved && shortName.includes(resolved)) ||
+      location.includes(term) ||
+      Boolean(coursesMatch);
+
+    return matchesSearch && (categoryFilter === "All" || catMatches);
   });
 
   const renderTabContent = () => {
@@ -796,11 +847,15 @@ console.log(college.name, college.location, college.overview);`}
             <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
               {[
                 "All",
+                "Arts & Psychology",
+                "Commerce & BMS",
+                "Film & Media",
+                "Design",
                 "Engineering",
                 "Management",
                 "Medical",
-                "Forensic & Cyber",
                 "Law",
+                "Forensic & Cyber",
               ].map((cat) => (
                 <button
                   key={cat}
@@ -835,9 +890,36 @@ console.log(college.name, college.location, college.overview);`}
                     }
                   }
                 }}
-                placeholder="Search or press Enter to fetch with AI..."
-                className="w-full bg-gray-800 border border-gray-700 rounded-xl pl-9 pr-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                placeholder="Search university (e.g. GNLU, IITB)..."
+                className="w-full bg-gray-800 border border-gray-700 rounded-xl pl-9 pr-16 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
+              <div className="absolute right-1.5 top-1.5 flex items-center gap-1">
+                {searchTerm && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchTerm("")}
+                    className="p-1 text-gray-400 hover:text-white rounded-lg text-xs"
+                    title="Clear"
+                  >
+                    ✕
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (filteredColleges.length > 0) {
+                      setSelectedCollegeId(filteredColleges[0].id);
+                      setSearchTerm("");
+                      if (activeTab === "integration") setActiveTab("overview");
+                    } else if (searchTerm.trim()) {
+                      handleAiSearch(searchTerm);
+                    }
+                  }}
+                  className="px-2 py-1 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-lg transition"
+                >
+                  Go
+                </button>
+              </div>
 
               {searchTerm.trim().length > 0 && (
                 <div className="absolute left-0 right-0 mt-2 bg-gray-800 border border-gray-700 rounded-xl shadow-2xl z-50 overflow-hidden max-h-60 overflow-y-auto">

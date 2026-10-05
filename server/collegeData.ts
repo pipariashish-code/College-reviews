@@ -8,7 +8,18 @@ export interface College {
   country: string;
   established: number;
   type: string;
-  category: "Engineering" | "Management" | "Medical" | "Forensic & Cyber" | "Law" | "Sciences & Arts" | "General";
+  category:
+    | "Engineering"
+    | "Management"
+    | "Medical"
+    | "Forensic & Cyber"
+    | "Law"
+    | "Sciences & Arts"
+    | "Commerce & BMS"
+    | "Arts & Psychology"
+    | "Design"
+    | "Film & Media"
+    | "General";
   website: string;
   imageUrl?: string;
   overview: string;
