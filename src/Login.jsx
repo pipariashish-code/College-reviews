@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "./config";
-import { setAuthSession, authenticateLocally, DEMO_USERS } from "./utils/auth";
+import { setAuthSession, authenticateLocally } from "./utils/auth";
 import { FaUserCheck, FaSignInAlt, FaLock, FaUser } from "react-icons/fa";
 
 const Login = () => {
@@ -55,10 +55,6 @@ const Login = () => {
         setLoading(false);
       }
     }
-  };
-
-  const handleGuestLogin = () => {
-    completeLogin(DEMO_USERS.guest, "mock-guest-token");
   };
 
   return (
@@ -169,20 +165,6 @@ const Login = () => {
             ) : (
               <span>Sign In to Account</span>
             )}
-          </button>
-
-          <div className="relative flex py-2 items-center">
-            <div className="flex-grow border-t border-gray-700"></div>
-            <span className="flex-shrink mx-3 text-[11px] text-gray-500 uppercase tracking-wider">or</span>
-            <div className="flex-grow border-t border-gray-700"></div>
-          </div>
-
-          <button
-            type="button"
-            className="w-full py-2.5 px-4 bg-gray-700/80 hover:bg-gray-600/80 border border-gray-600 rounded-xl text-gray-200 font-semibold text-xs transition duration-200"
-            onClick={handleGuestLogin}
-          >
-            Continue as Guest
           </button>
         </form>
 
