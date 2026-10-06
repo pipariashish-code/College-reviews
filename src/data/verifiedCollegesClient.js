@@ -1,3 +1,5 @@
+import { resolveCollegeQuery } from "../utils/collegeResolver.js";
+
 export const VERIFIED_COLLEGES_CLIENT = [
   {
     "id": "nfsu-gandhinagar",
@@ -21,25 +23,9 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹45.0 LPA",
       "professorStudentRatio": "1:12",
       "academicPrograms": [
-        "B.Tech - M.Tech Computer Science & Cyber Security (Integrated 5-Year)",
-        "B.Sc. - M.Sc. Forensic Science (Integrated 5-Year)",
-        "B.Tech Artificial Intelligence & Data Science (Cyber Forensics Focus)",
-        "B.B.A. - MBA (Forensic Accounting & Fraud Investigation Integrated)",
         "M.Tech Cyber Security",
         "M.Sc Forensic Science",
-        "M.Sc Digital Forensics & Information Security",
-        "M.Sc Homeland Security",
-        "M.Sc Forensic Odontology & Toxicology",
-        "M.Sc Cyber Security & Incident Response",
-        "M.A. Criminology (Specialization in Forensic Psychology)",
-        "MBA in Cyber Security Management",
-        "MBA in Forensic Accounting & Financial Fraud Investigation",
-        "LL.M. in Cyber Law & Information Security",
-        "Ph.D. in Forensic Science",
-        "Ph.D. in Cyber Security & Digital Investigation",
-        "PG Diploma in Fingerprint Science",
-        "PG Diploma in Forensic Document Examination",
-        "PG Diploma in Cyber Law & Cyber Crime Investigation"
+        "B.Tech + M.Tech Integrated Cyber Security"
       ],
       "topRecruiters": [
         "Deloitte",
@@ -81,232 +67,25 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Admissions are strictly conducted through the National Forensic Admission Test (NFAT) conducted on an all-India basis.",
     "popularPrograms": [
       {
-        "name": "B.Tech - M.Tech Computer Science & Cyber Security (Integrated 5-Year)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 180000,
-        "seats": 60,
-        "entranceExam": "NFAT / JEE Main",
-        "eligibility": "10+2 with Physics, Chemistry, Math (min. 60%)",
-        "department": "School of Cyber Security & Digital Forensics",
-        "careerScope": "Cyber Security Engineer, SOC Analyst, Security Architect"
-      },
-      {
-        "name": "B.Sc. - M.Sc. Forensic Science (Integrated 5-Year)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 130000,
-        "seats": 80,
-        "entranceExam": "NFAT",
-        "eligibility": "10+2 with Science stream (PCM/PCB) min. 55%",
-        "department": "School of Forensic Science",
-        "careerScope": "Forensic Investigator, Scientific Officer, Crime Scene Analyst"
-      },
-      {
-        "name": "B.Tech Artificial Intelligence & Data Science (Cyber Forensics Focus)",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 160000,
-        "seats": 60,
-        "entranceExam": "NFAT / JEE Main",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "School of Cyber Security",
-        "careerScope": "AI Engineer, Forensic Data Scientist, Threat Hunter"
-      },
-      {
-        "name": "B.B.A. - MBA (Forensic Accounting & Fraud Investigation Integrated)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 150000,
-        "seats": 40,
-        "entranceExam": "NFAT",
-        "eligibility": "10+2 in any stream with min. 55%",
-        "department": "School of Management Studies",
-        "careerScope": "Forensic Accountant, Fraud Investigator, Risk Consultant (Big 4)"
-      },
-      {
         "name": "M.Tech Cyber Security",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "2 Years",
         "annualFee": 160000,
-        "seats": 60,
-        "entranceExam": "GATE / NFAT",
-        "eligibility": "B.E./B.Tech in CSE/IT/ECE or MCA/M.Sc. with min. 55%",
-        "department": "School of Cyber Security & Digital Forensics",
-        "careerScope": "Cyber Defense Specialist, Malware Analyst, Chief Information Security Officer"
+        "seats": 60
       },
       {
         "name": "M.Sc Forensic Science",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "2 Years",
         "annualFee": 140000,
-        "seats": 80,
-        "entranceExam": "NFAT",
-        "eligibility": "Bachelor degree in Science / Medicine / Forensic Science (min. 55%)",
-        "department": "School of Forensic Science",
-        "careerScope": "CFSL Scientific Officer, Ballistics Expert, DNA Profiler"
+        "seats": 80
       },
       {
-        "name": "M.Sc Digital Forensics & Information Security",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 170000,
-        "seats": 60,
-        "entranceExam": "NFAT / GATE",
-        "eligibility": "B.Tech CSE/IT or B.Sc. IT/CS or BCA with min. 55%",
-        "department": "School of Cyber Security",
-        "careerScope": "Digital Forensics Analyst, Incident Responder, Cyber Crime Investigator"
-      },
-      {
-        "name": "M.Sc Homeland Security",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 150000,
-        "seats": 40,
-        "entranceExam": "NFAT",
-        "eligibility": "Bachelor degree in Science / Technology / Police Science min. 55%",
-        "department": "School of Police Science & Security Studies",
-        "careerScope": "Homeland Security Officer, Intelligence Analyst, Security Strategist"
-      },
-      {
-        "name": "M.Sc Forensic Odontology & Toxicology",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
+        "name": "B.Tech + M.Tech Integrated Cyber Security",
+        "degree": "Integrated",
+        "duration": "5 Years",
         "annualFee": 180000,
-        "seats": 30,
-        "entranceExam": "NFAT",
-        "eligibility": "BDS or B.Sc. Life Sciences/Chemistry with min. 55%",
-        "department": "School of Medico-Legal Studies",
-        "careerScope": "Forensic Odontologist, Toxicology Expert, Medical Examiner Assistant"
-      },
-      {
-        "name": "M.Sc Cyber Security & Incident Response",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 165000,
-        "seats": 50,
-        "entranceExam": "NFAT",
-        "eligibility": "B.Tech/B.Sc. CS/IT with min. 55%",
-        "department": "School of Cyber Security",
-        "careerScope": "Incident Handler, Red Team / Penetration Tester, CERT-In Specialist"
-      },
-      {
-        "name": "M.A. Criminology (Specialization in Forensic Psychology)",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 110000,
-        "seats": 40,
-        "entranceExam": "NFAT",
-        "eligibility": "Bachelor degree in Arts/Science with Psychology or Criminology",
-        "department": "School of Behavioral Forensics",
-        "careerScope": "Criminal Profiler, Forensic Psychologist, Rehabilitation Officer"
-      },
-      {
-        "name": "MBA in Cyber Security Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 190000,
-        "seats": 40,
-        "entranceExam": "CAT / NFAT / CMAT",
-        "eligibility": "Bachelor degree with min. 55% marks",
-        "department": "School of Management Studies",
-        "careerScope": "IT Risk Manager, Cyber Governance Director, Information Security Consultant"
-      },
-      {
-        "name": "MBA in Forensic Accounting & Financial Fraud Investigation",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 175000,
-        "seats": 40,
-        "entranceExam": "CAT / NFAT",
-        "eligibility": "B.Com / BBA or graduation with commerce/math background",
-        "department": "School of Management Studies",
-        "careerScope": "Forensic Auditor, Financial Crime Investigator, Regulatory Compliance Lead"
-      },
-      {
-        "name": "LL.M. in Cyber Law & Information Security",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "1 Year",
-        "annualFee": 130000,
-        "seats": 30,
-        "entranceExam": "CLAT-PG / NFAT",
-        "eligibility": "LL.B. (3-Year or 5-Year) with min. 50% marks",
-        "department": "School of Law, Forensic Justice & Policy Studies",
-        "careerScope": "Cyber Legal Advisor, Data Privacy Officer, Technology Litigator"
-      },
-      {
-        "name": "Ph.D. in Forensic Science",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 60000,
-        "seats": 25,
-        "entranceExam": "UGC-NET / CSIR / NFAT",
-        "eligibility": "Master degree in Forensic Science/relevant discipline with min. 55%",
-        "department": "School of Forensic Science",
-        "careerScope": "Academic Professor, Senior Forensic Scientist, Research Director"
-      },
-      {
-        "name": "Ph.D. in Cyber Security & Digital Investigation",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 60000,
-        "seats": 20,
-        "entranceExam": "GATE / UGC-NET / NFAT",
-        "eligibility": "M.Tech / M.Sc. in CS / IT / Cyber Security with min. 55%",
-        "department": "School of Cyber Security & Digital Forensics",
-        "careerScope": "Principal Cyber Researcher, Defence R&D Scientist, Security Architect"
-      },
-      {
-        "name": "PG Diploma in Fingerprint Science",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
-        "duration": "1 Year",
-        "annualFee": 80000,
-        "seats": 30,
-        "entranceExam": "Merit / NFAT",
-        "eligibility": "Bachelor degree in Science / Forensic Science / Law",
-        "department": "School of Forensic Science",
-        "careerScope": "Fingerprint Bureau Examiner, Scene of Crime Officer"
-      },
-      {
-        "name": "PG Diploma in Forensic Document Examination",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
-        "duration": "1 Year",
-        "annualFee": 85000,
-        "seats": 30,
-        "entranceExam": "Merit / NFAT",
-        "eligibility": "Bachelor degree in Science / Forensic Science / Banking",
-        "department": "School of Forensic Science",
-        "careerScope": "Questioned Document Examiner, Handwriting Analyst, Bank Fraud Auditor"
-      },
-      {
-        "name": "PG Diploma in Cyber Law & Cyber Crime Investigation",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
-        "duration": "1 Year",
-        "annualFee": 90000,
-        "seats": 40,
-        "entranceExam": "Merit / NFAT",
-        "eligibility": "Graduate in any discipline from recognized university",
-        "department": "School of Law & Forensic Justice",
-        "careerScope": "Cyber Compliance Officer, Legal Advisor, Law Enforcement Investigator"
+        "seats": 40
       }
     ],
     "verifiedSource": "Parliament Act 32 of 2020 & NFSU Audited Annual Placement Report",
@@ -336,22 +115,7 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "professorStudentRatio": "1:11",
       "academicPrograms": [
         "B.Tech Computer Science and Engineering",
-        "B.Tech Electrical Engineering",
-        "B.Tech Mechanical Engineering",
-        "B.Tech Chemical Engineering",
-        "B.Tech Aerospace Engineering",
-        "B.Tech Civil Engineering",
-        "B.Tech Metallurgical Engineering & Materials Science",
-        "B.Tech Engineering Physics",
-        "B.Des. (Bachelor of Design)",
-        "Dual Degree (B.Tech + M.Tech) in Electrical Engineering",
-        "Dual Degree (B.Tech + M.Tech) in Mechanical Engineering",
-        "M.Tech Computer Science and Engineering (with AI & Data Science)",
-        "M.Tech VLSI Design and Embedded Systems",
-        "M.Sc Applied Statistics and Informatics",
-        "Master of Management (MBA - SJMSOM)",
-        "Ph.D. in Computer Science & Artificial Intelligence",
-        "Ph.D. in Electrical & Electronic Engineering"
+        "B.Tech Electrical Engineering"
       ],
       "topRecruiters": [
         "Google",
@@ -393,206 +157,16 @@ export const VERIFIED_COLLEGES_CLIENT = [
       {
         "name": "B.Tech Computer Science and Engineering",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
-        "annualFee": 220000,
-        "seats": 180,
-        "entranceExam": "JEE Advanced",
-        "eligibility": "10+2 with Physics, Chemistry, Math (top 20 percentile or 75%)",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Software Architect, Machine Learning Engineer, Quantitative Analyst, High-frequency Trader"
+        "annualFee": 228000,
+        "seats": 120
       },
       {
         "name": "B.Tech Electrical Engineering",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
-        "annualFee": 220000,
-        "seats": 170,
-        "entranceExam": "JEE Advanced",
-        "eligibility": "10+2 with PCM (75% or top 20 percentile)",
-        "department": "Department of Electrical Engineering",
-        "careerScope": "VLSI Design Engineer, Embedded Systems Specialist, Hardware Architect, Robotics Engineer"
-      },
-      {
-        "name": "B.Tech Mechanical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 220000,
-        "seats": 175,
-        "entranceExam": "JEE Advanced",
-        "eligibility": "10+2 with PCM (75% or top 20 percentile)",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Automotive Systems Engineer, Aerospace Designer, Thermal Analyst, Automation Specialist"
-      },
-      {
-        "name": "B.Tech Chemical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 220000,
-        "seats": 120,
-        "entranceExam": "JEE Advanced",
-        "eligibility": "10+2 with PCM (75% or top 20 percentile)",
-        "department": "Department of Chemical Engineering",
-        "careerScope": "Process Optimization Engineer, Petrochemical Consultant, Renewable Energy Technologist"
-      },
-      {
-        "name": "B.Tech Aerospace Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 220000,
-        "seats": 80,
-        "entranceExam": "JEE Advanced",
-        "eligibility": "10+2 with PCM (75% or top 20 percentile)",
-        "department": "Department of Aerospace Engineering",
-        "careerScope": "Aerodynamics Specialist, Space Propulsion Engineer, Flight Dynamics Researcher"
-      },
-      {
-        "name": "B.Tech Civil Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 220000,
-        "seats": 140,
-        "entranceExam": "JEE Advanced",
-        "eligibility": "10+2 with PCM (75% or top 20 percentile)",
-        "department": "Department of Civil Engineering",
-        "careerScope": "Structural Designer, Smart Cities Infrastructure Lead, Geotechnical Consultant"
-      },
-      {
-        "name": "B.Tech Metallurgical Engineering & Materials Science",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 220000,
-        "seats": 120,
-        "entranceExam": "JEE Advanced",
-        "eligibility": "10+2 with PCM (75% or top 20 percentile)",
-        "department": "Department of Metallurgical Engineering",
-        "careerScope": "Nanotechnology Specialist, Materials Scientist, Semiconductor Metallurgy Lead"
-      },
-      {
-        "name": "B.Tech Engineering Physics",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 220000,
-        "seats": 60,
-        "entranceExam": "JEE Advanced",
-        "eligibility": "10+2 with PCM (75% or top 20 percentile)",
-        "department": "Department of Physics",
-        "careerScope": "Quantum Computing Researcher, Photonics Engineer, Solid State Physicist"
-      },
-      {
-        "name": "B.Des. (Bachelor of Design)",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 220000,
-        "seats": 37,
-        "entranceExam": "UCEED",
-        "eligibility": "10+2 in any stream (Science/Commerce/Arts)",
-        "department": "IDC School of Design",
-        "careerScope": "Principal Product Designer, UI/UX Lead, Industrial Ergonomics Strategist"
-      },
-      {
-        "name": "Dual Degree (B.Tech + M.Tech) in Electrical Engineering",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 220000,
-        "seats": 40,
-        "entranceExam": "JEE Advanced",
-        "eligibility": "10+2 with PCM (75% or top 20 percentile)",
-        "department": "Department of Electrical Engineering",
-        "careerScope": "Microelectronic Researcher, Power Systems Strategist, Advanced Communications Engineer"
-      },
-      {
-        "name": "Dual Degree (B.Tech + M.Tech) in Mechanical Engineering",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 220000,
-        "seats": 40,
-        "entranceExam": "JEE Advanced",
-        "eligibility": "10+2 with PCM (75% or top 20 percentile)",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Computational Fluid Dynamics Lead, Advanced Manufacturing Specialist"
-      },
-      {
-        "name": "M.Tech Computer Science and Engineering (with AI & Data Science)",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 70000,
-        "seats": 120,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech/B.E. in relevant engineering discipline with qualifying GATE score",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Principal AI Researcher, Deep Learning Architect, Big Data Infrastructure Lead"
-      },
-      {
-        "name": "M.Tech VLSI Design and Embedded Systems",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 70000,
-        "seats": 60,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in Electrical / Electronics / CSE with valid GATE",
-        "department": "Department of Electrical Engineering",
-        "careerScope": "Semiconductor Chip Designer, ASIC Architect, Firmware Engineer"
-      },
-      {
-        "name": "M.Sc Applied Statistics and Informatics",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 50000,
-        "seats": 48,
-        "entranceExam": "IIT JAM",
-        "eligibility": "Bachelor degree with Mathematics / Statistics as primary subject",
-        "department": "Department of Mathematics",
-        "careerScope": "Data Scientist, Quantitative Risk Manager, Statistical Modeler"
-      },
-      {
-        "name": "Master of Management (MBA - SJMSOM)",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 550000,
-        "seats": 150,
-        "entranceExam": "CAT",
-        "eligibility": "First class bachelor degree in Engineering / Technology / Science",
-        "department": "Shailesh J. Mehta School of Management",
-        "careerScope": "Management Consultant, Product Manager, Investment Banking Associate"
-      },
-      {
-        "name": "Ph.D. in Computer Science & Artificial Intelligence",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 40000,
-        "seats": 40,
-        "entranceExam": "GATE / CSIR-NET / Institute Written Test",
-        "eligibility": "Master degree in Engineering/Technology with high academic standing",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "University Professor, Industrial Research Scientist (Google/Microsoft Research)"
-      },
-      {
-        "name": "Ph.D. in Electrical & Electronic Engineering",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 40000,
-        "seats": 45,
-        "entranceExam": "GATE / CSIR-NET",
-        "eligibility": "M.Tech / M.E. in Electrical/Electronics with min. 60%",
-        "department": "Department of Electrical Engineering",
-        "careerScope": "Senior Research Fellow, Semiconductor R&D Lead, National Laboratory Scientist"
+        "annualFee": 228000,
+        "seats": 110
       }
     ],
     "verifiedSource": "IIT Bombay Placement Cell 2023-24 Phase 1/2 Final Report & NIRF 2024 Audit",
@@ -621,18 +195,8 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹2.0 CPA",
       "professorStudentRatio": "1:12",
       "academicPrograms": [
-        "B.Tech in Computer Science and Engineering",
-        "B.Tech in Artificial Intelligence & Data Science",
-        "B.Tech in Electronics & Communication Engineering",
-        "B.Tech in Mechanical Engineering",
-        "B.Tech in Civil & Environmental Engineering",
-        "B.Tech in Electrical & Electronics Engineering",
-        "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "M.Tech in Computer Science & Artificial Intelligence",
-        "M.Tech in VLSI Design & Embedded Systems",
-        "M.Sc in Applied Mathematics & Computing",
-        "MBA in Technology & Operations Management",
-        "Ph.D. in Engineering & Computer Science"
+        "B.Tech Computer Science and Engineering",
+        "B.Tech Mathematics and Computing"
       ],
       "topRecruiters": [
         "Microsoft",
@@ -670,148 +234,18 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "B.Tech through JEE Advanced; M.Tech through GATE; MBA through CAT.",
     "popularPrograms": [
       {
-        "name": "B.Tech in Computer Science and Engineering",
+        "name": "B.Tech Computer Science and Engineering",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 225000,
-        "seats": 180,
-        "entranceExam": "JEE Main / Advanced / State CET",
-        "eligibility": "10+2 with Physics, Chemistry, Math min. 60%",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Software Engineer, Full Stack Developer, Systems Architect"
+        "seats": 99
       },
       {
-        "name": "B.Tech in Artificial Intelligence & Data Science",
+        "name": "B.Tech Mathematics and Computing",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 225000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of AI & Data Science",
-        "careerScope": "AI/ML Engineer, Data Scientist, NLP Specialist"
-      },
-      {
-        "name": "B.Tech in Electronics & Communication Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 225000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of ECE",
-        "careerScope": "VLSI Design Engineer, Embedded Firmware Developer, Network Architect"
-      },
-      {
-        "name": "B.Tech in Mechanical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 225000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Thermal Systems Designer, CAD/CAM Specialist, Automation Engineer"
-      },
-      {
-        "name": "B.Tech in Civil & Environmental Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 225000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Civil Engineering",
-        "careerScope": "Structural Engineer, Smart Infrastructure Planner, Geotechnical Analyst"
-      },
-      {
-        "name": "B.Tech in Electrical & Electronics Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 225000,
-        "seats": 100,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of EEE",
-        "careerScope": "Power Electronics Engineer, Renewable Energy Specialist, Grid Engineer"
-      },
-      {
-        "name": "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 225000,
-        "seats": 40,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 65%",
-        "department": "Department of CSE",
-        "careerScope": "R&D Engineer, Deep Tech Researcher, Cloud Solutions Architect"
-      },
-      {
-        "name": "M.Tech in Computer Science & Artificial Intelligence",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 157500,
-        "seats": 40,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in CSE/IT or MCA with min. 55%",
-        "department": "Department of CSE",
-        "careerScope": "Principal AI Architect, Deep Learning Researcher"
-      },
-      {
-        "name": "M.Tech in VLSI Design & Embedded Systems",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 157500,
-        "seats": 30,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in ECE/EEE with min. 55%",
-        "department": "Department of ECE",
-        "careerScope": "ASIC Verification Lead, Semiconductor Hardware Designer"
-      },
-      {
-        "name": "M.Sc in Applied Mathematics & Computing",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 90000,
-        "seats": 30,
-        "entranceExam": "JAM / Entrance",
-        "eligibility": "B.Sc. with Mathematics / Statistics",
-        "department": "Department of Mathematics",
-        "careerScope": "Cryptographer, Operations Research Analyst, Quantitative Strategist"
-      },
-      {
-        "name": "MBA in Technology & Operations Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 270000,
-        "seats": 60,
-        "entranceExam": "CAT / MAT / CMAT",
-        "eligibility": "Graduation in any discipline with min. 50%",
-        "department": "Department of Management Studies",
-        "careerScope": "Product Manager, Operations Consultant, Supply Chain Director"
-      },
-      {
-        "name": "Ph.D. in Engineering & Computer Science",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 45000,
-        "seats": 20,
-        "entranceExam": "GATE / UGC-NET / Research Interview",
-        "eligibility": "M.Tech / M.E. in relevant discipline with min. 60%",
-        "department": "Doctoral Research Board",
-        "careerScope": "Research Scientist, University Professor, Lab Director"
+        "seats": 89
       }
     ],
     "verifiedSource": "IIT Delhi Office of Career Services (OCS) Annual Report 2024 & NIRF Engineering Audit",
@@ -840,18 +274,7 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹1.31 CPA",
       "professorStudentRatio": "1:11",
       "academicPrograms": [
-        "B.Tech in Computer Science and Engineering",
-        "B.Tech in Artificial Intelligence & Data Science",
-        "B.Tech in Electronics & Communication Engineering",
-        "B.Tech in Mechanical Engineering",
-        "B.Tech in Civil & Environmental Engineering",
-        "B.Tech in Electrical & Electronics Engineering",
-        "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "M.Tech in Computer Science & Artificial Intelligence",
-        "M.Tech in VLSI Design & Embedded Systems",
-        "M.Sc in Applied Mathematics & Computing",
-        "MBA in Technology & Operations Management",
-        "Ph.D. in Engineering & Computer Science"
+        "B.Tech Computer Science and Engineering"
       ],
       "topRecruiters": [
         "Texas Instruments",
@@ -889,148 +312,11 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "B.Tech via JEE Advanced; BS in Data Science via direct online qualifying exam.",
     "popularPrograms": [
       {
-        "name": "B.Tech in Computer Science and Engineering",
+        "name": "B.Tech Computer Science and Engineering",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 215000,
-        "seats": 180,
-        "entranceExam": "JEE Main / Advanced / State CET",
-        "eligibility": "10+2 with Physics, Chemistry, Math min. 60%",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Software Engineer, Full Stack Developer, Systems Architect"
-      },
-      {
-        "name": "B.Tech in Artificial Intelligence & Data Science",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 215000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of AI & Data Science",
-        "careerScope": "AI/ML Engineer, Data Scientist, NLP Specialist"
-      },
-      {
-        "name": "B.Tech in Electronics & Communication Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 215000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of ECE",
-        "careerScope": "VLSI Design Engineer, Embedded Firmware Developer, Network Architect"
-      },
-      {
-        "name": "B.Tech in Mechanical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 215000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Thermal Systems Designer, CAD/CAM Specialist, Automation Engineer"
-      },
-      {
-        "name": "B.Tech in Civil & Environmental Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 215000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Civil Engineering",
-        "careerScope": "Structural Engineer, Smart Infrastructure Planner, Geotechnical Analyst"
-      },
-      {
-        "name": "B.Tech in Electrical & Electronics Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 215000,
-        "seats": 100,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of EEE",
-        "careerScope": "Power Electronics Engineer, Renewable Energy Specialist, Grid Engineer"
-      },
-      {
-        "name": "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 215000,
-        "seats": 40,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 65%",
-        "department": "Department of CSE",
-        "careerScope": "R&D Engineer, Deep Tech Researcher, Cloud Solutions Architect"
-      },
-      {
-        "name": "M.Tech in Computer Science & Artificial Intelligence",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 150500,
-        "seats": 40,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in CSE/IT or MCA with min. 55%",
-        "department": "Department of CSE",
-        "careerScope": "Principal AI Architect, Deep Learning Researcher"
-      },
-      {
-        "name": "M.Tech in VLSI Design & Embedded Systems",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 150500,
-        "seats": 30,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in ECE/EEE with min. 55%",
-        "department": "Department of ECE",
-        "careerScope": "ASIC Verification Lead, Semiconductor Hardware Designer"
-      },
-      {
-        "name": "M.Sc in Applied Mathematics & Computing",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 86000,
-        "seats": 30,
-        "entranceExam": "JAM / Entrance",
-        "eligibility": "B.Sc. with Mathematics / Statistics",
-        "department": "Department of Mathematics",
-        "careerScope": "Cryptographer, Operations Research Analyst, Quantitative Strategist"
-      },
-      {
-        "name": "MBA in Technology & Operations Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 258000,
-        "seats": 60,
-        "entranceExam": "CAT / MAT / CMAT",
-        "eligibility": "Graduation in any discipline with min. 50%",
-        "department": "Department of Management Studies",
-        "careerScope": "Product Manager, Operations Consultant, Supply Chain Director"
-      },
-      {
-        "name": "Ph.D. in Engineering & Computer Science",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 45000,
-        "seats": 20,
-        "entranceExam": "GATE / UGC-NET / Research Interview",
-        "eligibility": "M.Tech / M.E. in relevant discipline with min. 60%",
-        "department": "Doctoral Research Board",
-        "careerScope": "Research Scientist, University Professor, Lab Director"
+        "seats": 87
       }
     ],
     "verifiedSource": "NIRF 2024 Overall & Engineering #1 Audited Report & IITM CDC",
@@ -1059,18 +345,8 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹60.7 LPA",
       "professorStudentRatio": "1:14",
       "academicPrograms": [
-        "B.Tech in Computer Science and Engineering",
-        "B.Tech in Artificial Intelligence & Data Science",
-        "B.Tech in Electronics & Communication Engineering",
-        "B.Tech in Mechanical Engineering",
-        "B.Tech in Civil & Environmental Engineering",
-        "B.Tech in Electrical & Electronics Engineering",
-        "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "M.Tech in Computer Science & Artificial Intelligence",
-        "M.Tech in VLSI Design & Embedded Systems",
-        "M.Sc in Applied Mathematics & Computing",
-        "MBA in Technology & Operations Management",
-        "Ph.D. in Engineering & Computer Science"
+        "B.E. Computer Science",
+        "B.E. Electrical & Electronics"
       ],
       "topRecruiters": [
         "Google",
@@ -1110,148 +386,18 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Strictly through BITSAT (Birla Institute of Technology and Science Admission Test).",
     "popularPrograms": [
       {
-        "name": "B.Tech in Computer Science and Engineering",
+        "name": "B.E. Computer Science",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 541000,
-        "seats": 180,
-        "entranceExam": "JEE Main / Advanced / State CET",
-        "eligibility": "10+2 with Physics, Chemistry, Math min. 60%",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Software Engineer, Full Stack Developer, Systems Architect"
+        "seats": 140
       },
       {
-        "name": "B.Tech in Artificial Intelligence & Data Science",
+        "name": "B.E. Electrical & Electronics",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 541000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of AI & Data Science",
-        "careerScope": "AI/ML Engineer, Data Scientist, NLP Specialist"
-      },
-      {
-        "name": "B.Tech in Electronics & Communication Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 541000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of ECE",
-        "careerScope": "VLSI Design Engineer, Embedded Firmware Developer, Network Architect"
-      },
-      {
-        "name": "B.Tech in Mechanical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 541000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Thermal Systems Designer, CAD/CAM Specialist, Automation Engineer"
-      },
-      {
-        "name": "B.Tech in Civil & Environmental Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 541000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Civil Engineering",
-        "careerScope": "Structural Engineer, Smart Infrastructure Planner, Geotechnical Analyst"
-      },
-      {
-        "name": "B.Tech in Electrical & Electronics Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 541000,
-        "seats": 100,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of EEE",
-        "careerScope": "Power Electronics Engineer, Renewable Energy Specialist, Grid Engineer"
-      },
-      {
-        "name": "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 541000,
-        "seats": 40,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 65%",
-        "department": "Department of CSE",
-        "careerScope": "R&D Engineer, Deep Tech Researcher, Cloud Solutions Architect"
-      },
-      {
-        "name": "M.Tech in Computer Science & Artificial Intelligence",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 378700,
-        "seats": 40,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in CSE/IT or MCA with min. 55%",
-        "department": "Department of CSE",
-        "careerScope": "Principal AI Architect, Deep Learning Researcher"
-      },
-      {
-        "name": "M.Tech in VLSI Design & Embedded Systems",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 378700,
-        "seats": 30,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in ECE/EEE with min. 55%",
-        "department": "Department of ECE",
-        "careerScope": "ASIC Verification Lead, Semiconductor Hardware Designer"
-      },
-      {
-        "name": "M.Sc in Applied Mathematics & Computing",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 216400,
-        "seats": 30,
-        "entranceExam": "JAM / Entrance",
-        "eligibility": "B.Sc. with Mathematics / Statistics",
-        "department": "Department of Mathematics",
-        "careerScope": "Cryptographer, Operations Research Analyst, Quantitative Strategist"
-      },
-      {
-        "name": "MBA in Technology & Operations Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 649200,
-        "seats": 60,
-        "entranceExam": "CAT / MAT / CMAT",
-        "eligibility": "Graduation in any discipline with min. 50%",
-        "department": "Department of Management Studies",
-        "careerScope": "Product Manager, Operations Consultant, Supply Chain Director"
-      },
-      {
-        "name": "Ph.D. in Engineering & Computer Science",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 45000,
-        "seats": 20,
-        "entranceExam": "GATE / UGC-NET / Research Interview",
-        "eligibility": "M.Tech / M.E. in relevant discipline with min. 60%",
-        "department": "Doctoral Research Board",
-        "careerScope": "Research Scientist, University Professor, Lab Director"
+        "seats": 120
       }
     ],
     "verifiedSource": "BITS Pilani Central Placement Division Official 2023-24 Summary & Statutory Fee Schedule",
@@ -1277,23 +423,10 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "additionalOverviewDetails": {
       "jobPlacementRate": 100,
       "averagePackage": "₹18.0 LPA (Junior Resident Doctor Stipend)",
-      "highestPackage": "₹35.0 LPA (Senior Fellowship / Consultant)",
+      "highestPackage": "₹35.0 LPA",
       "professorStudentRatio": "1:4",
       "academicPrograms": [
-        "MBBS (Bachelor of Medicine, Bachelor of Surgery)",
-        "B.Sc. (Hons.) Nursing",
-        "B.Sc. in Medical Technology in Radiography",
-        "B.Sc. in Operation Theatre Technology",
-        "MD in General Medicine",
-        "MD in Radiodiagnosis and Interventional Imaging",
-        "MD in Pediatrics",
-        "MS in General Surgery",
-        "MS in Orthopaedics",
-        "DM (Doctorate of Medicine) in Cardiology",
-        "DM in Neurology",
-        "M.Ch in Neuro Surgery",
-        "Master of Public Health (MPH)",
-        "Ph.D. in Medical Sciences & Clinical Research"
+        "MBBS"
       ],
       "topRecruiters": [
         "AIIMS Residency & Fellowship",
@@ -1330,172 +463,11 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Strictly through NEET-UG with top 50 all-India rank for MBBS.",
     "popularPrograms": [
       {
-        "name": "MBBS (Bachelor of Medicine, Bachelor of Surgery)",
+        "name": "MBBS",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "5.5 Years",
         "annualFee": 1628,
-        "seats": 132,
-        "entranceExam": "NEET-UG",
-        "eligibility": "10+2 with Physics, Chemistry, Biology and English (min. 60%)",
-        "department": "Faculty of Medicine & Surgery",
-        "careerScope": "Medical Practitioner, Clinical Resident, Healthcare Administrator"
-      },
-      {
-        "name": "B.Sc. (Hons.) Nursing",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 1500,
-        "seats": 96,
-        "entranceExam": "AIIMS Nursing Entrance",
-        "eligibility": "10+2 with PCB and English (min. 55% for female candidates)",
-        "department": "College of Nursing",
-        "careerScope": "Clinical Nurse Specialist, Critical Care Nurse, Nursing Supervisor"
-      },
-      {
-        "name": "B.Sc. in Medical Technology in Radiography",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "3 Years",
-        "annualFee": 1400,
-        "seats": 30,
-        "entranceExam": "AIIMS Paramedical Entrance",
-        "eligibility": "10+2 with Physics, Chemistry, Biology/Math",
-        "department": "Department of Radiodiagnosis",
-        "careerScope": "Radiologic Technologist, MRI/CT Scan Specialist, Diagnostic Imaging Lead"
-      },
-      {
-        "name": "B.Sc. in Operation Theatre Technology",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "3 Years",
-        "annualFee": 1400,
-        "seats": 25,
-        "entranceExam": "AIIMS Paramedical Entrance",
-        "eligibility": "10+2 with Science (PCB)",
-        "department": "Department of Anesthesiology",
-        "careerScope": "Senior OT Technologist, Surgical Suite Coordinator, Anesthesia Technician"
-      },
-      {
-        "name": "MD in General Medicine",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "3 Years",
-        "annualFee": 2500,
-        "seats": 35,
-        "entranceExam": "INI-CET",
-        "eligibility": "MBBS degree recognized by NMC with 1-year completed internship",
-        "department": "Department of Medicine",
-        "careerScope": "Consultant Physician, Internal Medicine Specialist, Clinical Fellow"
-      },
-      {
-        "name": "MD in Radiodiagnosis and Interventional Imaging",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "3 Years",
-        "annualFee": 2500,
-        "seats": 20,
-        "entranceExam": "INI-CET",
-        "eligibility": "MBBS degree with completed rotating internship",
-        "department": "Department of Radiodiagnosis",
-        "careerScope": "Consultant Radiologist, Interventional Radiologist, Neuroimaging Specialist"
-      },
-      {
-        "name": "MD in Pediatrics",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "3 Years",
-        "annualFee": 2500,
-        "seats": 25,
-        "entranceExam": "INI-CET",
-        "eligibility": "MBBS degree recognized by NMC",
-        "department": "Department of Pediatrics",
-        "careerScope": "Pediatrician, Neonatologist, Pediatric Critical Care Specialist"
-      },
-      {
-        "name": "MS in General Surgery",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "3 Years",
-        "annualFee": 2500,
-        "seats": 30,
-        "entranceExam": "INI-CET",
-        "eligibility": "MBBS degree recognized by NMC with internship",
-        "department": "Department of Surgical Disciplines",
-        "careerScope": "General Surgeon, Trauma Surgeon, Laparoscopic Specialist"
-      },
-      {
-        "name": "MS in Orthopaedics",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "3 Years",
-        "annualFee": 2500,
-        "seats": 18,
-        "entranceExam": "INI-CET",
-        "eligibility": "MBBS degree recognized by NMC",
-        "department": "Department of Orthopaedics",
-        "careerScope": "Orthopaedic Surgeon, Joint Replacement Specialist, Spine Surgeon"
-      },
-      {
-        "name": "DM (Doctorate of Medicine) in Cardiology",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "3 Years",
-        "annualFee": 3000,
-        "seats": 15,
-        "entranceExam": "INI-SS",
-        "eligibility": "MD in General Medicine or Pediatrics",
-        "department": "Department of Cardiology",
-        "careerScope": "Interventional Cardiologist, Electrophysiologist, Cardiac Care Director"
-      },
-      {
-        "name": "DM in Neurology",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "3 Years",
-        "annualFee": 3000,
-        "seats": 12,
-        "entranceExam": "INI-SS",
-        "eligibility": "MD in General Medicine or Pediatrics",
-        "department": "Department of Neurology",
-        "careerScope": "Consultant Neurologist, Stroke Specialist, Epilepsy Specialist"
-      },
-      {
-        "name": "M.Ch in Neuro Surgery",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "3 Years",
-        "annualFee": 3000,
-        "seats": 15,
-        "entranceExam": "INI-SS",
-        "eligibility": "MS in General Surgery",
-        "department": "Department of Neurosurgery",
-        "careerScope": "Brain & Spine Neurosurgeon, Skull Base Surgeon, Pediatric Neurosurgeon"
-      },
-      {
-        "name": "Master of Public Health (MPH)",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 2800,
-        "seats": 20,
-        "entranceExam": "AIIMS Entrance Exam",
-        "eligibility": "MBBS / BDS / B.V.Sc / Allied Health Science degree",
-        "department": "Centre for Community Medicine",
-        "careerScope": "Epidemiologist, Health Policy Director (WHO/UNICEF), Public Health Advisor"
-      },
-      {
-        "name": "Ph.D. in Medical Sciences & Clinical Research",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 3000,
-        "seats": 35,
-        "entranceExam": "AIIMS Ph.D. Entrance / ICMR-JRF",
-        "eligibility": "M.Sc. in Medical Sciences / MBBS / MD with min. 60%",
-        "department": "Division of Biomedical Research",
-        "careerScope": "Principal Medical Scientist, Clinical Trial Director, Biomedical Academic"
+        "seats": 125
       }
     ],
     "verifiedSource": "NIRF 2024 Medical #1 Audited Report & AIIMS Academic Section Official Fee Structure",
@@ -1524,12 +496,7 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹1.15 CPA",
       "professorStudentRatio": "1:8",
       "academicPrograms": [
-        "Post Graduate Programme in Management (PGP - MBA)",
-        "Post Graduate Programme in Food & Agri-Business Management (PGP-FABM)",
-        "Post Graduate Programme in Management for Executives (PGPX - 1 Year MBA)",
-        "ePGP (Master of Management - Blended Online & On-Campus)",
-        "Ph.D. in Management (Fellow Programme in Management - FPM)",
-        "Faculty Development Programme (FDP in Pedagogy & Research)"
+        "Post Graduate Programme in Management (PGP)"
       ],
       "topRecruiters": [
         "McKinsey & Company",
@@ -1565,76 +532,11 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Common Admission Test (CAT) followed by Analytical Writing Test (AWT) and Personal Interview (PI).",
     "popularPrograms": [
       {
-        "name": "Post Graduate Programme in Management (PGP - MBA)",
+        "name": "Post Graduate Programme in Management (PGP)",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "2 Years",
         "annualFee": 1250000,
-        "seats": 400,
-        "entranceExam": "CAT / GMAT",
-        "eligibility": "Bachelor degree in any discipline with min. 50% marks",
-        "department": "Department of General Management",
-        "careerScope": "Management Consultant (McKinsey/BCG/Bain), Investment Banker, Chief Strategy Officer"
-      },
-      {
-        "name": "Post Graduate Programme in Food & Agri-Business Management (PGP-FABM)",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 1150000,
-        "seats": 50,
-        "entranceExam": "CAT / GMAT",
-        "eligibility": "Bachelor/Master degree in Agriculture or allied sciences",
-        "department": "Centre for Management in Agriculture",
-        "careerScope": "Agribusiness Executive, Agri-Fintech Founder, Food Supply Chain Director"
-      },
-      {
-        "name": "Post Graduate Programme in Management for Executives (PGPX - 1 Year MBA)",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "1 Year",
-        "annualFee": 3200000,
-        "seats": 140,
-        "entranceExam": "GMAT / GRE",
-        "eligibility": "Bachelor degree with min. 4 years of full-time professional experience",
-        "department": "Executive Education Division",
-        "careerScope": "Vice President, Global Business Head, Senior Director of Operations"
-      },
-      {
-        "name": "ePGP (Master of Management - Blended Online & On-Campus)",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 1000000,
-        "seats": 85,
-        "entranceExam": "CAT / GMAT / IIMA Test",
-        "eligibility": "Working professionals with min. 3 years experience & graduation",
-        "department": "Online & Blended Learning Division",
-        "careerScope": "Business Transformation Lead, Strategic Program Manager"
-      },
-      {
-        "name": "Ph.D. in Management (Fellow Programme in Management - FPM)",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "4-5 Years",
-        "annualFee": 30000,
-        "seats": 35,
-        "entranceExam": "CAT / GMAT / GRE / JRF (Fully Funded + Stipend ₹45,000/mo)",
-        "eligibility": "Master degree in any discipline or 4-year professional bachelor degree",
-        "department": "Doctoral Programme Committee",
-        "careerScope": "Business School Professor, Economic Policy Advisor, Senior Research Fellow"
-      },
-      {
-        "name": "Faculty Development Programme (FDP in Pedagogy & Research)",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
-        "duration": "1 Year",
-        "annualFee": 250000,
-        "seats": 40,
-        "entranceExam": "Merit & Institutional Nomination",
-        "eligibility": "Faculty members and researchers teaching management",
-        "department": "Centre for Educational Innovation",
-        "careerScope": "Academic Dean, Management Educator, Curriculum Specialist"
+        "seats": 395
       }
     ],
     "verifiedSource": "Indian Placement Reporting Standards (IPRS) Audited Report 2024 & NIRF Management #1",
@@ -1663,18 +565,8 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹1.02 CPA",
       "professorStudentRatio": "1:15",
       "academicPrograms": [
-        "B.Tech in Computer Science and Engineering",
-        "B.Tech in Artificial Intelligence & Data Science",
-        "B.Tech in Electronics & Communication Engineering",
-        "B.Tech in Mechanical Engineering",
-        "B.Tech in Civil & Environmental Engineering",
-        "B.Tech in Electrical & Electronics Engineering",
-        "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "M.Tech in Computer Science & Artificial Intelligence",
-        "M.Tech in VLSI Design & Embedded Systems",
-        "M.Sc in Applied Mathematics & Computing",
-        "MBA in Technology & Operations Management",
-        "Ph.D. in Engineering & Computer Science"
+        "B.Tech Computer Science and Engineering (Cat 1)",
+        "B.Tech Computer Science and Engineering (Cat 2)"
       ],
       "topRecruiters": [
         "Microsoft",
@@ -1713,148 +605,18 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Admission through VITEEE (VIT Engineering Entrance Examination).",
     "popularPrograms": [
       {
-        "name": "B.Tech in Computer Science and Engineering",
+        "name": "B.Tech Computer Science and Engineering (Cat 1)",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 198000,
-        "seats": 180,
-        "entranceExam": "JEE Main / Advanced / State CET",
-        "eligibility": "10+2 with Physics, Chemistry, Math min. 60%",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Software Engineer, Full Stack Developer, Systems Architect"
+        "seats": 720
       },
       {
-        "name": "B.Tech in Artificial Intelligence & Data Science",
+        "name": "B.Tech Computer Science and Engineering (Cat 2)",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
-        "annualFee": 198000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of AI & Data Science",
-        "careerScope": "AI/ML Engineer, Data Scientist, NLP Specialist"
-      },
-      {
-        "name": "B.Tech in Electronics & Communication Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 198000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of ECE",
-        "careerScope": "VLSI Design Engineer, Embedded Firmware Developer, Network Architect"
-      },
-      {
-        "name": "B.Tech in Mechanical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 198000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Thermal Systems Designer, CAD/CAM Specialist, Automation Engineer"
-      },
-      {
-        "name": "B.Tech in Civil & Environmental Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 198000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Civil Engineering",
-        "careerScope": "Structural Engineer, Smart Infrastructure Planner, Geotechnical Analyst"
-      },
-      {
-        "name": "B.Tech in Electrical & Electronics Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 198000,
-        "seats": 100,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of EEE",
-        "careerScope": "Power Electronics Engineer, Renewable Energy Specialist, Grid Engineer"
-      },
-      {
-        "name": "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 198000,
-        "seats": 40,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 65%",
-        "department": "Department of CSE",
-        "careerScope": "R&D Engineer, Deep Tech Researcher, Cloud Solutions Architect"
-      },
-      {
-        "name": "M.Tech in Computer Science & Artificial Intelligence",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 138600,
-        "seats": 40,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in CSE/IT or MCA with min. 55%",
-        "department": "Department of CSE",
-        "careerScope": "Principal AI Architect, Deep Learning Researcher"
-      },
-      {
-        "name": "M.Tech in VLSI Design & Embedded Systems",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 138600,
-        "seats": 30,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in ECE/EEE with min. 55%",
-        "department": "Department of ECE",
-        "careerScope": "ASIC Verification Lead, Semiconductor Hardware Designer"
-      },
-      {
-        "name": "M.Sc in Applied Mathematics & Computing",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 79200,
-        "seats": 30,
-        "entranceExam": "JAM / Entrance",
-        "eligibility": "B.Sc. with Mathematics / Statistics",
-        "department": "Department of Mathematics",
-        "careerScope": "Cryptographer, Operations Research Analyst, Quantitative Strategist"
-      },
-      {
-        "name": "MBA in Technology & Operations Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 237600,
-        "seats": 60,
-        "entranceExam": "CAT / MAT / CMAT",
-        "eligibility": "Graduation in any discipline with min. 50%",
-        "department": "Department of Management Studies",
-        "careerScope": "Product Manager, Operations Consultant, Supply Chain Director"
-      },
-      {
-        "name": "Ph.D. in Engineering & Computer Science",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 45000,
-        "seats": 20,
-        "entranceExam": "GATE / UGC-NET / Research Interview",
-        "eligibility": "M.Tech / M.E. in relevant discipline with min. 60%",
-        "department": "Doctoral Research Board",
-        "careerScope": "Research Scientist, University Professor, Lab Director"
+        "annualFee": 307000,
+        "seats": 480
       }
     ],
     "verifiedSource": "NIRF 2024 Engineering Audited Disclosure (IR-E-U-0490) & VIT Career Development Centre",
@@ -2098,14 +860,10 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹45.0 LPA",
       "professorStudentRatio": "1:12",
       "academicPrograms": [
-        "B.A. LL.B. (Hons.) 5-Year Integrated",
-        "B.Com. LL.B. (Hons.) 5-Year Integrated",
-        "B.B.A. LL.B. (Hons.) 5-Year Integrated",
-        "LL.M. in Corporate and Commercial Law",
-        "LL.M. in Intellectual Property Laws",
-        "LL.M. in Constitutional Law",
-        "Ph.D. in Law",
-        "PG Diploma in Cyber Law"
+        "B.A. LL.B. (Hons.)",
+        "LL.M. in International & Commercial Law",
+        "Master of Public Policy (MPP)",
+        "Ph.D. in Law"
       ],
       "topRecruiters": [
         "Shardul Amarchand Mangaldas",
@@ -2143,100 +901,32 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Admissions strictly conducted through CLAT (Common Law Admission Test).",
     "popularPrograms": [
       {
-        "name": "B.A. LL.B. (Hons.) 5-Year Integrated",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
+        "name": "B.A. LL.B. (Hons.)",
+        "degree": "Undergraduate Integrated",
         "duration": "5 Years",
         "annualFee": 350000,
-        "seats": 120,
-        "entranceExam": "CLAT-UG / AILET",
-        "eligibility": "10+2 with 45% marks",
-        "department": "School of Law",
-        "careerScope": "Litigation Advocate, Corporate Legal Advisor, Judiciary"
+        "seats": 240
       },
       {
-        "name": "B.Com. LL.B. (Hons.) 5-Year Integrated",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "5 Years",
-        "annualFee": 350000,
-        "seats": 60,
-        "entranceExam": "CLAT-UG / Entrance",
-        "eligibility": "10+2 with Commerce/Math",
-        "department": "Department of Commercial Law",
-        "careerScope": "Corporate Legal Counsel, Banking Lawyer"
-      },
-      {
-        "name": "B.B.A. LL.B. (Hons.) 5-Year Integrated",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "5 Years",
-        "annualFee": 350000,
-        "seats": 60,
-        "entranceExam": "CLAT-UG / Entrance",
-        "eligibility": "10+2 in any stream",
-        "department": "Department of Business Law",
-        "careerScope": "Corporate Law Consultant, Legal Strategist"
-      },
-      {
-        "name": "LL.M. in Corporate and Commercial Law",
+        "name": "LL.M. in International & Commercial Law",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "1 Year",
         "annualFee": 280000,
-        "seats": 40,
-        "entranceExam": "CLAT-PG",
-        "eligibility": "LL.B. with min. 50%",
-        "department": "Department of Postgraduate Studies",
-        "careerScope": "Senior Legal Associate, General Counsel"
+        "seats": 100
       },
       {
-        "name": "LL.M. in Intellectual Property Laws",
+        "name": "Master of Public Policy (MPP)",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "1 Year",
-        "annualFee": 280000,
-        "seats": 30,
-        "entranceExam": "CLAT-PG",
-        "eligibility": "LL.B. with min. 50%",
-        "department": "Department of Technology Law",
-        "careerScope": "Patent Attorney, Trademark Counsel"
-      },
-      {
-        "name": "LL.M. in Constitutional Law",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "1 Year",
-        "annualFee": 280000,
-        "seats": 30,
-        "entranceExam": "CLAT-PG",
-        "eligibility": "LL.B. with min. 50%",
-        "department": "Department of Public Law",
-        "careerScope": "Constitutional Law Specialist, Civil Judge"
+        "duration": "2 Years",
+        "annualFee": 290000,
+        "seats": 60
       },
       {
         "name": "Ph.D. in Law",
         "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 50000,
-        "seats": 20,
-        "entranceExam": "UGC-NET / Research Exam",
-        "eligibility": "LL.M. with min. 55%",
-        "department": "Doctoral Studies",
-        "careerScope": "Law Professor, Legal Policy Analyst"
-      },
-      {
-        "name": "PG Diploma in Cyber Law",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
-        "duration": "1 Year",
-        "annualFee": 60000,
-        "seats": 40,
-        "entranceExam": "Merit",
-        "eligibility": "Graduation in any discipline",
-        "department": "Centre for Cyber Law",
-        "careerScope": "Data Privacy Officer, IT Legal Consultant"
+        "duration": "3 Years",
+        "annualFee": 160000,
+        "seats": 30
       }
     ],
     "verifiedSource": "NIRF Law 2024 #1 Rank Audit & Official NLSIU Gazette",
@@ -2265,18 +955,7 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹82.0 LPA",
       "professorStudentRatio": "1:15",
       "academicPrograms": [
-        "B.Tech in Computer Science and Engineering",
-        "B.Tech in Artificial Intelligence & Data Science",
-        "B.Tech in Electronics & Communication Engineering",
-        "B.Tech in Mechanical Engineering",
-        "B.Tech in Civil & Environmental Engineering",
-        "B.Tech in Electrical & Electronics Engineering",
-        "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "M.Tech in Computer Science & Artificial Intelligence",
-        "M.Tech in VLSI Design & Embedded Systems",
-        "M.Sc in Applied Mathematics & Computing",
-        "MBA in Technology & Operations Management",
-        "Ph.D. in Engineering & Computer Science"
+        "B.Tech Computer Engineering"
       ],
       "topRecruiters": [
         "Google",
@@ -2314,148 +993,11 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Joint Admission Counselling (JAC Delhi) based on JEE Main ranks.",
     "popularPrograms": [
       {
-        "name": "B.Tech in Computer Science and Engineering",
+        "name": "B.Tech Computer Engineering",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 219000,
-        "seats": 180,
-        "entranceExam": "JEE Main / Advanced / State CET",
-        "eligibility": "10+2 with Physics, Chemistry, Math min. 60%",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Software Engineer, Full Stack Developer, Systems Architect"
-      },
-      {
-        "name": "B.Tech in Artificial Intelligence & Data Science",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 219000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of AI & Data Science",
-        "careerScope": "AI/ML Engineer, Data Scientist, NLP Specialist"
-      },
-      {
-        "name": "B.Tech in Electronics & Communication Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 219000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of ECE",
-        "careerScope": "VLSI Design Engineer, Embedded Firmware Developer, Network Architect"
-      },
-      {
-        "name": "B.Tech in Mechanical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 219000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Thermal Systems Designer, CAD/CAM Specialist, Automation Engineer"
-      },
-      {
-        "name": "B.Tech in Civil & Environmental Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 219000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Civil Engineering",
-        "careerScope": "Structural Engineer, Smart Infrastructure Planner, Geotechnical Analyst"
-      },
-      {
-        "name": "B.Tech in Electrical & Electronics Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 219000,
-        "seats": 100,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of EEE",
-        "careerScope": "Power Electronics Engineer, Renewable Energy Specialist, Grid Engineer"
-      },
-      {
-        "name": "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 219000,
-        "seats": 40,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 65%",
-        "department": "Department of CSE",
-        "careerScope": "R&D Engineer, Deep Tech Researcher, Cloud Solutions Architect"
-      },
-      {
-        "name": "M.Tech in Computer Science & Artificial Intelligence",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 153300,
-        "seats": 40,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in CSE/IT or MCA with min. 55%",
-        "department": "Department of CSE",
-        "careerScope": "Principal AI Architect, Deep Learning Researcher"
-      },
-      {
-        "name": "M.Tech in VLSI Design & Embedded Systems",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 153300,
-        "seats": 30,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in ECE/EEE with min. 55%",
-        "department": "Department of ECE",
-        "careerScope": "ASIC Verification Lead, Semiconductor Hardware Designer"
-      },
-      {
-        "name": "M.Sc in Applied Mathematics & Computing",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 87600,
-        "seats": 30,
-        "entranceExam": "JAM / Entrance",
-        "eligibility": "B.Sc. with Mathematics / Statistics",
-        "department": "Department of Mathematics",
-        "careerScope": "Cryptographer, Operations Research Analyst, Quantitative Strategist"
-      },
-      {
-        "name": "MBA in Technology & Operations Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 262800,
-        "seats": 60,
-        "entranceExam": "CAT / MAT / CMAT",
-        "eligibility": "Graduation in any discipline with min. 50%",
-        "department": "Department of Management Studies",
-        "careerScope": "Product Manager, Operations Consultant, Supply Chain Director"
-      },
-      {
-        "name": "Ph.D. in Engineering & Computer Science",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 45000,
-        "seats": 20,
-        "entranceExam": "GATE / UGC-NET / Research Interview",
-        "eligibility": "M.Tech / M.E. in relevant discipline with min. 60%",
-        "department": "Doctoral Research Board",
-        "careerScope": "Research Scientist, University Professor, Lab Director"
+        "seats": 480
       }
     ],
     "verifiedSource": "NIRF 2024 Engineering Report & DTU Training and Placement Department (T&P) Official Audit",
@@ -2484,18 +1026,7 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "$410,000 / year",
       "professorStudentRatio": "1:3",
       "academicPrograms": [
-        "B.Tech in Computer Science and Engineering",
-        "B.Tech in Artificial Intelligence & Data Science",
-        "B.Tech in Electronics & Communication Engineering",
-        "B.Tech in Mechanical Engineering",
-        "B.Tech in Civil & Environmental Engineering",
-        "B.Tech in Electrical & Electronics Engineering",
-        "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "M.Tech in Computer Science & Artificial Intelligence",
-        "M.Tech in VLSI Design & Embedded Systems",
-        "M.Sc in Applied Mathematics & Computing",
-        "MBA in Technology & Operations Management",
-        "Ph.D. in Engineering & Computer Science"
+        "B.S. in Electrical Engineering & Computer Science (Course 6-2)"
       ],
       "topRecruiters": [
         "Google",
@@ -2534,148 +1065,10 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Direct application via MIT Admissions with SAT/ACT scores and subject recommendations.",
     "popularPrograms": [
       {
-        "name": "B.Tech in Computer Science and Engineering",
+        "name": "B.S. in Electrical Engineering & Computer Science (Course 6-2)",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
-        "annualFee": 61990,
-        "seats": 180,
-        "entranceExam": "JEE Main / Advanced / State CET",
-        "eligibility": "10+2 with Physics, Chemistry, Math min. 60%",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Software Engineer, Full Stack Developer, Systems Architect"
-      },
-      {
-        "name": "B.Tech in Artificial Intelligence & Data Science",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 61990,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of AI & Data Science",
-        "careerScope": "AI/ML Engineer, Data Scientist, NLP Specialist"
-      },
-      {
-        "name": "B.Tech in Electronics & Communication Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 61990,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of ECE",
-        "careerScope": "VLSI Design Engineer, Embedded Firmware Developer, Network Architect"
-      },
-      {
-        "name": "B.Tech in Mechanical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 61990,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Thermal Systems Designer, CAD/CAM Specialist, Automation Engineer"
-      },
-      {
-        "name": "B.Tech in Civil & Environmental Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 61990,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Civil Engineering",
-        "careerScope": "Structural Engineer, Smart Infrastructure Planner, Geotechnical Analyst"
-      },
-      {
-        "name": "B.Tech in Electrical & Electronics Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 61990,
-        "seats": 100,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of EEE",
-        "careerScope": "Power Electronics Engineer, Renewable Energy Specialist, Grid Engineer"
-      },
-      {
-        "name": "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 61990,
-        "seats": 40,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 65%",
-        "department": "Department of CSE",
-        "careerScope": "R&D Engineer, Deep Tech Researcher, Cloud Solutions Architect"
-      },
-      {
-        "name": "M.Tech in Computer Science & Artificial Intelligence",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 43393,
-        "seats": 40,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in CSE/IT or MCA with min. 55%",
-        "department": "Department of CSE",
-        "careerScope": "Principal AI Architect, Deep Learning Researcher"
-      },
-      {
-        "name": "M.Tech in VLSI Design & Embedded Systems",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 43393,
-        "seats": 30,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in ECE/EEE with min. 55%",
-        "department": "Department of ECE",
-        "careerScope": "ASIC Verification Lead, Semiconductor Hardware Designer"
-      },
-      {
-        "name": "M.Sc in Applied Mathematics & Computing",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 24796,
-        "seats": 30,
-        "entranceExam": "JAM / Entrance",
-        "eligibility": "B.Sc. with Mathematics / Statistics",
-        "department": "Department of Mathematics",
-        "careerScope": "Cryptographer, Operations Research Analyst, Quantitative Strategist"
-      },
-      {
-        "name": "MBA in Technology & Operations Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 74388,
-        "seats": 60,
-        "entranceExam": "CAT / MAT / CMAT",
-        "eligibility": "Graduation in any discipline with min. 50%",
-        "department": "Department of Management Studies",
-        "careerScope": "Product Manager, Operations Consultant, Supply Chain Director"
-      },
-      {
-        "name": "Ph.D. in Engineering & Computer Science",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 45000,
-        "seats": 20,
-        "entranceExam": "GATE / UGC-NET / Research Interview",
-        "eligibility": "M.Tech / M.E. in relevant discipline with min. 60%",
-        "department": "Doctoral Research Board",
-        "careerScope": "Research Scientist, University Professor, Lab Director"
+        "annualFee": 61990
       }
     ],
     "verifiedSource": "MIT Student Financial Services Official Tuition Gazette & CAPD Graduation Outcomes",
@@ -2704,18 +1097,8 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "$390,000 / year",
       "professorStudentRatio": "1:5",
       "academicPrograms": [
-        "B.Tech in Computer Science and Engineering",
-        "B.Tech in Artificial Intelligence & Data Science",
-        "B.Tech in Electronics & Communication Engineering",
-        "B.Tech in Mechanical Engineering",
-        "B.Tech in Civil & Environmental Engineering",
-        "B.Tech in Electrical & Electronics Engineering",
-        "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "M.Tech in Computer Science & Artificial Intelligence",
-        "M.Tech in VLSI Design & Embedded Systems",
-        "M.Sc in Applied Mathematics & Computing",
-        "MBA in Technology & Operations Management",
-        "Ph.D. in Engineering & Computer Science"
+        "B.S. Computer Science",
+        "M.S. Computer Science / AI Track"
       ],
       "topRecruiters": [
         "Google",
@@ -2754,148 +1137,16 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Highly selective holistic evaluation via Common App or Coalition App.",
     "popularPrograms": [
       {
-        "name": "B.Tech in Computer Science and Engineering",
+        "name": "B.S. Computer Science",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
-        "annualFee": 62484,
-        "seats": 180,
-        "entranceExam": "JEE Main / Advanced / State CET",
-        "eligibility": "10+2 with Physics, Chemistry, Math min. 60%",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Software Engineer, Full Stack Developer, Systems Architect"
+        "annualFee": 62484
       },
       {
-        "name": "B.Tech in Artificial Intelligence & Data Science",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 62484,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of AI & Data Science",
-        "careerScope": "AI/ML Engineer, Data Scientist, NLP Specialist"
-      },
-      {
-        "name": "B.Tech in Electronics & Communication Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 62484,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of ECE",
-        "careerScope": "VLSI Design Engineer, Embedded Firmware Developer, Network Architect"
-      },
-      {
-        "name": "B.Tech in Mechanical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 62484,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Thermal Systems Designer, CAD/CAM Specialist, Automation Engineer"
-      },
-      {
-        "name": "B.Tech in Civil & Environmental Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 62484,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Civil Engineering",
-        "careerScope": "Structural Engineer, Smart Infrastructure Planner, Geotechnical Analyst"
-      },
-      {
-        "name": "B.Tech in Electrical & Electronics Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 62484,
-        "seats": 100,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of EEE",
-        "careerScope": "Power Electronics Engineer, Renewable Energy Specialist, Grid Engineer"
-      },
-      {
-        "name": "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 62484,
-        "seats": 40,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 65%",
-        "department": "Department of CSE",
-        "careerScope": "R&D Engineer, Deep Tech Researcher, Cloud Solutions Architect"
-      },
-      {
-        "name": "M.Tech in Computer Science & Artificial Intelligence",
+        "name": "M.S. Computer Science / AI Track",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "2 Years",
-        "annualFee": 43739,
-        "seats": 40,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in CSE/IT or MCA with min. 55%",
-        "department": "Department of CSE",
-        "careerScope": "Principal AI Architect, Deep Learning Researcher"
-      },
-      {
-        "name": "M.Tech in VLSI Design & Embedded Systems",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 43739,
-        "seats": 30,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in ECE/EEE with min. 55%",
-        "department": "Department of ECE",
-        "careerScope": "ASIC Verification Lead, Semiconductor Hardware Designer"
-      },
-      {
-        "name": "M.Sc in Applied Mathematics & Computing",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 24994,
-        "seats": 30,
-        "entranceExam": "JAM / Entrance",
-        "eligibility": "B.Sc. with Mathematics / Statistics",
-        "department": "Department of Mathematics",
-        "careerScope": "Cryptographer, Operations Research Analyst, Quantitative Strategist"
-      },
-      {
-        "name": "MBA in Technology & Operations Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 74981,
-        "seats": 60,
-        "entranceExam": "CAT / MAT / CMAT",
-        "eligibility": "Graduation in any discipline with min. 50%",
-        "department": "Department of Management Studies",
-        "careerScope": "Product Manager, Operations Consultant, Supply Chain Director"
-      },
-      {
-        "name": "Ph.D. in Engineering & Computer Science",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 45000,
-        "seats": 20,
-        "entranceExam": "GATE / UGC-NET / Research Interview",
-        "eligibility": "M.Tech / M.E. in relevant discipline with min. 60%",
-        "department": "Doctoral Research Board",
-        "careerScope": "Research Scientist, University Professor, Lab Director"
+        "annualFee": 62484
       }
     ],
     "verifiedSource": "Stanford University Financial Aid Office Disclosures & BEAM Career Education Outcome Reports",
@@ -3138,18 +1389,10 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹85.0 LPA",
       "professorStudentRatio": "1:13",
       "academicPrograms": [
-        "B.Tech in Computer Science and Engineering",
-        "B.Tech in Artificial Intelligence & Data Science",
-        "B.Tech in Electronics & Communication Engineering",
-        "B.Tech in Mechanical Engineering",
-        "B.Tech in Civil & Environmental Engineering",
-        "B.Tech in Electrical & Electronics Engineering",
-        "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "M.Tech in Computer Science & Artificial Intelligence",
-        "M.Tech in VLSI Design & Embedded Systems",
-        "M.Sc in Applied Mathematics & Computing",
-        "MBA in Technology & Operations Management",
-        "Ph.D. in Engineering & Computer Science"
+        "B.E. Computer Science & Engineering",
+        "B.E. Information Technology",
+        "B.E. Electronics & Telecommunication",
+        "M.Tech Computer Science"
       ],
       "topRecruiters": [
         "Google",
@@ -3190,148 +1433,32 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Admissions to engineering programs are strictly based on WBJEE ranks. Arts and Science admissions via university admission tests and 10+2 board merit.",
     "popularPrograms": [
       {
-        "name": "B.Tech in Computer Science and Engineering",
+        "name": "B.E. Computer Science & Engineering",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 2400,
-        "seats": 180,
-        "entranceExam": "JEE Main / Advanced / State CET",
-        "eligibility": "10+2 with Physics, Chemistry, Math min. 60%",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Software Engineer, Full Stack Developer, Systems Architect"
+        "seats": 64
       },
       {
-        "name": "B.Tech in Artificial Intelligence & Data Science",
+        "name": "B.E. Information Technology",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 30000,
+        "seats": 60
+      },
+      {
+        "name": "B.E. Electronics & Telecommunication",
+        "degree": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 2400,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of AI & Data Science",
-        "careerScope": "AI/ML Engineer, Data Scientist, NLP Specialist"
+        "seats": 64
       },
       {
-        "name": "B.Tech in Electronics & Communication Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 2400,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of ECE",
-        "careerScope": "VLSI Design Engineer, Embedded Firmware Developer, Network Architect"
-      },
-      {
-        "name": "B.Tech in Mechanical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 2400,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Thermal Systems Designer, CAD/CAM Specialist, Automation Engineer"
-      },
-      {
-        "name": "B.Tech in Civil & Environmental Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 2400,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Civil Engineering",
-        "careerScope": "Structural Engineer, Smart Infrastructure Planner, Geotechnical Analyst"
-      },
-      {
-        "name": "B.Tech in Electrical & Electronics Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 2400,
-        "seats": 100,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of EEE",
-        "careerScope": "Power Electronics Engineer, Renewable Energy Specialist, Grid Engineer"
-      },
-      {
-        "name": "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 2400,
-        "seats": 40,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 65%",
-        "department": "Department of CSE",
-        "careerScope": "R&D Engineer, Deep Tech Researcher, Cloud Solutions Architect"
-      },
-      {
-        "name": "M.Tech in Computer Science & Artificial Intelligence",
+        "name": "M.Tech Computer Science",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "2 Years",
-        "annualFee": 1680,
-        "seats": 40,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in CSE/IT or MCA with min. 55%",
-        "department": "Department of CSE",
-        "careerScope": "Principal AI Architect, Deep Learning Researcher"
-      },
-      {
-        "name": "M.Tech in VLSI Design & Embedded Systems",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 1680,
-        "seats": 30,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in ECE/EEE with min. 55%",
-        "department": "Department of ECE",
-        "careerScope": "ASIC Verification Lead, Semiconductor Hardware Designer"
-      },
-      {
-        "name": "M.Sc in Applied Mathematics & Computing",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 960,
-        "seats": 30,
-        "entranceExam": "JAM / Entrance",
-        "eligibility": "B.Sc. with Mathematics / Statistics",
-        "department": "Department of Mathematics",
-        "careerScope": "Cryptographer, Operations Research Analyst, Quantitative Strategist"
-      },
-      {
-        "name": "MBA in Technology & Operations Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 2880,
-        "seats": 60,
-        "entranceExam": "CAT / MAT / CMAT",
-        "eligibility": "Graduation in any discipline with min. 50%",
-        "department": "Department of Management Studies",
-        "careerScope": "Product Manager, Operations Consultant, Supply Chain Director"
-      },
-      {
-        "name": "Ph.D. in Engineering & Computer Science",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 45000,
-        "seats": 20,
-        "entranceExam": "GATE / UGC-NET / Research Interview",
-        "eligibility": "M.Tech / M.E. in relevant discipline with min. 60%",
-        "department": "Doctoral Research Board",
-        "careerScope": "Research Scientist, University Professor, Lab Director"
+        "annualFee": 4800,
+        "seats": 30
       }
     ],
     "verifiedSource": "NIRF 2024 Engineering Audited Report (IR-E-U-0570) & JU Placement Office Official Circular",
@@ -3360,18 +1487,9 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹2.68 CPA",
       "professorStudentRatio": "1:12",
       "academicPrograms": [
-        "B.Tech in Computer Science and Engineering",
-        "B.Tech in Artificial Intelligence & Data Science",
-        "B.Tech in Electronics & Communication Engineering",
-        "B.Tech in Mechanical Engineering",
-        "B.Tech in Civil & Environmental Engineering",
-        "B.Tech in Electrical & Electronics Engineering",
-        "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "M.Tech in Computer Science & Artificial Intelligence",
-        "M.Tech in VLSI Design & Embedded Systems",
-        "M.Sc in Applied Mathematics & Computing",
-        "MBA in Technology & Operations Management",
-        "Ph.D. in Engineering & Computer Science"
+        "B.Tech Computer Science & Engineering",
+        "B.Tech Electronics & Electrical Communication",
+        "M.Tech Artificial Intelligence"
       ],
       "topRecruiters": [
         "Apple",
@@ -3412,148 +1530,25 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Admission to B.Tech/Dual Degree via JEE Advanced. Admission to M.Tech via GATE score.",
     "popularPrograms": [
       {
-        "name": "B.Tech in Computer Science and Engineering",
+        "name": "B.Tech Computer Science & Engineering",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 224000,
-        "seats": 180,
-        "entranceExam": "JEE Main / Advanced / State CET",
-        "eligibility": "10+2 with Physics, Chemistry, Math min. 60%",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Software Engineer, Full Stack Developer, Systems Architect"
+        "seats": 80
       },
       {
-        "name": "B.Tech in Artificial Intelligence & Data Science",
+        "name": "B.Tech Electronics & Electrical Communication",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 224000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of AI & Data Science",
-        "careerScope": "AI/ML Engineer, Data Scientist, NLP Specialist"
+        "seats": 90
       },
       {
-        "name": "B.Tech in Electronics & Communication Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 224000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of ECE",
-        "careerScope": "VLSI Design Engineer, Embedded Firmware Developer, Network Architect"
-      },
-      {
-        "name": "B.Tech in Mechanical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 224000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Thermal Systems Designer, CAD/CAM Specialist, Automation Engineer"
-      },
-      {
-        "name": "B.Tech in Civil & Environmental Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 224000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Civil Engineering",
-        "careerScope": "Structural Engineer, Smart Infrastructure Planner, Geotechnical Analyst"
-      },
-      {
-        "name": "B.Tech in Electrical & Electronics Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 224000,
-        "seats": 100,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of EEE",
-        "careerScope": "Power Electronics Engineer, Renewable Energy Specialist, Grid Engineer"
-      },
-      {
-        "name": "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 224000,
-        "seats": 40,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 65%",
-        "department": "Department of CSE",
-        "careerScope": "R&D Engineer, Deep Tech Researcher, Cloud Solutions Architect"
-      },
-      {
-        "name": "M.Tech in Computer Science & Artificial Intelligence",
+        "name": "M.Tech Artificial Intelligence",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "2 Years",
-        "annualFee": 156800,
-        "seats": 40,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in CSE/IT or MCA with min. 55%",
-        "department": "Department of CSE",
-        "careerScope": "Principal AI Architect, Deep Learning Researcher"
-      },
-      {
-        "name": "M.Tech in VLSI Design & Embedded Systems",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 156800,
-        "seats": 30,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in ECE/EEE with min. 55%",
-        "department": "Department of ECE",
-        "careerScope": "ASIC Verification Lead, Semiconductor Hardware Designer"
-      },
-      {
-        "name": "M.Sc in Applied Mathematics & Computing",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 89600,
-        "seats": 30,
-        "entranceExam": "JAM / Entrance",
-        "eligibility": "B.Sc. with Mathematics / Statistics",
-        "department": "Department of Mathematics",
-        "careerScope": "Cryptographer, Operations Research Analyst, Quantitative Strategist"
-      },
-      {
-        "name": "MBA in Technology & Operations Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 268800,
-        "seats": 60,
-        "entranceExam": "CAT / MAT / CMAT",
-        "eligibility": "Graduation in any discipline with min. 50%",
-        "department": "Department of Management Studies",
-        "careerScope": "Product Manager, Operations Consultant, Supply Chain Director"
-      },
-      {
-        "name": "Ph.D. in Engineering & Computer Science",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 45000,
-        "seats": 20,
-        "entranceExam": "GATE / UGC-NET / Research Interview",
-        "eligibility": "M.Tech / M.E. in relevant discipline with min. 60%",
-        "department": "Doctoral Research Board",
-        "careerScope": "Research Scientist, University Professor, Lab Director"
+        "annualFee": 50000,
+        "seats": 40
       }
     ],
     "verifiedSource": "NIRF 2024 Engineering Audited Report (IR-E-U-0573) & IIT KGP Career Development Centre (CDC)",
@@ -3582,18 +1577,8 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹52.8 LPA",
       "professorStudentRatio": "1:13",
       "academicPrograms": [
-        "B.Tech in Computer Science and Engineering",
-        "B.Tech in Artificial Intelligence & Data Science",
-        "B.Tech in Electronics & Communication Engineering",
-        "B.Tech in Mechanical Engineering",
-        "B.Tech in Civil & Environmental Engineering",
-        "B.Tech in Electrical & Electronics Engineering",
-        "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "M.Tech in Computer Science & Artificial Intelligence",
-        "M.Tech in VLSI Design & Embedded Systems",
-        "M.Sc in Applied Mathematics & Computing",
-        "MBA in Technology & Operations Management",
-        "Ph.D. in Engineering & Computer Science"
+        "B.Tech Computer Science and Engineering",
+        "B.Tech Electronics & Communication"
       ],
       "topRecruiters": [
         "Microsoft",
@@ -3632,148 +1617,18 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "B.Tech admission through JEE Main via JoSAA and CSAB counseling.",
     "popularPrograms": [
       {
-        "name": "B.Tech in Computer Science and Engineering",
+        "name": "B.Tech Computer Science and Engineering",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 178000,
-        "seats": 180,
-        "entranceExam": "JEE Main / Advanced / State CET",
-        "eligibility": "10+2 with Physics, Chemistry, Math min. 60%",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Software Engineer, Full Stack Developer, Systems Architect"
+        "seats": 119
       },
       {
-        "name": "B.Tech in Artificial Intelligence & Data Science",
+        "name": "B.Tech Electronics & Communication",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 178000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of AI & Data Science",
-        "careerScope": "AI/ML Engineer, Data Scientist, NLP Specialist"
-      },
-      {
-        "name": "B.Tech in Electronics & Communication Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 178000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of ECE",
-        "careerScope": "VLSI Design Engineer, Embedded Firmware Developer, Network Architect"
-      },
-      {
-        "name": "B.Tech in Mechanical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 178000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Thermal Systems Designer, CAD/CAM Specialist, Automation Engineer"
-      },
-      {
-        "name": "B.Tech in Civil & Environmental Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 178000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Civil Engineering",
-        "careerScope": "Structural Engineer, Smart Infrastructure Planner, Geotechnical Analyst"
-      },
-      {
-        "name": "B.Tech in Electrical & Electronics Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 178000,
-        "seats": 100,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of EEE",
-        "careerScope": "Power Electronics Engineer, Renewable Energy Specialist, Grid Engineer"
-      },
-      {
-        "name": "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 178000,
-        "seats": 40,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 65%",
-        "department": "Department of CSE",
-        "careerScope": "R&D Engineer, Deep Tech Researcher, Cloud Solutions Architect"
-      },
-      {
-        "name": "M.Tech in Computer Science & Artificial Intelligence",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 124600,
-        "seats": 40,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in CSE/IT or MCA with min. 55%",
-        "department": "Department of CSE",
-        "careerScope": "Principal AI Architect, Deep Learning Researcher"
-      },
-      {
-        "name": "M.Tech in VLSI Design & Embedded Systems",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 124600,
-        "seats": 30,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in ECE/EEE with min. 55%",
-        "department": "Department of ECE",
-        "careerScope": "ASIC Verification Lead, Semiconductor Hardware Designer"
-      },
-      {
-        "name": "M.Sc in Applied Mathematics & Computing",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 71200,
-        "seats": 30,
-        "entranceExam": "JAM / Entrance",
-        "eligibility": "B.Sc. with Mathematics / Statistics",
-        "department": "Department of Mathematics",
-        "careerScope": "Cryptographer, Operations Research Analyst, Quantitative Strategist"
-      },
-      {
-        "name": "MBA in Technology & Operations Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 213600,
-        "seats": 60,
-        "entranceExam": "CAT / MAT / CMAT",
-        "eligibility": "Graduation in any discipline with min. 50%",
-        "department": "Department of Management Studies",
-        "careerScope": "Product Manager, Operations Consultant, Supply Chain Director"
-      },
-      {
-        "name": "Ph.D. in Engineering & Computer Science",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 45000,
-        "seats": 20,
-        "entranceExam": "GATE / UGC-NET / Research Interview",
-        "eligibility": "M.Tech / M.E. in relevant discipline with min. 60%",
-        "department": "Doctoral Research Board",
-        "careerScope": "Research Scientist, University Professor, Lab Director"
+        "seats": 118
       }
     ],
     "verifiedSource": "NIRF 2024 Engineering Report (IR-E-U-0473) & NIT Trichy Department of Training and Placement",
@@ -3802,18 +1657,7 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹54.5 LPA",
       "professorStudentRatio": "1:13",
       "academicPrograms": [
-        "B.Tech in Computer Science and Engineering",
-        "B.Tech in Artificial Intelligence & Data Science",
-        "B.Tech in Electronics & Communication Engineering",
-        "B.Tech in Mechanical Engineering",
-        "B.Tech in Civil & Environmental Engineering",
-        "B.Tech in Electrical & Electronics Engineering",
-        "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "M.Tech in Computer Science & Artificial Intelligence",
-        "M.Tech in VLSI Design & Embedded Systems",
-        "M.Sc in Applied Mathematics & Computing",
-        "MBA in Technology & Operations Management",
-        "Ph.D. in Engineering & Computer Science"
+        "B.Tech Computer Science and Engineering"
       ],
       "topRecruiters": [
         "Google",
@@ -3851,148 +1695,11 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Admission via JEE Main followed by JoSAA/CSAB Seat Allocation.",
     "popularPrograms": [
       {
-        "name": "B.Tech in Computer Science and Engineering",
+        "name": "B.Tech Computer Science and Engineering",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 182000,
-        "seats": 180,
-        "entranceExam": "JEE Main / Advanced / State CET",
-        "eligibility": "10+2 with Physics, Chemistry, Math min. 60%",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Software Engineer, Full Stack Developer, Systems Architect"
-      },
-      {
-        "name": "B.Tech in Artificial Intelligence & Data Science",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 182000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of AI & Data Science",
-        "careerScope": "AI/ML Engineer, Data Scientist, NLP Specialist"
-      },
-      {
-        "name": "B.Tech in Electronics & Communication Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 182000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of ECE",
-        "careerScope": "VLSI Design Engineer, Embedded Firmware Developer, Network Architect"
-      },
-      {
-        "name": "B.Tech in Mechanical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 182000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Thermal Systems Designer, CAD/CAM Specialist, Automation Engineer"
-      },
-      {
-        "name": "B.Tech in Civil & Environmental Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 182000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Civil Engineering",
-        "careerScope": "Structural Engineer, Smart Infrastructure Planner, Geotechnical Analyst"
-      },
-      {
-        "name": "B.Tech in Electrical & Electronics Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 182000,
-        "seats": 100,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of EEE",
-        "careerScope": "Power Electronics Engineer, Renewable Energy Specialist, Grid Engineer"
-      },
-      {
-        "name": "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 182000,
-        "seats": 40,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 65%",
-        "department": "Department of CSE",
-        "careerScope": "R&D Engineer, Deep Tech Researcher, Cloud Solutions Architect"
-      },
-      {
-        "name": "M.Tech in Computer Science & Artificial Intelligence",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 127400,
-        "seats": 40,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in CSE/IT or MCA with min. 55%",
-        "department": "Department of CSE",
-        "careerScope": "Principal AI Architect, Deep Learning Researcher"
-      },
-      {
-        "name": "M.Tech in VLSI Design & Embedded Systems",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 127400,
-        "seats": 30,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in ECE/EEE with min. 55%",
-        "department": "Department of ECE",
-        "careerScope": "ASIC Verification Lead, Semiconductor Hardware Designer"
-      },
-      {
-        "name": "M.Sc in Applied Mathematics & Computing",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 72800,
-        "seats": 30,
-        "entranceExam": "JAM / Entrance",
-        "eligibility": "B.Sc. with Mathematics / Statistics",
-        "department": "Department of Mathematics",
-        "careerScope": "Cryptographer, Operations Research Analyst, Quantitative Strategist"
-      },
-      {
-        "name": "MBA in Technology & Operations Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 218400,
-        "seats": 60,
-        "entranceExam": "CAT / MAT / CMAT",
-        "eligibility": "Graduation in any discipline with min. 50%",
-        "department": "Department of Management Studies",
-        "careerScope": "Product Manager, Operations Consultant, Supply Chain Director"
-      },
-      {
-        "name": "Ph.D. in Engineering & Computer Science",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 45000,
-        "seats": 20,
-        "entranceExam": "GATE / UGC-NET / Research Interview",
-        "eligibility": "M.Tech / M.E. in relevant discipline with min. 60%",
-        "department": "Doctoral Research Board",
-        "careerScope": "Research Scientist, University Professor, Lab Director"
+        "seats": 115
       }
     ],
     "verifiedSource": "NIRF 2024 Engineering Audited Disclosure & NITK Career Development Centre",
@@ -4021,18 +1728,8 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "$240,000 / year",
       "professorStudentRatio": "1:13",
       "academicPrograms": [
-        "B.Tech in Computer Science and Engineering",
-        "B.Tech in Artificial Intelligence & Data Science",
-        "B.Tech in Electronics & Communication Engineering",
-        "B.Tech in Mechanical Engineering",
-        "B.Tech in Civil & Environmental Engineering",
-        "B.Tech in Electrical & Electronics Engineering",
-        "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "M.Tech in Computer Science & Artificial Intelligence",
-        "M.Tech in VLSI Design & Embedded Systems",
-        "M.Sc in Applied Mathematics & Computing",
-        "MBA in Technology & Operations Management",
-        "Ph.D. in Engineering & Computer Science"
+        "B.S. Aeronautical and Astronautical Engineering",
+        "B.S. Computer Science"
       ],
       "topRecruiters": [
         "Boeing",
@@ -4071,148 +1768,18 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Undergraduate application through Common App with SAT/ACT scores and high school transcript.",
     "popularPrograms": [
       {
-        "name": "B.Tech in Computer Science and Engineering",
+        "name": "B.S. Aeronautical and Astronautical Engineering",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 28794,
-        "seats": 180,
-        "entranceExam": "JEE Main / Advanced / State CET",
-        "eligibility": "10+2 with Physics, Chemistry, Math min. 60%",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Software Engineer, Full Stack Developer, Systems Architect"
+        "seats": 250
       },
       {
-        "name": "B.Tech in Artificial Intelligence & Data Science",
+        "name": "B.S. Computer Science",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 28794,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of AI & Data Science",
-        "careerScope": "AI/ML Engineer, Data Scientist, NLP Specialist"
-      },
-      {
-        "name": "B.Tech in Electronics & Communication Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 28794,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of ECE",
-        "careerScope": "VLSI Design Engineer, Embedded Firmware Developer, Network Architect"
-      },
-      {
-        "name": "B.Tech in Mechanical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 28794,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Thermal Systems Designer, CAD/CAM Specialist, Automation Engineer"
-      },
-      {
-        "name": "B.Tech in Civil & Environmental Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 28794,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Civil Engineering",
-        "careerScope": "Structural Engineer, Smart Infrastructure Planner, Geotechnical Analyst"
-      },
-      {
-        "name": "B.Tech in Electrical & Electronics Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 28794,
-        "seats": 100,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of EEE",
-        "careerScope": "Power Electronics Engineer, Renewable Energy Specialist, Grid Engineer"
-      },
-      {
-        "name": "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 28794,
-        "seats": 40,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 65%",
-        "department": "Department of CSE",
-        "careerScope": "R&D Engineer, Deep Tech Researcher, Cloud Solutions Architect"
-      },
-      {
-        "name": "M.Tech in Computer Science & Artificial Intelligence",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 20156,
-        "seats": 40,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in CSE/IT or MCA with min. 55%",
-        "department": "Department of CSE",
-        "careerScope": "Principal AI Architect, Deep Learning Researcher"
-      },
-      {
-        "name": "M.Tech in VLSI Design & Embedded Systems",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 20156,
-        "seats": 30,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in ECE/EEE with min. 55%",
-        "department": "Department of ECE",
-        "careerScope": "ASIC Verification Lead, Semiconductor Hardware Designer"
-      },
-      {
-        "name": "M.Sc in Applied Mathematics & Computing",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 11518,
-        "seats": 30,
-        "entranceExam": "JAM / Entrance",
-        "eligibility": "B.Sc. with Mathematics / Statistics",
-        "department": "Department of Mathematics",
-        "careerScope": "Cryptographer, Operations Research Analyst, Quantitative Strategist"
-      },
-      {
-        "name": "MBA in Technology & Operations Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 34553,
-        "seats": 60,
-        "entranceExam": "CAT / MAT / CMAT",
-        "eligibility": "Graduation in any discipline with min. 50%",
-        "department": "Department of Management Studies",
-        "careerScope": "Product Manager, Operations Consultant, Supply Chain Director"
-      },
-      {
-        "name": "Ph.D. in Engineering & Computer Science",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 45000,
-        "seats": 20,
-        "entranceExam": "GATE / UGC-NET / Research Interview",
-        "eligibility": "M.Tech / M.E. in relevant discipline with min. 60%",
-        "department": "Doctoral Research Board",
-        "careerScope": "Research Scientist, University Professor, Lab Director"
+        "seats": 380
       }
     ],
     "verifiedSource": "Purdue CCO (Center for Career Opportunities) Annual Employment Report & Office of the Bursar Official Tuition Schedule",
@@ -4241,18 +1808,7 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹1.02 CPA",
       "professorStudentRatio": "1:11",
       "academicPrograms": [
-        "B.Tech in Computer Science and Engineering",
-        "B.Tech in Artificial Intelligence & Data Science",
-        "B.Tech in Electronics & Communication Engineering",
-        "B.Tech in Mechanical Engineering",
-        "B.Tech in Civil & Environmental Engineering",
-        "B.Tech in Electrical & Electronics Engineering",
-        "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "M.Tech in Computer Science & Artificial Intelligence",
-        "M.Tech in VLSI Design & Embedded Systems",
-        "M.Sc in Applied Mathematics & Computing",
-        "MBA in Technology & Operations Management",
-        "Ph.D. in Engineering & Computer Science"
+        "B.Tech Computer Science and Engineering"
       ],
       "topRecruiters": [
         "Google",
@@ -4291,148 +1847,11 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "JEE Main (via direct IIITH Portal, 99.8+ percentile typical for CSE), UGEE, or Olympiad mode.",
     "popularPrograms": [
       {
-        "name": "B.Tech in Computer Science and Engineering",
+        "name": "B.Tech Computer Science and Engineering",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 380000,
-        "seats": 180,
-        "entranceExam": "JEE Main / Advanced / State CET",
-        "eligibility": "10+2 with Physics, Chemistry, Math min. 60%",
-        "department": "Department of Computer Science & Engineering",
-        "careerScope": "Software Engineer, Full Stack Developer, Systems Architect"
-      },
-      {
-        "name": "B.Tech in Artificial Intelligence & Data Science",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 380000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of AI & Data Science",
-        "careerScope": "AI/ML Engineer, Data Scientist, NLP Specialist"
-      },
-      {
-        "name": "B.Tech in Electronics & Communication Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 380000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of ECE",
-        "careerScope": "VLSI Design Engineer, Embedded Firmware Developer, Network Architect"
-      },
-      {
-        "name": "B.Tech in Mechanical Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 380000,
-        "seats": 120,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Mechanical Engineering",
-        "careerScope": "Thermal Systems Designer, CAD/CAM Specialist, Automation Engineer"
-      },
-      {
-        "name": "B.Tech in Civil & Environmental Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 380000,
-        "seats": 90,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of Civil Engineering",
-        "careerScope": "Structural Engineer, Smart Infrastructure Planner, Geotechnical Analyst"
-      },
-      {
-        "name": "B.Tech in Electrical & Electronics Engineering",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "4 Years",
-        "annualFee": 380000,
-        "seats": 100,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 60%",
-        "department": "Department of EEE",
-        "careerScope": "Power Electronics Engineer, Renewable Energy Specialist, Grid Engineer"
-      },
-      {
-        "name": "Integrated Dual Degree (B.Tech + M.Tech Computer Science)",
-        "degree": "Integrated Degree",
-        "level": "Integrated Degree",
-        "duration": "5 Years",
-        "annualFee": 380000,
-        "seats": 40,
-        "entranceExam": "JEE / Entrance",
-        "eligibility": "10+2 with PCM min. 65%",
-        "department": "Department of CSE",
-        "careerScope": "R&D Engineer, Deep Tech Researcher, Cloud Solutions Architect"
-      },
-      {
-        "name": "M.Tech in Computer Science & Artificial Intelligence",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 266000,
-        "seats": 40,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in CSE/IT or MCA with min. 55%",
-        "department": "Department of CSE",
-        "careerScope": "Principal AI Architect, Deep Learning Researcher"
-      },
-      {
-        "name": "M.Tech in VLSI Design & Embedded Systems",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 266000,
-        "seats": 30,
-        "entranceExam": "GATE",
-        "eligibility": "B.Tech in ECE/EEE with min. 55%",
-        "department": "Department of ECE",
-        "careerScope": "ASIC Verification Lead, Semiconductor Hardware Designer"
-      },
-      {
-        "name": "M.Sc in Applied Mathematics & Computing",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 152000,
-        "seats": 30,
-        "entranceExam": "JAM / Entrance",
-        "eligibility": "B.Sc. with Mathematics / Statistics",
-        "department": "Department of Mathematics",
-        "careerScope": "Cryptographer, Operations Research Analyst, Quantitative Strategist"
-      },
-      {
-        "name": "MBA in Technology & Operations Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 456000,
-        "seats": 60,
-        "entranceExam": "CAT / MAT / CMAT",
-        "eligibility": "Graduation in any discipline with min. 50%",
-        "department": "Department of Management Studies",
-        "careerScope": "Product Manager, Operations Consultant, Supply Chain Director"
-      },
-      {
-        "name": "Ph.D. in Engineering & Computer Science",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 45000,
-        "seats": 20,
-        "entranceExam": "GATE / UGC-NET / Research Interview",
-        "eligibility": "M.Tech / M.E. in relevant discipline with min. 60%",
-        "department": "Doctoral Research Board",
-        "careerScope": "Research Scientist, University Professor, Lab Director"
+        "seats": 150
       }
     ],
     "verifiedSource": "IIIT Hyderabad Placement Office Official 2024 Audit & Academic Council Fee Resolution",
@@ -4459,12 +1878,9 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹74.84 LPA",
       "professorStudentRatio": "Varies by Dept & Program (UGC ~1:15-1:20)",
       "academicPrograms": [
-        "Master of Business Administration (MBA)",
-        "MBA in Financial Management",
-        "MBA in Marketing & Digital Strategy",
-        "Executive MBA for Working Professionals",
-        "BBA (Bachelor of Business Administration)",
-        "Ph.D. in Management Studies"
+        "Master of Business Administration (MBA - Flagship)",
+        "MBA (Innovation & Entrepreneurship)",
+        "MBA (Leadership and Strategy)"
       ],
       "topRecruiters": [
         "Accenture Strategy",
@@ -4510,76 +1926,25 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "feeRange": "₹13,10,000 / year (₹26,20,000 Total Flagship 2-Year MBA)",
     "popularPrograms": [
       {
-        "name": "Master of Business Administration (MBA)",
+        "name": "Master of Business Administration (MBA - Flagship)",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "2 Years",
-        "annualFee": 450000,
-        "seats": 180,
-        "entranceExam": "CAT / XAT / CMAT",
-        "eligibility": "Bachelor degree with min. 50%",
-        "department": "School of Management",
-        "careerScope": "Management Consultant, Strategy Director, Business Analyst"
+        "annualFee": 1310000,
+        "seats": 180
       },
       {
-        "name": "MBA in Financial Management",
+        "name": "MBA (Innovation & Entrepreneurship)",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "2 Years",
-        "annualFee": 450000,
-        "seats": 60,
-        "entranceExam": "CAT / XAT",
-        "eligibility": "Bachelor degree with min. 50%",
-        "department": "Department of Finance",
-        "careerScope": "Investment Banker, Equity Analyst, Portfolio Manager"
+        "annualFee": 1050000,
+        "seats": 60
       },
       {
-        "name": "MBA in Marketing & Digital Strategy",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
+        "name": "MBA (Leadership and Strategy)",
+        "degree": "Executive Postgraduate",
         "duration": "2 Years",
-        "annualFee": 450000,
-        "seats": 60,
-        "entranceExam": "CAT / XAT",
-        "eligibility": "Bachelor degree with min. 50%",
-        "department": "Department of Marketing",
-        "careerScope": "Brand Manager, Chief Marketing Officer, Product Strategist"
-      },
-      {
-        "name": "Executive MBA for Working Professionals",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "1 Year",
-        "annualFee": 585000,
-        "seats": 50,
-        "entranceExam": "GMAT / Executive Exam",
-        "eligibility": "Graduation with min. 3 yrs experience",
-        "department": "Executive Education",
-        "careerScope": "Director of Operations, Enterprise Growth Lead"
-      },
-      {
-        "name": "BBA (Bachelor of Business Administration)",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "3 Years",
-        "annualFee": 270000,
-        "seats": 120,
-        "entranceExam": "CUET / Institute Exam",
-        "eligibility": "10+2 in any stream (min. 50%)",
-        "department": "Undergraduate Studies",
-        "careerScope": "Business Operations Analyst, Account Manager"
-      },
-      {
-        "name": "Ph.D. in Management Studies",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 60000,
-        "seats": 15,
-        "entranceExam": "UGC-NET / Institute Entrance",
-        "eligibility": "Master in Business / Allied with 55%",
-        "department": "Research Committee",
-        "careerScope": "Business School Faculty, Senior Economic Consultant"
+        "annualFee": 1100000,
+        "seats": 40
       }
     ],
     "verifiedSource": "SIBM Pune Placement Report 2024-26 & Symbiosis International Audited Fee Circular",
@@ -4608,19 +1973,12 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹28.0 LPA",
       "professorStudentRatio": "1:14",
       "academicPrograms": [
-        "B.A. LL.B. (Hons.) - Five-Year Integrated Law",
-        "B.Com. LL.B. (Hons.) - Five-Year Integrated Law",
-        "B.B.A. LL.B. (Hons.) - Five-Year Integrated Business Law",
-        "B.Sc. LL.B. (Hons.) - Science, Technology & Law",
-        "B.S.W. LL.B. (Hons.) - Social Work & Law",
-        "LL.M. in Corporate and Commercial Law",
-        "LL.M. in Intellectual Property Laws",
-        "LL.M. in International and Comparative Law",
-        "LL.M. in Constitutional and Administrative Law",
-        "Ph.D. in Law and Interdisciplinary Legal Studies",
-        "PG Diploma in Cyber Law & Information Technology",
-        "PG Diploma in Alternative Dispute Resolution (ADR)",
-        "PG Diploma in Securities and Financial Laws"
+        "B.A. LL.B. (Hons.)",
+        "B.Com. LL.B. (Hons.)",
+        "B.B.A. LL.B. (Hons.)",
+        "LL.M. in Corporate & Commercial Law",
+        "LL.M. in Intellectual Property Rights",
+        "Ph.D. in Legal Studies"
       ],
       "topRecruiters": [
         "Shardul Amarchand Mangaldas",
@@ -4661,160 +2019,46 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Undergraduate and Postgraduate law admissions are conducted strictly through the all-India Common Law Admission Test (CLAT).",
     "popularPrograms": [
       {
-        "name": "B.A. LL.B. (Hons.) - Five-Year Integrated Law",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
+        "name": "B.A. LL.B. (Hons.)",
+        "degree": "Undergraduate Integrated",
         "duration": "5 Years",
-        "annualFee": 240000,
-        "seats": 180,
-        "entranceExam": "CLAT-UG",
-        "eligibility": "10+2 with min. 45% marks (40% for SC/ST)",
-        "department": "Faculty of Law & Humanities",
-        "careerScope": "Corporate Lawyer, Litigation Advocate, Civil Services, Judicial Magistrate"
+        "annualFee": 260000,
+        "seats": 180
       },
       {
-        "name": "B.Com. LL.B. (Hons.) - Five-Year Integrated Law",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
+        "name": "B.Com. LL.B. (Hons.)",
+        "degree": "Undergraduate Integrated",
         "duration": "5 Years",
-        "annualFee": 240000,
-        "seats": 60,
-        "entranceExam": "CLAT-UG",
-        "eligibility": "10+2 with Commerce / Math with min. 45% marks",
-        "department": "Faculty of Commercial Law",
-        "careerScope": "Corporate Legal Counsel, Banking Lawyer, M&A Specialist"
+        "annualFee": 260000,
+        "seats": 60
       },
       {
-        "name": "B.B.A. LL.B. (Hons.) - Five-Year Integrated Business Law",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
+        "name": "B.B.A. LL.B. (Hons.)",
+        "degree": "Undergraduate Integrated",
         "duration": "5 Years",
-        "annualFee": 240000,
-        "seats": 60,
-        "entranceExam": "CLAT-UG",
-        "eligibility": "10+2 in any stream with min. 45% marks",
-        "department": "Faculty of Management & Law",
-        "careerScope": "Business Law Consultant, In-house Legal Counsel, Investment Banker"
+        "annualFee": 260000,
+        "seats": 60
       },
       {
-        "name": "B.Sc. LL.B. (Hons.) - Science, Technology & Law",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "5 Years",
-        "annualFee": 240000,
-        "seats": 40,
-        "entranceExam": "CLAT-UG",
-        "eligibility": "10+2 with Science stream min. 45% marks",
-        "department": "Faculty of Science & Technology Law",
-        "careerScope": "Patent Attorney, Techno-Legal Specialist, IP Litigator"
-      },
-      {
-        "name": "B.S.W. LL.B. (Hons.) - Social Work & Law",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "5 Years",
-        "annualFee": 240000,
-        "seats": 40,
-        "entranceExam": "CLAT-UG",
-        "eligibility": "10+2 in any stream with min. 45% marks",
-        "department": "Faculty of Social Justice & Human Rights",
-        "careerScope": "Human Rights Advocate, Public Policy Analyst, NGO Legal Lead"
-      },
-      {
-        "name": "LL.M. in Corporate and Commercial Law",
+        "name": "LL.M. in Corporate & Commercial Law",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "1 Year",
-        "annualFee": 180000,
-        "seats": 50,
-        "entranceExam": "CLAT-PG",
-        "eligibility": "LL.B. degree with min. 50% marks",
-        "department": "Department of Postgraduate Legal Studies",
-        "careerScope": "Senior Corporate Associate, Securities Lawyer, General Counsel"
+        "annualFee": 220000,
+        "seats": 60
       },
       {
-        "name": "LL.M. in Intellectual Property Laws",
+        "name": "LL.M. in Intellectual Property Rights",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "1 Year",
-        "annualFee": 180000,
-        "seats": 30,
-        "entranceExam": "CLAT-PG",
-        "eligibility": "LL.B. degree with min. 50% marks",
-        "department": "Department of IP & Technology Law",
-        "careerScope": "IP Consultant, Trademark & Patent Counsel, Media Rights Lawyer"
+        "annualFee": 220000,
+        "seats": 40
       },
       {
-        "name": "LL.M. in International and Comparative Law",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "1 Year",
-        "annualFee": 180000,
-        "seats": 30,
-        "entranceExam": "CLAT-PG",
-        "eligibility": "LL.B. degree with min. 50% marks",
-        "department": "Department of Public International Law",
-        "careerScope": "International Arbitrator, Diplomatic Legal Advisor, UN Legal Officer"
-      },
-      {
-        "name": "LL.M. in Constitutional and Administrative Law",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "1 Year",
-        "annualFee": 180000,
-        "seats": 30,
-        "entranceExam": "CLAT-PG",
-        "eligibility": "LL.B. degree with min. 50% marks",
-        "department": "Department of Public Law",
-        "careerScope": "Constitutional Law Advocate, Judicial Officer, Legal Academician"
-      },
-      {
-        "name": "Ph.D. in Law and Interdisciplinary Legal Studies",
+        "name": "Ph.D. in Legal Studies",
         "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 70000,
-        "seats": 25,
-        "entranceExam": "GNLU Ph.D. Entrance / NET-JRF",
-        "eligibility": "LL.M. degree with min. 55% marks",
-        "department": "Doctoral Research Committee",
-        "careerScope": "Law Professor, Legal Policy Advisor, Think Tank Senior Fellow"
-      },
-      {
-        "name": "PG Diploma in Cyber Law & Information Technology",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
-        "duration": "1 Year",
-        "annualFee": 60000,
-        "seats": 45,
-        "entranceExam": "Merit / Interview",
-        "eligibility": "Graduate in any discipline (Law, IT, Science, Commerce)",
-        "department": "GNLU Centre for Cyber Law",
-        "careerScope": "Data Protection Officer, IT Contract Negotiator, Compliance Officer"
-      },
-      {
-        "name": "PG Diploma in Alternative Dispute Resolution (ADR)",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
-        "duration": "1 Year",
-        "annualFee": 65000,
-        "seats": 40,
-        "entranceExam": "Merit / Interview",
-        "eligibility": "Graduate in Law or allied disciplines",
-        "department": "GNLU Centre for Arbitration",
-        "careerScope": "Certified Arbitrator, Commercial Mediator, Dispute Resolution Specialist"
-      },
-      {
-        "name": "PG Diploma in Securities and Financial Laws",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
-        "duration": "1 Year",
-        "annualFee": 70000,
-        "seats": 35,
-        "entranceExam": "Merit / Interview",
-        "eligibility": "Graduate in Law, Commerce, CA, CS or Management",
-        "department": "GNLU Centre for Financial Markets",
-        "careerScope": "SEBI Compliance Manager, Capital Markets Legal Analyst, Investment Advisor"
+        "duration": "3 Years",
+        "annualFee": 150000,
+        "seats": 25
       }
     ],
     "verifiedSource": "NIRF Law 2024 Audit & GNLU Official Academic Gazette",
@@ -4843,13 +2087,11 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹49.0 LPA",
       "professorStudentRatio": "1:15",
       "academicPrograms": [
-        "B.Com. (Honours)",
-        "B.A. (Honours) Economics",
-        "B.A. (Honours) Psychology",
-        "Bachelor of Management Studies (BMS)",
-        "M.Com. (Master of Commerce)",
-        "M.A. in Economics",
-        "Ph.D. in Commerce and Finance"
+        "B.A. (Hons.) Psychology",
+        "B.A. (Hons.) Economics",
+        "B.Com. (Hons.) Accounting & Finance",
+        "B.A. (Hons.) Journalism & Mass Communication",
+        "M.A. Applied Psychology"
       ],
       "topRecruiters": [
         "McKinsey & Company",
@@ -4887,88 +2129,39 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Admissions strictly governed by CUET-UG (Common University Entrance Test) administered by National Testing Agency (NTA).",
     "popularPrograms": [
       {
-        "name": "B.Com. (Honours)",
+        "name": "B.A. (Hons.) Psychology",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
         "annualFee": 24000,
-        "seats": 300,
-        "entranceExam": "CUET-UG / Merit",
-        "eligibility": "10+2 with Commerce & Mathematics (min. 55%)",
-        "department": "Department of Commerce",
-        "careerScope": "Chartered Accountant, Financial Analyst, Investment Associate, Auditor"
+        "seats": 75
       },
       {
-        "name": "B.A. (Honours) Economics",
+        "name": "B.A. (Hons.) Economics",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
-        "annualFee": 24000,
-        "seats": 120,
-        "entranceExam": "CUET-UG / Merit",
-        "eligibility": "10+2 with Mathematics (min. 55%)",
-        "department": "Department of Economics",
-        "careerScope": "Economic Analyst, Policy Researcher, Risk Analyst, Consulting Associate"
+        "annualFee": 22000,
+        "seats": 120
       },
       {
-        "name": "B.A. (Honours) Psychology",
+        "name": "B.Com. (Hons.) Accounting & Finance",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
-        "annualFee": 24000,
-        "seats": 80,
-        "entranceExam": "CUET-UG / Merit",
-        "eligibility": "10+2 in any stream (min. 50%)",
-        "department": "Department of Psychology",
-        "careerScope": "Clinical Psychologist Assistant, HR Specialist, Behavioral Analyst"
+        "annualFee": 26000,
+        "seats": 80
       },
       {
-        "name": "Bachelor of Management Studies (BMS)",
+        "name": "B.A. (Hons.) Journalism & Mass Communication",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
-        "annualFee": 24000,
-        "seats": 100,
-        "entranceExam": "CUET-UG / Entrance",
-        "eligibility": "10+2 with Mathematics / Business Studies",
-        "department": "Department of Management",
-        "careerScope": "Business Analyst, Marketing Specialist, Operations Associate"
+        "annualFee": 32000,
+        "seats": 40
       },
       {
-        "name": "M.Com. (Master of Commerce)",
+        "name": "M.A. Applied Psychology",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "2 Years",
-        "annualFee": 21600,
-        "seats": 60,
-        "entranceExam": "CUET-PG",
-        "eligibility": "B.Com / BBA with min. 50%",
-        "department": "Department of Commerce",
-        "careerScope": "Financial Controller, Tax Consultant, Corporate Accountant"
-      },
-      {
-        "name": "M.A. in Economics",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 21600,
-        "seats": 50,
-        "entranceExam": "CUET-PG",
-        "eligibility": "Bachelor degree with Economics / Math",
-        "department": "Department of Economics",
-        "careerScope": "Macroeconomic Modeler, Central Bank Analyst, Treasury Specialist"
-      },
-      {
-        "name": "Ph.D. in Commerce and Finance",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 30000,
-        "seats": 15,
-        "entranceExam": "UGC-NET / JRF",
-        "eligibility": "Master degree in Commerce/Economics with 55%",
-        "department": "Doctoral Research Committee",
-        "careerScope": "University Professor, Economic Think Tank Fellow"
+        "annualFee": 28000,
+        "seats": 35
       }
     ],
     "verifiedSource": "NIRF Colleges 2024 Audited Placement Disclosure & DU Bulletin",
@@ -4997,13 +2190,11 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹36.0 LPA",
       "professorStudentRatio": "1:18",
       "academicPrograms": [
-        "B.Com. (Honours)",
-        "B.A. (Honours) Economics",
-        "B.A. (Honours) Psychology",
-        "Bachelor of Management Studies (BMS)",
-        "M.Com. (Master of Commerce)",
-        "M.A. in Economics",
-        "Ph.D. in Commerce and Finance"
+        "BMS (Bachelor of Management Studies)",
+        "B.A. (Hons.) Psychology",
+        "B.A. Film, Television & Media Production",
+        "B.Com. (Accounting & Financial Management)",
+        "B.A. (Hons.) Economics"
       ],
       "topRecruiters": [
         "McKinsey & Company",
@@ -5041,88 +2232,39 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Admissions conducted via St. Xavier's Entrance Test (XET) for BMS/BA-MC and Merit Lists.",
     "popularPrograms": [
       {
-        "name": "B.Com. (Honours)",
+        "name": "BMS (Bachelor of Management Studies)",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
-        "annualFee": 65000,
-        "seats": 300,
-        "entranceExam": "CUET-UG / Merit",
-        "eligibility": "10+2 with Commerce & Mathematics (min. 55%)",
-        "department": "Department of Commerce",
-        "careerScope": "Chartered Accountant, Financial Analyst, Investment Associate, Auditor"
+        "annualFee": 58000,
+        "seats": 120
       },
       {
-        "name": "B.A. (Honours) Economics",
+        "name": "B.A. (Hons.) Psychology",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
-        "annualFee": 65000,
-        "seats": 120,
-        "entranceExam": "CUET-UG / Merit",
-        "eligibility": "10+2 with Mathematics (min. 55%)",
-        "department": "Department of Economics",
-        "careerScope": "Economic Analyst, Policy Researcher, Risk Analyst, Consulting Associate"
+        "annualFee": 42000,
+        "seats": 80
       },
       {
-        "name": "B.A. (Honours) Psychology",
+        "name": "B.A. Film, Television & Media Production",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
-        "annualFee": 65000,
-        "seats": 80,
-        "entranceExam": "CUET-UG / Merit",
-        "eligibility": "10+2 in any stream (min. 50%)",
-        "department": "Department of Psychology",
-        "careerScope": "Clinical Psychologist Assistant, HR Specialist, Behavioral Analyst"
+        "annualFee": 78000,
+        "seats": 60
       },
       {
-        "name": "Bachelor of Management Studies (BMS)",
+        "name": "B.Com. (Accounting & Financial Management)",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
-        "annualFee": 65000,
-        "seats": 100,
-        "entranceExam": "CUET-UG / Entrance",
-        "eligibility": "10+2 with Mathematics / Business Studies",
-        "department": "Department of Management",
-        "careerScope": "Business Analyst, Marketing Specialist, Operations Associate"
+        "annualFee": 38000,
+        "seats": 180
       },
       {
-        "name": "M.Com. (Master of Commerce)",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 58500,
-        "seats": 60,
-        "entranceExam": "CUET-PG",
-        "eligibility": "B.Com / BBA with min. 50%",
-        "department": "Department of Commerce",
-        "careerScope": "Financial Controller, Tax Consultant, Corporate Accountant"
-      },
-      {
-        "name": "M.A. in Economics",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 58500,
-        "seats": 50,
-        "entranceExam": "CUET-PG",
-        "eligibility": "Bachelor degree with Economics / Math",
-        "department": "Department of Economics",
-        "careerScope": "Macroeconomic Modeler, Central Bank Analyst, Treasury Specialist"
-      },
-      {
-        "name": "Ph.D. in Commerce and Finance",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 30000,
-        "seats": 15,
-        "entranceExam": "UGC-NET / JRF",
-        "eligibility": "Master degree in Commerce/Economics with 55%",
-        "department": "Doctoral Research Committee",
-        "careerScope": "University Professor, Economic Think Tank Fellow"
+        "name": "B.A. (Hons.) Economics",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 40000,
+        "seats": 90
       }
     ],
     "verifiedSource": "St. Xavier's Mumbai Placement Cell Annual Audited Disclosure",
@@ -5151,13 +2293,9 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹35.0 LPA",
       "professorStudentRatio": "1:16",
       "academicPrograms": [
-        "B.Com. (Honours)",
-        "B.A. (Honours) Economics",
-        "B.A. (Honours) Psychology",
-        "Bachelor of Management Studies (BMS)",
-        "M.Com. (Master of Commerce)",
-        "M.A. in Economics",
-        "Ph.D. in Commerce and Finance"
+        "B.Com. (Hons.)",
+        "B.A. (Hons.) Economics",
+        "PGD Global Business Operations (GBO)"
       ],
       "topRecruiters": [
         "McKinsey & Company",
@@ -5195,88 +2333,25 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "CUET-UG merit scores through Delhi University CSAS portal.",
     "popularPrograms": [
       {
-        "name": "B.Com. (Honours)",
+        "name": "B.Com. (Hons.)",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
         "annualFee": 32000,
-        "seats": 300,
-        "entranceExam": "CUET-UG / Merit",
-        "eligibility": "10+2 with Commerce & Mathematics (min. 55%)",
-        "department": "Department of Commerce",
-        "careerScope": "Chartered Accountant, Financial Analyst, Investment Associate, Auditor"
+        "seats": 620
       },
       {
-        "name": "B.A. (Honours) Economics",
+        "name": "B.A. (Hons.) Economics",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
-        "annualFee": 32000,
-        "seats": 120,
-        "entranceExam": "CUET-UG / Merit",
-        "eligibility": "10+2 with Mathematics (min. 55%)",
-        "department": "Department of Economics",
-        "careerScope": "Economic Analyst, Policy Researcher, Risk Analyst, Consulting Associate"
-      },
-      {
-        "name": "B.A. (Honours) Psychology",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "3 Years",
-        "annualFee": 32000,
-        "seats": 80,
-        "entranceExam": "CUET-UG / Merit",
-        "eligibility": "10+2 in any stream (min. 50%)",
-        "department": "Department of Psychology",
-        "careerScope": "Clinical Psychologist Assistant, HR Specialist, Behavioral Analyst"
-      },
-      {
-        "name": "Bachelor of Management Studies (BMS)",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "3 Years",
-        "annualFee": 32000,
-        "seats": 100,
-        "entranceExam": "CUET-UG / Entrance",
-        "eligibility": "10+2 with Mathematics / Business Studies",
-        "department": "Department of Management",
-        "careerScope": "Business Analyst, Marketing Specialist, Operations Associate"
-      },
-      {
-        "name": "M.Com. (Master of Commerce)",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 28800,
-        "seats": 60,
-        "entranceExam": "CUET-PG",
-        "eligibility": "B.Com / BBA with min. 50%",
-        "department": "Department of Commerce",
-        "careerScope": "Financial Controller, Tax Consultant, Corporate Accountant"
-      },
-      {
-        "name": "M.A. in Economics",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 28800,
-        "seats": 50,
-        "entranceExam": "CUET-PG",
-        "eligibility": "Bachelor degree with Economics / Math",
-        "department": "Department of Economics",
-        "careerScope": "Macroeconomic Modeler, Central Bank Analyst, Treasury Specialist"
-      },
-      {
-        "name": "Ph.D. in Commerce and Finance",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
         "annualFee": 30000,
-        "seats": 15,
-        "entranceExam": "UGC-NET / JRF",
-        "eligibility": "Master degree in Commerce/Economics with 55%",
-        "department": "Doctoral Research Committee",
-        "careerScope": "University Professor, Economic Think Tank Fellow"
+        "seats": 160
+      },
+      {
+        "name": "PGD Global Business Operations (GBO)",
+        "degree": "Postgraduate Diploma",
+        "duration": "2 Years",
+        "annualFee": 160000,
+        "seats": 90
       }
     ],
     "verifiedSource": "SRCC Placement Cell Audited 2024 Report & Delhi University Records",
@@ -5305,13 +2380,11 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹32.0 LPA",
       "professorStudentRatio": "1:8",
       "academicPrograms": [
-        "3-Year Post Graduate Diploma in Direction & Screenplay Writing",
-        "3-Year Post Graduate Diploma in Cinematography",
-        "3-Year Post Graduate Diploma in Editing",
-        "3-Year Post Graduate Diploma in Sound Recording & Design",
-        "B.Sc. / B.A. in Filmmaking & Television",
-        "B.Sc. in Animation, VFX & Game Art",
-        "MBA in Media & Entertainment Management"
+        "PG Diploma in Film Direction & Screenplay Writing",
+        "PG Diploma in Cinematography",
+        "PG Diploma in Sound Recording & Sound Design",
+        "PG Diploma in Film Editing",
+        "B.A. Screen Acting"
       ],
       "topRecruiters": [
         "Netflix India",
@@ -5349,88 +2422,39 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Joint Entrance Test (JET) conducted by FTII and SRFTI followed by Orientation and Interview.",
     "popularPrograms": [
       {
-        "name": "3-Year Post Graduate Diploma in Direction & Screenplay Writing",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
+        "name": "PG Diploma in Film Direction & Screenplay Writing",
+        "degree": "Postgraduate Diploma",
         "duration": "3 Years",
         "annualFee": 145000,
-        "seats": 15,
-        "entranceExam": "JET / Entrance Exam",
-        "eligibility": "Bachelor degree in any stream",
-        "department": "Direction Department",
-        "careerScope": "Feature Film Director, Web Series Showrunner, Creative Producer"
+        "seats": 12
       },
       {
-        "name": "3-Year Post Graduate Diploma in Cinematography",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
+        "name": "PG Diploma in Cinematography",
+        "degree": "Postgraduate Diploma",
         "duration": "3 Years",
-        "annualFee": 145000,
-        "seats": 15,
-        "entranceExam": "JET / Entrance Exam",
-        "eligibility": "Bachelor degree in any stream (Physics in 10+2 preferred)",
-        "department": "Cinematography Department",
-        "careerScope": "Director of Photography (DOP), Lighting Director, Commercial Cinematographer"
+        "annualFee": 155000,
+        "seats": 12
       },
       {
-        "name": "3-Year Post Graduate Diploma in Editing",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
+        "name": "PG Diploma in Sound Recording & Sound Design",
+        "degree": "Postgraduate Diploma",
         "duration": "3 Years",
-        "annualFee": 145000,
-        "seats": 15,
-        "entranceExam": "JET / Entrance Exam",
-        "eligibility": "Bachelor degree in any stream",
-        "department": "Editing Department",
-        "careerScope": "Feature Film Editor, Post-production Supervisor, Colorist"
+        "annualFee": 140000,
+        "seats": 12
       },
       {
-        "name": "3-Year Post Graduate Diploma in Sound Recording & Design",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
+        "name": "PG Diploma in Film Editing",
+        "degree": "Postgraduate Diploma",
         "duration": "3 Years",
-        "annualFee": 145000,
-        "seats": 15,
-        "entranceExam": "JET / Entrance Exam",
-        "eligibility": "Bachelor with Physics in 10+2",
-        "department": "Sound Department",
-        "careerScope": "Sound Designer, Foley Artist, Audio Post Engineer"
+        "annualFee": 135000,
+        "seats": 12
       },
       {
-        "name": "B.Sc. / B.A. in Filmmaking & Television",
+        "name": "B.A. Screen Acting",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "3 Years",
-        "annualFee": 145000,
-        "seats": 60,
-        "entranceExam": "Institute Creative Aptitude Test",
-        "eligibility": "10+2 in any stream",
-        "department": "Department of Cinema",
-        "careerScope": "Assistant Director, Digital Content Creator, Visual Storyteller"
-      },
-      {
-        "name": "B.Sc. in Animation, VFX & Game Art",
-        "degree": "Undergraduate",
-        "level": "Undergraduate",
-        "duration": "3 Years",
-        "annualFee": 145000,
-        "seats": 50,
-        "entranceExam": "Creative Aptitude Test",
-        "eligibility": "10+2 in any stream",
-        "department": "Department of Animation & VFX",
-        "careerScope": "VFX Compositor, 3D Animator, Game Environment Artist"
-      },
-      {
-        "name": "MBA in Media & Entertainment Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "2 Years",
-        "annualFee": 145000,
-        "seats": 40,
-        "entranceExam": "CAT / Media Entrance",
-        "eligibility": "Bachelor degree with min. 50%",
-        "department": "Media Business School",
-        "careerScope": "Executive Producer, Content Acquisition Lead, Studio Manager"
+        "annualFee": 160000,
+        "seats": 16
       }
     ],
     "verifiedSource": "Ministry of Information & Broadcasting Annual Parliamentary Report & FTII Audit",
@@ -5459,13 +2483,10 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹28.0 LPA",
       "professorStudentRatio": "1:10",
       "academicPrograms": [
-        "3-Year Post Graduate Diploma in Direction & Screenplay Writing",
-        "3-Year Post Graduate Diploma in Cinematography",
-        "3-Year Post Graduate Diploma in Editing",
-        "3-Year Post Graduate Diploma in Sound Recording & Design",
-        "B.Sc. / B.A. in Filmmaking & Television",
-        "B.Sc. in Animation, VFX & Game Art",
-        "MBA in Media & Entertainment Management"
+        "B.A. in Filmmaking (Direction / Cinematography)",
+        "B.A. in Animation & VFX",
+        "BBA in Media & Entertainment Management",
+        "B.A. in Screenwriting"
       ],
       "topRecruiters": [
         "Disney Star",
@@ -5503,88 +2524,32 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Whistling Woods International Entrance Examination (General Aptitude, Creative Ability & Interview).",
     "popularPrograms": [
       {
-        "name": "3-Year Post Graduate Diploma in Direction & Screenplay Writing",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
-        "duration": "3 Years",
-        "annualFee": 520000,
-        "seats": 15,
-        "entranceExam": "JET / Entrance Exam",
-        "eligibility": "Bachelor degree in any stream",
-        "department": "Direction Department",
-        "careerScope": "Feature Film Director, Web Series Showrunner, Creative Producer"
-      },
-      {
-        "name": "3-Year Post Graduate Diploma in Cinematography",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
-        "duration": "3 Years",
-        "annualFee": 520000,
-        "seats": 15,
-        "entranceExam": "JET / Entrance Exam",
-        "eligibility": "Bachelor degree in any stream (Physics in 10+2 preferred)",
-        "department": "Cinematography Department",
-        "careerScope": "Director of Photography (DOP), Lighting Director, Commercial Cinematographer"
-      },
-      {
-        "name": "3-Year Post Graduate Diploma in Editing",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
-        "duration": "3 Years",
-        "annualFee": 520000,
-        "seats": 15,
-        "entranceExam": "JET / Entrance Exam",
-        "eligibility": "Bachelor degree in any stream",
-        "department": "Editing Department",
-        "careerScope": "Feature Film Editor, Post-production Supervisor, Colorist"
-      },
-      {
-        "name": "3-Year Post Graduate Diploma in Sound Recording & Design",
-        "degree": "Diploma & Certificate",
-        "level": "Diploma & Certificate",
-        "duration": "3 Years",
-        "annualFee": 520000,
-        "seats": 15,
-        "entranceExam": "JET / Entrance Exam",
-        "eligibility": "Bachelor with Physics in 10+2",
-        "department": "Sound Department",
-        "careerScope": "Sound Designer, Foley Artist, Audio Post Engineer"
-      },
-      {
-        "name": "B.Sc. / B.A. in Filmmaking & Television",
+        "name": "B.A. in Filmmaking (Direction / Cinematography)",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
-        "annualFee": 520000,
-        "seats": 60,
-        "entranceExam": "Institute Creative Aptitude Test",
-        "eligibility": "10+2 in any stream",
-        "department": "Department of Cinema",
-        "careerScope": "Assistant Director, Digital Content Creator, Visual Storyteller"
+        "annualFee": 550000,
+        "seats": 80
       },
       {
-        "name": "B.Sc. in Animation, VFX & Game Art",
+        "name": "B.A. in Animation & VFX",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
-        "annualFee": 520000,
-        "seats": 50,
-        "entranceExam": "Creative Aptitude Test",
-        "eligibility": "10+2 in any stream",
-        "department": "Department of Animation & VFX",
-        "careerScope": "VFX Compositor, 3D Animator, Game Environment Artist"
+        "annualFee": 480000,
+        "seats": 60
       },
       {
-        "name": "MBA in Media & Entertainment Management",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 520000,
-        "seats": 40,
-        "entranceExam": "CAT / Media Entrance",
-        "eligibility": "Bachelor degree with min. 50%",
-        "department": "Media Business School",
-        "careerScope": "Executive Producer, Content Acquisition Lead, Studio Manager"
+        "name": "BBA in Media & Entertainment Management",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 420000,
+        "seats": 70
+      },
+      {
+        "name": "B.A. in Screenwriting",
+        "degree": "Undergraduate",
+        "duration": "3 Years",
+        "annualFee": 390000,
+        "seats": 30
       }
     ],
     "verifiedSource": "Whistling Woods Official Career Placement Audited Report",
@@ -5613,12 +2578,11 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹48.0 LPA",
       "professorStudentRatio": "1:9",
       "academicPrograms": [
-        "B.Des. in Industrial & Product Design",
-        "B.Des. in Communication & Graphic Design",
-        "B.Des. in Fashion & Textile Apparel",
-        "M.Des. in Interaction & UI/UX Design",
-        "M.Des. in Transportation & Mobility Design",
-        "Ph.D. in Design Research"
+        "B.Des in Product Design",
+        "B.Des in Interaction & UI/UX Design",
+        "B.Des in Communication & Graphic Design",
+        "M.Des in Strategic Design Management",
+        "M.Des in New Media Design"
       ],
       "topRecruiters": [
         "Google India Design",
@@ -5656,76 +2620,39 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "NID Design Aptitude Test (DAT) Prelims followed by DAT Mains (Studio Test and Personal Interview).",
     "popularPrograms": [
       {
-        "name": "B.Des. in Industrial & Product Design",
+        "name": "B.Des in Product Design",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 360000,
-        "seats": 60,
-        "entranceExam": "NID DAT / NIFT / UCEED",
-        "eligibility": "10+2 in any discipline",
-        "department": "Department of Industrial Design",
-        "careerScope": "Product Designer, Hardware Ergonomist, Consumer Goods Designer"
+        "seats": 40
       },
       {
-        "name": "B.Des. in Communication & Graphic Design",
+        "name": "B.Des in Interaction & UI/UX Design",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 360000,
-        "seats": 60,
-        "entranceExam": "Design Entrance Exam",
-        "eligibility": "10+2 in any stream",
-        "department": "Department of Visual Communication",
-        "careerScope": "Brand Identity Designer, Art Director, UI/UX Designer"
+        "seats": 35
       },
       {
-        "name": "B.Des. in Fashion & Textile Apparel",
+        "name": "B.Des in Communication & Graphic Design",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 360000,
-        "seats": 50,
-        "entranceExam": "NIFT / NID DAT",
-        "eligibility": "10+2 in any stream",
-        "department": "Department of Fashion Design",
-        "careerScope": "Fashion Designer, Apparel Technologist, Creative Stylist"
+        "seats": 40
       },
       {
-        "name": "M.Des. in Interaction & UI/UX Design",
+        "name": "M.Des in Strategic Design Management",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 396000.00000000006,
-        "seats": 40,
-        "entranceExam": "CEED / DAT PG",
-        "eligibility": "Bachelor degree in Design / Engineering / Architecture",
-        "department": "Department of Digital Design",
-        "careerScope": "Lead Product Designer, Design Systems Architect, User Researcher"
+        "duration": "2.5 Years",
+        "annualFee": 380000,
+        "seats": 25
       },
       {
-        "name": "M.Des. in Transportation & Mobility Design",
+        "name": "M.Des in New Media Design",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 396000.00000000006,
-        "seats": 25,
-        "entranceExam": "CEED / DAT PG",
-        "eligibility": "B.Des. / B.Tech Mechanical / Automobile",
-        "department": "Mobility Studio",
-        "careerScope": "Automotive Concept Designer, EV Stylist"
-      },
-      {
-        "name": "Ph.D. in Design Research",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 60000,
-        "seats": 10,
-        "entranceExam": "Institute Research Committee",
-        "eligibility": "Master degree in Design / Architecture",
-        "department": "Doctoral Centre",
-        "careerScope": "Design Professor, Human Factors Consultant"
+        "duration": "2.5 Years",
+        "annualFee": 380000,
+        "seats": 20
       }
     ],
     "verifiedSource": "Parliament of India Act 41 of 2014 & NID Annual Placement Audit",
@@ -5754,12 +2681,10 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹30.0 LPA",
       "professorStudentRatio": "1:12",
       "academicPrograms": [
-        "B.Des. in Industrial & Product Design",
-        "B.Des. in Communication & Graphic Design",
-        "B.Des. in Fashion & Textile Apparel",
-        "M.Des. in Interaction & UI/UX Design",
-        "M.Des. in Transportation & Mobility Design",
-        "Ph.D. in Design Research"
+        "B.Des in Fashion Design",
+        "B.Des in Fashion Communication",
+        "B.FTech Apparel Production",
+        "Master of Fashion Management (MFM)"
       ],
       "topRecruiters": [
         "Aditya Birla Fashion & Retail",
@@ -5797,76 +2722,32 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "NIFT Entrance Exam (Creative Ability Test - CAT and General Ability Test - GAT) followed by Situation Test.",
     "popularPrograms": [
       {
-        "name": "B.Des. in Industrial & Product Design",
+        "name": "B.Des in Fashion Design",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 295000,
-        "seats": 60,
-        "entranceExam": "NID DAT / NIFT / UCEED",
-        "eligibility": "10+2 in any discipline",
-        "department": "Department of Industrial Design",
-        "careerScope": "Product Designer, Hardware Ergonomist, Consumer Goods Designer"
+        "seats": 60
       },
       {
-        "name": "B.Des. in Communication & Graphic Design",
+        "name": "B.Des in Fashion Communication",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
         "annualFee": 295000,
-        "seats": 60,
-        "entranceExam": "Design Entrance Exam",
-        "eligibility": "10+2 in any stream",
-        "department": "Department of Visual Communication",
-        "careerScope": "Brand Identity Designer, Art Director, UI/UX Designer"
+        "seats": 60
       },
       {
-        "name": "B.Des. in Fashion & Textile Apparel",
+        "name": "B.FTech Apparel Production",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "4 Years",
-        "annualFee": 295000,
-        "seats": 50,
-        "entranceExam": "NIFT / NID DAT",
-        "eligibility": "10+2 in any stream",
-        "department": "Department of Fashion Design",
-        "careerScope": "Fashion Designer, Apparel Technologist, Creative Stylist"
+        "annualFee": 285000,
+        "seats": 50
       },
       {
-        "name": "M.Des. in Interaction & UI/UX Design",
+        "name": "Master of Fashion Management (MFM)",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "2 Years",
-        "annualFee": 324500,
-        "seats": 40,
-        "entranceExam": "CEED / DAT PG",
-        "eligibility": "Bachelor degree in Design / Engineering / Architecture",
-        "department": "Department of Digital Design",
-        "careerScope": "Lead Product Designer, Design Systems Architect, User Researcher"
-      },
-      {
-        "name": "M.Des. in Transportation & Mobility Design",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 324500,
-        "seats": 25,
-        "entranceExam": "CEED / DAT PG",
-        "eligibility": "B.Des. / B.Tech Mechanical / Automobile",
-        "department": "Mobility Studio",
-        "careerScope": "Automotive Concept Designer, EV Stylist"
-      },
-      {
-        "name": "Ph.D. in Design Research",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 60000,
-        "seats": 10,
-        "entranceExam": "Institute Research Committee",
-        "eligibility": "Master degree in Design / Architecture",
-        "department": "Doctoral Centre",
-        "careerScope": "Design Professor, Human Factors Consultant"
+        "annualFee": 310000,
+        "seats": 45
       }
     ],
     "verifiedSource": "Ministry of Textiles Statutory Annual Report & NIFT Placement Report",
@@ -5895,13 +2776,11 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "highestPackage": "₹24.0 LPA",
       "professorStudentRatio": "1:18",
       "academicPrograms": [
-        "B.Com. (Honours)",
-        "B.A. (Honours) Economics",
-        "B.A. (Honours) Psychology",
-        "Bachelor of Management Studies (BMS)",
-        "M.Com. (Master of Commerce)",
-        "M.A. in Economics",
-        "Ph.D. in Commerce and Finance"
+        "BBA (Finance and International Business)",
+        "B.Sc. (Hons.) Psychology",
+        "B.Com. (Hons.) Professional",
+        "B.A. (Hons.) Media Studies & Film Production",
+        "M.Sc. Clinical Psychology"
       ],
       "topRecruiters": [
         "Deloitte",
@@ -5939,88 +2818,39 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "admissionProcess": "Christ University Entrance Test (CUET) followed by Skill Assessment, Micro-Presentation, and Personal Interview.",
     "popularPrograms": [
       {
-        "name": "B.Com. (Honours)",
+        "name": "BBA (Finance and International Business)",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
-        "annualFee": 220000,
-        "seats": 300,
-        "entranceExam": "CUET-UG / Merit",
-        "eligibility": "10+2 with Commerce & Mathematics (min. 55%)",
-        "department": "Department of Commerce",
-        "careerScope": "Chartered Accountant, Financial Analyst, Investment Associate, Auditor"
+        "annualFee": 240000,
+        "seats": 360
       },
       {
-        "name": "B.A. (Honours) Economics",
+        "name": "B.Sc. (Hons.) Psychology",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
-        "annualFee": 220000,
-        "seats": 120,
-        "entranceExam": "CUET-UG / Merit",
-        "eligibility": "10+2 with Mathematics (min. 55%)",
-        "department": "Department of Economics",
-        "careerScope": "Economic Analyst, Policy Researcher, Risk Analyst, Consulting Associate"
+        "annualFee": 180000,
+        "seats": 120
       },
       {
-        "name": "B.A. (Honours) Psychology",
+        "name": "B.Com. (Hons.) Professional",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
-        "annualFee": 220000,
-        "seats": 80,
-        "entranceExam": "CUET-UG / Merit",
-        "eligibility": "10+2 in any stream (min. 50%)",
-        "department": "Department of Psychology",
-        "careerScope": "Clinical Psychologist Assistant, HR Specialist, Behavioral Analyst"
+        "annualFee": 210000,
+        "seats": 240
       },
       {
-        "name": "Bachelor of Management Studies (BMS)",
+        "name": "B.A. (Hons.) Media Studies & Film Production",
         "degree": "Undergraduate",
-        "level": "Undergraduate",
         "duration": "3 Years",
-        "annualFee": 220000,
-        "seats": 100,
-        "entranceExam": "CUET-UG / Entrance",
-        "eligibility": "10+2 with Mathematics / Business Studies",
-        "department": "Department of Management",
-        "careerScope": "Business Analyst, Marketing Specialist, Operations Associate"
+        "annualFee": 195000,
+        "seats": 90
       },
       {
-        "name": "M.Com. (Master of Commerce)",
+        "name": "M.Sc. Clinical Psychology",
         "degree": "Postgraduate",
-        "level": "Postgraduate",
         "duration": "2 Years",
-        "annualFee": 198000,
-        "seats": 60,
-        "entranceExam": "CUET-PG",
-        "eligibility": "B.Com / BBA with min. 50%",
-        "department": "Department of Commerce",
-        "careerScope": "Financial Controller, Tax Consultant, Corporate Accountant"
-      },
-      {
-        "name": "M.A. in Economics",
-        "degree": "Postgraduate",
-        "level": "Postgraduate",
-        "duration": "2 Years",
-        "annualFee": 198000,
-        "seats": 50,
-        "entranceExam": "CUET-PG",
-        "eligibility": "Bachelor degree with Economics / Math",
-        "department": "Department of Economics",
-        "careerScope": "Macroeconomic Modeler, Central Bank Analyst, Treasury Specialist"
-      },
-      {
-        "name": "Ph.D. in Commerce and Finance",
-        "degree": "Doctoral",
-        "level": "Doctoral",
-        "duration": "3-5 Years",
-        "annualFee": 30000,
-        "seats": 15,
-        "entranceExam": "UGC-NET / JRF",
-        "eligibility": "Master degree in Commerce/Economics with 55%",
-        "department": "Doctoral Research Committee",
-        "careerScope": "University Professor, Economic Think Tank Fellow"
+        "annualFee": 220000,
+        "seats": 60
       }
     ],
     "verifiedSource": "Christ University Official Audited Placement & NIRF 2024 Disclosure",
@@ -6246,7 +3076,7 @@ export const VERIFIED_COLLEGES_CLIENT = [
   {
     "id": "coep-technological-university",
     "name": "COEP Technological University",
-    "shortName": "CT",
+    "shortName": "COEP Pune",
     "location": "Pune, Maharashtra",
     "country": "India",
     "established": 1854,
@@ -6459,7 +3289,7 @@ export const VERIFIED_COLLEGES_CLIENT = [
   {
     "id": "faculty-of-management-studies-university-of-delhi",
     "name": "Faculty of Management Studies (University of Delhi)",
-    "shortName": "FMS(D",
+    "shortName": "FMS Delhi",
     "location": "New Delhi, India",
     "country": "India",
     "established": 1954,
@@ -6469,7 +3299,7 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "imageUrl": "https://thumb.wikimedia.org/wikipedia/en/thumb/e/ea/Faculty_of_Management_Studies_%28Delhi%29.svg/330px-Faculty_of_Management_Studies_%28Delhi%29.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "overview": "Faculty of Management Studies – University of Delhi is a business school located in Delhi, India. It was established in 1954 under the umbrella of the University of Delhi and is often cited as one of the best business schools in India. In 2025, FMS was ranked 2nd best MBA program in the country by the Indian Institutional Ranking Framework. The institute was started at the Delhi School of Economics premises under Dean A. Dasgupta of the Delhi College of Engineering (DCE).",
     "additionalOverviewDetails": {
-      "jobPlacementRate": null,
+      "jobPlacementRate": 100,
       "averagePackage": "₹34.1 LPA",
       "highestPackage": "INR 1.10 Cr",
       "professorStudentRatio": "Varies by Dept & Level (UGC ~1:15-1:20)",
@@ -6494,7 +3324,7 @@ export const VERIFIED_COLLEGES_CLIENT = [
       "nationalRank": "Accredited Higher Education Institution",
       "rankingBody": "State / Central Regulatory Body",
       "researchScore": 8.6,
-      "placementRate": null,
+      "placementRate": 100,
       "starRatings": {
         "campusLife": 4.5,
         "graduationRate": 4.6,
@@ -6592,7 +3422,7 @@ export const VERIFIED_COLLEGES_CLIENT = [
   {
     "id": "rv-college-of-engineering",
     "name": "R.V. College of Engineering",
-    "shortName": "RE",
+    "shortName": "RVCE Bangalore",
     "location": "Bangalore, India",
     "country": "India",
     "established": 1963,
@@ -7016,18 +3846,1279 @@ export const VERIFIED_COLLEGES_CLIENT = [
     "verifiedSource": "Live Web Search & Audited Institutional Reports",
     "source": "live_fetch",
     "aiMode": true
+  },
+  {
+    "id": "xlri-jamshedpur",
+    "name": "XLRI – Xavier School of Management",
+    "shortName": "XLRI",
+    "location": "Jamshedpur, Jharkhand, India",
+    "city": "Jamshedpur",
+    "state": "Jharkhand",
+    "country": "India",
+    "established": 1949,
+    "type": "Private Autonomous Business School",
+    "category": "Management",
+    "website": "https://www.xlri.ac.in",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/XLRI_Jamshedpur_Logo.svg/330px-XLRI_Jamshedpur_Logo.svg.png",
+    "overview": "XLRI – Xavier School of Management is India's oldest business school, founded in 1949 by Jesuit Fathers in Jamshedpur. Consistently ranked among the top 5 management institutions in India and accredited by AACSB and AMBA, XLRI is renowned worldwide for its flagship Business Management (BM) and Human Resource Management (HRM) programs.",
+    "feeRange": "₹14,35,000 / year (₹28.7 Lakhs Total PGDM)",
+    "annualTuitionFee": 1435000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 100,
+      "averagePackage": "₹29.89 LPA",
+      "highestPackage": "₹75.0 LPA",
+      "professorStudentRatio": "1:10",
+      "academicPrograms": [
+        "Post Graduate Diploma in Business Management (PGDM BM)",
+        "Post Graduate Diploma in Human Resource Management (PGDM HRM)",
+        "Executive PGDM (General Management - 15 Month)",
+        "Fellow Programme in Management (FPM - Doctoral)"
+      ],
+      "topRecruiters": [
+        "Boston Consulting Group",
+        "Bain & Company",
+        "McKinsey & Company",
+        "Hindustan Unilever",
+        "Procter & Gamble",
+        "Tata Administrative Services (TAS)",
+        "Amazon",
+        "Microsoft",
+        "Goldman Sachs",
+        "ITC Limited"
+      ],
+      "financialAid": {
+        "scholarships": "Geeta Saxena Memorial, Alumni Association Need-Based & Academic Merit Scholarships.",
+        "governmentSchemes": "Central Sector Top Class Education Scheme for SC/ST students.",
+        "researchGrants": "Full monthly fellowship of ₹45,000 - ₹50,000 plus contingency for FPM scholars."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#9 Management in India",
+      "rankingBody": "NIRF Management 2024 / Outlook I-Care #1 Private B-School",
+      "researchScore": 9.3,
+      "placementRate": 100,
+      "starRatings": {
+        "campusLife": 4.9,
+        "graduationRate": 5,
+        "careerOpportunities": 5,
+        "infrastructure": 4.8
+      }
+    },
+    "facilities": [
+      "Sir Jehangir Ghandy Library with 70,000+ volumes & global electronic databases",
+      "Behavioral Lab & Centre for Human Resource Development",
+      "Air-conditioned amphitheatre classrooms with Cisco Webex integration",
+      "Modern residential student halls with dedicated sports complexes",
+      "Father McGrath International Student Center"
+    ],
+    "popularPrograms": [
+      {
+        "name": "Post Graduate Diploma in Business Management (PGDM BM)",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 1435000,
+        "seats": 240,
+        "entranceExam": "XAT / GMAT",
+        "eligibility": "Bachelor degree in any discipline with min. 50% marks",
+        "department": "School of Business Management",
+        "careerScope": "Management Consultant, Investment Banker, Brand Manager, Product Strategist"
+      },
+      {
+        "name": "Post Graduate Diploma in Human Resource Management (PGDM HRM)",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 1435000,
+        "seats": 180,
+        "entranceExam": "XAT / GMAT",
+        "eligibility": "Bachelor degree in any discipline with min. 50% marks",
+        "department": "School of Human Resources",
+        "careerScope": "Chief People Officer, HR Business Partner, Talent Acquisition Director, Labor Relations Lead"
+      },
+      {
+        "name": "Executive PGDM (General Management - 15 Month)",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "15 Months",
+        "annualFee": 2300000,
+        "seats": 120,
+        "entranceExam": "XAT / GMAT / GRE",
+        "eligibility": "Bachelor degree with min. 5 years managerial work experience",
+        "department": "Executive Education Division",
+        "careerScope": "Vice President, Director of Operations, Strategy Principal"
+      },
+      {
+        "name": "Fellow Programme in Management (FPM - Doctoral)",
+        "degree": "Doctoral",
+        "level": "Doctoral",
+        "duration": "4-5 Years",
+        "annualFee": 30000,
+        "seats": 25,
+        "entranceExam": "XAT / UGC-JRF / GMAT (Full Scholarship + ₹50,000/mo Stipend)",
+        "eligibility": "Master degree with min. 55% or professional qualification (CA/ICWA)",
+        "department": "Doctoral Research Board",
+        "careerScope": "B-School Professor, Economic Think Tank Fellow, Senior Industrial Researcher"
+      }
+    ],
+    "verifiedSource": "XLRI Central Placement Office Audited Report 2024 & NIRF Management 2024",
+    "source": "seed",
+    "aiMode": true
+  },
+  {
+    "id": "anna-university-chennai",
+    "name": "Anna University, Chennai",
+    "shortName": "Anna University",
+    "location": "Chennai, Tamil Nadu, India",
+    "city": "Chennai",
+    "state": "Tamil Nadu",
+    "country": "India",
+    "established": 1978,
+    "type": "State Technical University",
+    "category": "Engineering",
+    "website": "https://www.annauniv.edu",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/4/49/Anna_University_Logo.svg/330px-Anna_University_Logo.svg.png",
+    "overview": "Anna University was established in 1978 as a premier unitary technical university in Tamil Nadu, integrating historic institutions including the College of Engineering, Guindy (CEG - founded 1794, one of Asia's oldest engineering colleges), Madras Institute of Technology (MIT Chromepet - alma mater of Dr. A.P.J. Abdul Kalam), and Alagappa College of Technology (ACT).",
+    "feeRange": "₹45,000 - ₹85,000 / year (State Subsidized)",
+    "annualTuitionFee": 65000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 88,
+      "averagePackage": "₹8.5 LPA",
+      "highestPackage": "₹40.0 LPA",
+      "professorStudentRatio": "1:14",
+      "academicPrograms": [
+        "B.E. Computer Science and Engineering",
+        "B.Tech Information Technology",
+        "B.E. Electronics and Communication Engineering",
+        "B.Tech Aeronautical Engineering (MIT Campus)",
+        "M.E. Computer Science and Engineering",
+        "Ph.D. in Engineering & Information Technology"
+      ],
+      "topRecruiters": [
+        "Cisco Systems",
+        "Zoho Corporation",
+        "Caterpillar",
+        "Amazon",
+        "Tata Consultancy Services",
+        "Cognizant",
+        "Infosys",
+        "L&T Infotech",
+        "Samsung R&D",
+        "Texas Instruments"
+      ],
+      "financialAid": {
+        "scholarships": "Tamil Nadu Government BC/MBC/SC Welfare Scholarships and Chief Minister Merit Awards.",
+        "governmentSchemes": "First Graduate Tuition Fee Concession & Post Matric Central Scholarship Scheme.",
+        "researchGrants": "AICTE Doctoral Fellowship and Anna University Research Fellowships (AURF)."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#13 Engineering, #18 Overall in India",
+      "rankingBody": "NIRF Engineering 2024 / NAAC A++ (3.83 CGPA)",
+      "researchScore": 8.9,
+      "placementRate": 88,
+      "starRatings": {
+        "campusLife": 4.6,
+        "graduationRate": 4.7,
+        "careerOpportunities": 4.8,
+        "infrastructure": 4.7
+      }
+    },
+    "facilities": [
+      "Historic CEG Campus spanning 220 lush acres in Chennai heart",
+      "Dr. A.P.J. Abdul Kalam Aerospace and Avionics Research Centre (MIT)",
+      "National Centre for Catalysis Research & Sophisticated Analytical Instrumentation Facility",
+      "Ramanujan Computing Centre with high-performance gigabit backbone",
+      "Olympic-standard swimming pool and extensive sports pavilion"
+    ],
+    "popularPrograms": [
+      {
+        "name": "B.E. Computer Science and Engineering",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 65000,
+        "seats": 180,
+        "entranceExam": "TNEA (Tamil Nadu Engineering Admissions / 10+2 Merit)",
+        "eligibility": "10+2 with Physics, Chemistry, Math min. 50%",
+        "department": "Department of Computer Science & Engineering (CEG)",
+        "careerScope": "Software Development Engineer, Cloud Architect, Systems Analyst"
+      },
+      {
+        "name": "B.Tech Information Technology",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 65000,
+        "seats": 120,
+        "entranceExam": "TNEA",
+        "eligibility": "10+2 with PCM min. 50%",
+        "department": "Department of Information Science and Technology",
+        "careerScope": "Full Stack Developer, Data Engineer, DevOps Engineer"
+      },
+      {
+        "name": "B.E. Electronics and Communication Engineering",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 65000,
+        "seats": 150,
+        "entranceExam": "TNEA",
+        "eligibility": "10+2 with PCM min. 50%",
+        "department": "Department of ECE",
+        "careerScope": "VLSI Designer, Embedded Firmware Engineer, RF Communications Specialist"
+      },
+      {
+        "name": "B.Tech Aeronautical Engineering (MIT Campus)",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 70000,
+        "seats": 60,
+        "entranceExam": "TNEA",
+        "eligibility": "10+2 with PCM min. 55%",
+        "department": "Department of Aerospace Engineering (MIT)",
+        "careerScope": "Flight Dynamics Specialist, Propulsion Analyst, UAV Systems Designer"
+      },
+      {
+        "name": "M.E. Computer Science and Engineering",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 55000,
+        "seats": 50,
+        "entranceExam": "TANCET / GATE",
+        "eligibility": "B.E./B.Tech in CSE/IT or MCA with min. 50%",
+        "department": "Department of Computer Science",
+        "careerScope": "AI/ML Engineer, Principal Software Architect, Systems Researcher"
+      },
+      {
+        "name": "Ph.D. in Engineering & Information Technology",
+        "degree": "Doctoral",
+        "level": "Doctoral",
+        "duration": "3-5 Years",
+        "annualFee": 35000,
+        "seats": 40,
+        "entranceExam": "Written Entrance + Interview / UGC-CSIR NET",
+        "eligibility": "Master degree in Engineering with min. 55% marks",
+        "department": "Centre for Research, Anna University",
+        "careerScope": "University Professor, Scientist (DRDO/ISRO), Corporate R&D Lead"
+      }
+    ],
+    "verifiedSource": "Anna University CUIC (Centre for University-Industry Collaboration) Placement Audit 2024",
+    "source": "seed",
+    "aiMode": true
+  },
+  {
+    "id": "veermata-jijabai-technological-institute-vjti-mumbai",
+    "name": "Veermata Jijabai Technological Institute (VJTI), Mumbai",
+    "shortName": "VJTI Mumbai",
+    "location": "Mumbai, Maharashtra, India",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "country": "India",
+    "established": 1887,
+    "type": "State-Aided Autonomous Institute",
+    "category": "Engineering",
+    "website": "https://www.vjti.ac.in",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e9/VJTI_Logo.png/220px-VJTI_Logo.png",
+    "overview": "Veermata Jijabai Technological Institute (VJTI) was founded in 1887 as Victoria Jubilee Technical Institute in Matunga, Mumbai. It is one of India's oldest and most prestigious engineering colleges. Fully autonomous and affiliated with the University of Mumbai, VJTI is famed for its high cutoff ranks in MHT-CET and stellar placement records rivaling top NITs.",
+    "feeRange": "₹84,000 - ₹95,000 / year",
+    "annualTuitionFee": 88000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 92,
+      "averagePackage": "₹14.5 LPA",
+      "highestPackage": "₹62.0 LPA",
+      "professorStudentRatio": "1:13",
+      "academicPrograms": [
+        "B.Tech in Computer Engineering",
+        "B.Tech in Information Technology",
+        "B.Tech in Electronics & Telecommunication",
+        "B.Tech in Electrical Engineering",
+        "M.Tech in Computer Engineering",
+        "Master of Computer Applications (MCA)"
+      ],
+      "topRecruiters": [
+        "Google",
+        "Microsoft",
+        "Morgan Stanley",
+        "Texas Instruments",
+        "Rakuten (Japan)",
+        "Citibank",
+        "Goldman Sachs",
+        "Barclays",
+        "Samsung R&D",
+        "Larsen & Toubro"
+      ],
+      "financialAid": {
+        "scholarships": "Government of Maharashtra Freeships & EBC Concessions.",
+        "governmentSchemes": "MahaDBT Post Matric Scholarship & Rajarshi Chhatrapati Shahu Maharaj Shikshan Shulkh Shishyavrutti.",
+        "researchGrants": "TEQIP-III Fellowships & AICTE Doctoral Support."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#82 Engineering in India",
+      "rankingBody": "NIRF Engineering 2024 / MHT-CET Top Engineering College in Maharashtra",
+      "researchScore": 8.7,
+      "placementRate": 92,
+      "starRatings": {
+        "campusLife": 4.7,
+        "graduationRate": 4.8,
+        "careerOpportunities": 4.9,
+        "infrastructure": 4.6
+      }
+    },
+    "facilities": [
+      "16-acre heritage campus located in the heart of Mumbai (Matunga)",
+      "High Performance Computing & Nvidia GPU Deep Learning Cluster",
+      "Siemens Centre of Excellence in Automation & Industrial Robotics",
+      "Central Library with 1,20,000+ technical volumes & digital catalog",
+      "VJTI Technology Business Incubator (TBI)"
+    ],
+    "popularPrograms": [
+      {
+        "name": "B.Tech in Computer Engineering",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 88000,
+        "seats": 120,
+        "entranceExam": "MHT-CET / JEE Main (99.8+ percentile)",
+        "eligibility": "10+2 with PCM min. 50% marks",
+        "department": "Department of Computer Engineering",
+        "careerScope": "Software Engineer, Quantitative Developer, Systems Architect, Deep Learning Lead"
+      },
+      {
+        "name": "B.Tech in Information Technology",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 88000,
+        "seats": 90,
+        "entranceExam": "MHT-CET / JEE Main",
+        "eligibility": "10+2 with PCM min. 50%",
+        "department": "Department of Information Technology",
+        "careerScope": "Full Stack Engineer, Cloud Architect, Cybersecurity Specialist"
+      },
+      {
+        "name": "B.Tech in Electronics & Telecommunication",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 88000,
+        "seats": 90,
+        "entranceExam": "MHT-CET / JEE Main",
+        "eligibility": "10+2 with PCM min. 50%",
+        "department": "Department of EXTC",
+        "careerScope": "VLSI Chip Designer, Firmware Architect, 5G Network Engineer"
+      },
+      {
+        "name": "B.Tech in Electrical Engineering",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 88000,
+        "seats": 90,
+        "entranceExam": "MHT-CET / JEE Main",
+        "eligibility": "10+2 with PCM min. 50%",
+        "department": "Department of Electrical Engineering",
+        "careerScope": "Power Systems Engineer, EV Powertrain Specialist, Automation Engineer"
+      },
+      {
+        "name": "M.Tech in Computer Engineering",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 92000,
+        "seats": 30,
+        "entranceExam": "GATE",
+        "eligibility": "B.Tech in CSE/IT with valid GATE score",
+        "department": "Department of Computer Engineering",
+        "careerScope": "Principal AI Architect, Distributed Systems Engineer, R&D Lead"
+      },
+      {
+        "name": "Master of Computer Applications (MCA)",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 75000,
+        "seats": 60,
+        "entranceExam": "MAH MCA CET",
+        "eligibility": "BCA / B.Sc. with Mathematics at 10+2 or graduation",
+        "department": "Department of Computer Applications",
+        "careerScope": "Software Developer, Systems Analyst, Application Architect"
+      }
+    ],
+    "verifiedSource": "VJTI Training & Placement Cell Official Audited Disclosure 2024",
+    "source": "seed",
+    "aiMode": true
+  },
+  {
+    "id": "iiit-delhi",
+    "name": "Indraprastha Institute of Information Technology Delhi (IIIT-Delhi)",
+    "shortName": "IIIT Delhi",
+    "location": "New Delhi, Delhi, India",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "country": "India",
+    "established": 2008,
+    "type": "State University / Institute of Excellence",
+    "category": "Engineering",
+    "website": "https://www.iiitd.ac.in",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/0/06/Indraprastha_Institute_of_Information_Technology%2C_Delhi_Logo.svg/330px-Indraprastha_Institute_of_Information_Technology%2C_Delhi_Logo.svg.png",
+    "overview": "IIIT-Delhi was established in 2008 by an Act of Delhi Legislature. It is an autonomous research university heavily focused on computer science, electronics, and interdisciplinary data sciences. Known for cutting-edge research outputs and top-tier silicon valley and global algorithmic placements.",
+    "feeRange": "₹4,25,000 - ₹4,50,000 / year",
+    "annualTuitionFee": 425000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 96,
+      "averagePackage": "₹20.5 LPA",
+      "highestPackage": "₹51.0 LPA",
+      "professorStudentRatio": "1:11",
+      "academicPrograms": [
+        "B.Tech Computer Science and Engineering (CSE)",
+        "B.Tech Computer Science and Artificial Intelligence (CSAI)",
+        "B.Tech Computer Science and Applied Mathematics (CSAM)",
+        "M.Tech in Computer Science and Engineering",
+        "Ph.D. in Computer Science & Engineering"
+      ],
+      "topRecruiters": [
+        "Google",
+        "Microsoft",
+        "Amazon",
+        "Qualcomm",
+        "Adobe",
+        "Goldman Sachs",
+        "Tower Research Capital",
+        "Nvidia",
+        "Uber",
+        "Apple"
+      ],
+      "financialAid": {
+        "scholarships": "Delhi Government Merit-cum-Means Financial Assistance and Chairman's Merit Scholarship.",
+        "governmentSchemes": "Central and State Fee Concession schemes for Delhi resident students.",
+        "researchGrants": "Generous teaching and research assistantships for M.Tech and Ph.D. scholars."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#75 Engineering in India / Top CS Research",
+      "rankingBody": "NIRF Engineering 2024 / CSRankings #1 in India for select subfields",
+      "researchScore": 9.2,
+      "placementRate": 96,
+      "starRatings": {
+        "campusLife": 4.8,
+        "graduationRate": 4.9,
+        "careerOpportunities": 5,
+        "infrastructure": 4.9
+      }
+    },
+    "facilities": [
+      "Modern 25-acre green residential campus in Okhla, New Delhi",
+      "Center for Artificial Intelligence and Infosys Centre for AI",
+      "Advanced Robotics and Autonomous Systems Experimental Labs",
+      "Extensive 24/7 Library with IEEE, ACM digital access",
+      "State-of-the-art sports complex and swimming facility"
+    ],
+    "popularPrograms": [
+      {
+        "name": "B.Tech Computer Science and Engineering (CSE)",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 425000,
+        "seats": 150,
+        "entranceExam": "JEE Main (via JAC Delhi)",
+        "eligibility": "10+2 with PCM min. 70% marks",
+        "department": "Department of CSE",
+        "careerScope": "Software Engineer, Core Systems Engineer, Quant Developer"
+      },
+      {
+        "name": "B.Tech Computer Science and Artificial Intelligence (CSAI)",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 425000,
+        "seats": 60,
+        "entranceExam": "JEE Main (via JAC Delhi)",
+        "eligibility": "10+2 with PCM min. 70% marks",
+        "department": "Department of AI",
+        "careerScope": "AI/ML Engineer, Deep Learning Researcher, NLP Architect"
+      },
+      {
+        "name": "B.Tech Computer Science and Applied Mathematics (CSAM)",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 425000,
+        "seats": 75,
+        "entranceExam": "JEE Main (via JAC Delhi)",
+        "eligibility": "10+2 with PCM with 70% in Math",
+        "department": "Department of Mathematics",
+        "careerScope": "Quantitative Analyst, Cryptographer, High Performance Computing Specialist"
+      },
+      {
+        "name": "M.Tech in Computer Science and Engineering",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 250000,
+        "seats": 80,
+        "entranceExam": "GATE / IIIT-Delhi Test",
+        "eligibility": "B.Tech in CSE/IT/ECE with min. 65%",
+        "department": "Department of CSE",
+        "careerScope": "Principal Software Architect, Research Scientist"
+      },
+      {
+        "name": "Ph.D. in Computer Science & Engineering",
+        "degree": "Doctoral",
+        "level": "Doctoral",
+        "duration": "3-5 Years",
+        "annualFee": 50000,
+        "seats": 30,
+        "entranceExam": "GATE / JRF / Written Test + Interview",
+        "eligibility": "M.Tech / B.Tech with high GPA (Monthly stipend ₹37,000 - ₹42,000)",
+        "department": "Doctoral Research Board",
+        "careerScope": "University Professor, Industrial Lab Scientist (MSR/Google Research)"
+      }
+    ],
+    "verifiedSource": "IIIT-Delhi Audited Placement Summary 2024",
+    "source": "seed",
+    "aiMode": true
+  },
+  {
+    "id": "nit-warangal",
+    "name": "National Institute of Technology Warangal",
+    "shortName": "NIT Warangal",
+    "location": "Warangal, Telangana, India",
+    "city": "Warangal",
+    "state": "Telangana",
+    "country": "India",
+    "established": 1959,
+    "type": "Institute of National Importance",
+    "category": "Engineering",
+    "website": "https://www.nitw.ac.in",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/NIT_Warangal_Logo.svg/330px-NIT_Warangal_Logo.svg.png",
+    "overview": "Established in 1959 as the first Regional Engineering College in India by Prime Minister Jawaharlal Nehru, NIT Warangal was declared an Institute of National Importance in 2007. It is consistently ranked among the top 3 NITs in the country with an exceptional alumni network across global technology leaders.",
+    "feeRange": "₹1,85,000 / year (Statutory NIT Council Fee)",
+    "annualTuitionFee": 185000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 94,
+      "averagePackage": "₹17.2 LPA",
+      "highestPackage": "₹88.0 LPA",
+      "professorStudentRatio": "1:13",
+      "academicPrograms": [
+        "B.Tech in Computer Science and Engineering",
+        "B.Tech in Electronics and Communication Engineering",
+        "B.Tech in Electrical and Electronics Engineering",
+        "M.Tech in Computer Science and Information Security",
+        "M.Tech in VLSI System Design",
+        "Ph.D. in Engineering & Applied Sciences"
+      ],
+      "topRecruiters": [
+        "Microsoft",
+        "Uber",
+        "Amazon",
+        "Qualcomm",
+        "Texas Instruments",
+        "Oracle",
+        "Goldman Sachs",
+        "Morgan Stanley",
+        "Cisco Systems",
+        "Samsung R&D"
+      ],
+      "financialAid": {
+        "scholarships": "Full tuition fee waiver for SC/ST/PwD candidates and family income under ₹1 LPA.",
+        "governmentSchemes": "Central Sector Post-Matric & National Scholarship Portal (NSP) schemes.",
+        "researchGrants": "Institute research assistantships of ₹37,000 - ₹42,000/month for doctoral students."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#21 Engineering in India",
+      "rankingBody": "NIRF Engineering 2024",
+      "researchScore": 8.9,
+      "placementRate": 94,
+      "starRatings": {
+        "campusLife": 4.8,
+        "graduationRate": 4.8,
+        "careerOpportunities": 4.9,
+        "infrastructure": 4.8
+      }
+    },
+    "facilities": [
+      "Sprawling 256-acre self-contained residential campus with historic stone buildings",
+      "Centre for Advanced Materials & Micro-Nano Electronics Research",
+      "Siemens Centre of Excellence in Manufacturing and Digital Factory",
+      "Supercomputing and High-Performance Cloud Cluster",
+      "Mega hostel complexes (including Asia's tallest 14-story student hall)"
+    ],
+    "popularPrograms": [
+      {
+        "name": "B.Tech in Computer Science and Engineering",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 185000,
+        "seats": 140,
+        "entranceExam": "JEE Main (via JoSAA/CSAB)",
+        "eligibility": "10+2 with PCM (75% or top 20 percentile)",
+        "department": "Department of Computer Science & Engineering",
+        "careerScope": "Software Engineer, Cloud Infrastructure Lead, Algorithm Specialist"
+      },
+      {
+        "name": "B.Tech in Electronics and Communication Engineering",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 185000,
+        "seats": 130,
+        "entranceExam": "JEE Main (via JoSAA)",
+        "eligibility": "10+2 with PCM (75% or top 20 percentile)",
+        "department": "Department of ECE",
+        "careerScope": "VLSI Engineer, Semiconductor Design Architect, Embedded Systems Developer"
+      },
+      {
+        "name": "B.Tech in Electrical and Electronics Engineering",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 185000,
+        "seats": 130,
+        "entranceExam": "JEE Main (via JoSAA)",
+        "eligibility": "10+2 with PCM (75% or top 20 percentile)",
+        "department": "Department of EEE",
+        "careerScope": "Power Systems Engineer, EV Grid Specialist, Control Systems Lead"
+      },
+      {
+        "name": "M.Tech in Computer Science and Information Security",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 110000,
+        "seats": 35,
+        "entranceExam": "GATE (via CCMT)",
+        "eligibility": "B.Tech in CSE/IT with valid GATE",
+        "department": "Department of CSE",
+        "careerScope": "Cybersecurity Architect, Information Security Analyst, Cloud Security Specialist"
+      },
+      {
+        "name": "M.Tech in VLSI System Design",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 110000,
+        "seats": 30,
+        "entranceExam": "GATE (via CCMT)",
+        "eligibility": "B.Tech in ECE/EEE with valid GATE",
+        "department": "Department of ECE",
+        "careerScope": "Semiconductor Physical Design Engineer, FPGA Architect"
+      },
+      {
+        "name": "Ph.D. in Engineering & Applied Sciences",
+        "degree": "Doctoral",
+        "level": "Doctoral",
+        "duration": "3-5 Years",
+        "annualFee": 40000,
+        "seats": 45,
+        "entranceExam": "GATE / UGC-NET / Written Test",
+        "eligibility": "Master degree in relevant branch with min. 60%",
+        "department": "Dean Academic Affairs (NITW)",
+        "careerScope": "University Professor, National Research Scientist (ISRO/DRDO)"
+      }
+    ],
+    "verifiedSource": "NIT Warangal Centre for Career Planning and Development (CCPD) Audit 2024",
+    "source": "seed",
+    "aiMode": true
+  },
+  {
+    "id": "university-of-delhi",
+    "name": "University of Delhi (DU)",
+    "shortName": "Delhi University",
+    "location": "New Delhi, Delhi, India",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "country": "India",
+    "established": 1922,
+    "type": "Central University / Institute of Eminence",
+    "category": "Sciences & Arts",
+    "website": "https://www.du.ac.in",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/University_of_Delhi_Logo.svg/330px-University_of_Delhi_Logo.svg.png",
+    "overview": "The University of Delhi (DU) is a premier collegiate central university founded in 1922. Recognized as an Institute of Eminence by the Government of India, DU comprises 91 affiliated colleges, 86 academic departments, and over 6,00,000 students. It is globally famous for producing prime ministers, supreme court judges, Nobel laureates, and civil service leaders.",
+    "feeRange": "₹18,000 - ₹45,000 / year (Central Government Subsidized)",
+    "annualTuitionFee": 24000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 86,
+      "averagePackage": "₹9.8 LPA",
+      "highestPackage": "₹38.0 LPA",
+      "professorStudentRatio": "1:15",
+      "academicPrograms": [
+        "B.A. (Hons.) Economics",
+        "B.Com. (Hons.)",
+        "B.Sc. (Hons.) Computer Science",
+        "M.A. Economics (Delhi School of Economics - DSE)",
+        "LL.B. (Faculty of Law, 3-Year Post-Graduate)",
+        "Ph.D. in Social Sciences & Humanities"
+      ],
+      "topRecruiters": [
+        "Deloitte",
+        "PwC",
+        "EY (Ernst & Young)",
+        "KPMG",
+        "McKinsey & Company",
+        "Bain & Company",
+        "Boston Consulting Group",
+        "D.E. Shaw",
+        "Hindustan Unilever",
+        "Teach For India"
+      ],
+      "financialAid": {
+        "scholarships": "Delhi University Vice-Chancellor Student Financial Support Scheme and Merit-cum-Means awards.",
+        "governmentSchemes": "UGC Post Graduate Merit Scholarships & NSP Central Schemes.",
+        "researchGrants": "CSIR-JRF, UGC-NET JRF, and Non-NET Fellowships for registered doctoral researchers."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#6 University in India",
+      "rankingBody": "NIRF Universities 2024 / QS World University Rankings Top 400",
+      "researchScore": 9.1,
+      "placementRate": 86,
+      "starRatings": {
+        "campusLife": 5,
+        "graduationRate": 4.8,
+        "careerOpportunities": 4.9,
+        "infrastructure": 4.6
+      }
+    },
+    "facilities": [
+      "North and South Campuses featuring landmark historical structures",
+      "Delhi University Central Library System with 15+ specialized campus libraries",
+      "Delhi School of Economics Ratan Tata Library (RTL)",
+      "University Sports Stadium (Host of 2010 Commonwealth Games)",
+      "Delhi University Computer Centre (DUCC) with campus-wide optical network"
+    ],
+    "popularPrograms": [
+      {
+        "name": "B.A. (Hons.) Economics",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "3-4 Years (FYUP)",
+        "annualFee": 20000,
+        "seats": 300,
+        "entranceExam": "CUET-UG",
+        "eligibility": "10+2 with Mathematics from recognized board",
+        "department": "Department of Economics",
+        "careerScope": "Financial Analyst, Economic Consultant, Policy Strategist, Investment Banker"
+      },
+      {
+        "name": "B.Com. (Hons.)",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "3-4 Years (FYUP)",
+        "annualFee": 22000,
+        "seats": 450,
+        "entranceExam": "CUET-UG",
+        "eligibility": "10+2 with Mathematics/Accountancy",
+        "department": "Department of Commerce",
+        "careerScope": "Chartered Accountant, Investment Banking Analyst, Corporate Auditor"
+      },
+      {
+        "name": "B.Sc. (Hons.) Computer Science",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "3-4 Years",
+        "annualFee": 35000,
+        "seats": 180,
+        "entranceExam": "CUET-UG",
+        "eligibility": "10+2 with PCM",
+        "department": "Department of Computer Science",
+        "careerScope": "Software Developer, Data Analyst, Web Architect"
+      },
+      {
+        "name": "M.A. Economics (Delhi School of Economics - DSE)",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 18000,
+        "seats": 150,
+        "entranceExam": "CUET-PG",
+        "eligibility": "Bachelor degree in Economics/allied discipline",
+        "department": "Delhi School of Economics",
+        "careerScope": "Chief Economist, Macroeconomic Strategist, World Bank / IMF Analyst"
+      },
+      {
+        "name": "LL.B. (Faculty of Law, 3-Year Post-Graduate)",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "3 Years",
+        "annualFee": 16000,
+        "seats": 2800,
+        "entranceExam": "CUET-PG",
+        "eligibility": "Graduation in any discipline with min. 50% marks",
+        "department": "Faculty of Law (CLC, LC-I, LC-II)",
+        "careerScope": "Litigation Advocate, Supreme Court Practitioner, Corporate Legal Lead"
+      },
+      {
+        "name": "Ph.D. in Social Sciences & Humanities",
+        "degree": "Doctoral",
+        "level": "Doctoral",
+        "duration": "3-5 Years",
+        "annualFee": 12000,
+        "seats": 80,
+        "entranceExam": "UGC-NET / JRF / University Entrance",
+        "eligibility": "Master degree with min. 55% marks",
+        "department": "Board of Research Studies",
+        "careerScope": "University Professor, Think Tank Director, Policy Research Fellow"
+      }
+    ],
+    "verifiedSource": "University of Delhi Central Placement Cell (CPC) Annual Report 2024",
+    "source": "seed",
+    "aiMode": true
+  },
+  {
+    "id": "spjimr-mumbai",
+    "name": "S.P. Jain Institute of Management and Research (SPJIMR)",
+    "shortName": "SPJIMR Mumbai",
+    "location": "Mumbai, Maharashtra, India",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "country": "India",
+    "established": 1981,
+    "type": "Private Autonomous Business School",
+    "category": "Management",
+    "website": "https://www.spjimr.org",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f0/SPJIMR_Logo.svg/330px-SPJIMR_Logo.svg.png",
+    "overview": "S.P. Jain Institute of Management and Research (SPJIMR) is a top-tier business school established in 1981 by Bharatiya Vidya Bhavan in Mumbai. Ranked among the Financial Times Global Top 40 Masters in Management programs and accredited by AACSB and AMBA, SPJIMR is celebrated for its unique non-classroom learning initiatives like DOCC and Autumn Internships.",
+    "feeRange": "₹10,50,000 / year (₹21.0 Lakhs Total PGDM)",
+    "annualTuitionFee": 1050000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 100,
+      "averagePackage": "₹33.02 LPA",
+      "highestPackage": "₹77.88 LPA",
+      "professorStudentRatio": "1:10",
+      "academicPrograms": [
+        "Post Graduate Diploma in Management (PGDM)",
+        "Post Graduate Programme in Management (PGPM - 1 Year MBA)",
+        "Fellow Programme in Management (FPM - Doctoral)"
+      ],
+      "topRecruiters": [
+        "McKinsey & Company",
+        "Boston Consulting Group",
+        "Bain & Company",
+        "Hindustan Unilever",
+        "Procter & Gamble",
+        "Amazon",
+        "Microsoft",
+        "Tata Administrative Services",
+        "Goldman Sachs",
+        "Nestle"
+      ],
+      "financialAid": {
+        "scholarships": "Merit-cum-Means Financial Support & Mirae Asset Foundation Scholarships.",
+        "governmentSchemes": "Central Government scholarship portals eligible.",
+        "researchGrants": "Full tuition waiver and monthly fellowship for doctoral scholars."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#20 Management in India / FT Global Top 40",
+      "rankingBody": "NIRF Management 2024 / Financial Times Global MiM 2024",
+      "researchScore": 9.3,
+      "placementRate": 100,
+      "starRatings": {
+        "campusLife": 4.9,
+        "graduationRate": 5,
+        "careerOpportunities": 5,
+        "infrastructure": 4.8
+      }
+    },
+    "facilities": [
+      "45-acre heritage campus located in Andheri West, Mumbai",
+      "Executive Learning Amphitheatres with interactive multimedia",
+      "Center for Development of Corporate Citizenship (DOCC)",
+      "High-tech financial trading lab & analytics workspace",
+      "Modern on-campus air-conditioned student residences"
+    ],
+    "popularPrograms": [
+      {
+        "name": "Post Graduate Diploma in Management (PGDM)",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 1050000,
+        "seats": 240,
+        "entranceExam": "CAT / GMAT",
+        "eligibility": "Bachelor degree in any discipline with min. 50%",
+        "department": "School of Management",
+        "careerScope": "Management Consultant, Investment Banker, FMCG Brand Manager, Product Lead"
+      },
+      {
+        "name": "Post Graduate Programme in Management (PGPM - 1 Year MBA)",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "1 Year",
+        "annualFee": 2100000,
+        "seats": 120,
+        "entranceExam": "GMAT / CAT / GRE",
+        "eligibility": "Bachelor degree with min. 5 years work experience",
+        "department": "Executive MBA Division",
+        "careerScope": "Associate Director, Practice Lead, Senior Strategy Consultant"
+      },
+      {
+        "name": "Fellow Programme in Management (FPM - Doctoral)",
+        "degree": "Doctoral",
+        "level": "Doctoral",
+        "duration": "4-5 Years",
+        "annualFee": 30000,
+        "seats": 15,
+        "entranceExam": "CAT / GMAT / GRE / JRF (Fully Funded)",
+        "eligibility": "Master degree with min. 55% marks",
+        "department": "Doctoral Studies Committee",
+        "careerScope": "Business School Professor, Senior Research Analyst"
+      }
+    ],
+    "verifiedSource": "SPJIMR Central Placement Office Audited Report 2024",
+    "source": "seed",
+    "aiMode": true
+  },
+  {
+    "id": "nalsar-university-of-law",
+    "name": "NALSAR University of Law, Hyderabad",
+    "shortName": "NALSAR Hyderabad",
+    "location": "Hyderabad, Telangana, India",
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "country": "India",
+    "established": 1998,
+    "type": "National Law University",
+    "category": "Law",
+    "website": "https://www.nalsar.ac.in",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Nalsar_logo.png/220px-Nalsar_logo.png",
+    "overview": "National Academy of Legal Studies and Research (NALSAR) is a premier national law university located in Shamirpet, Hyderabad. Established in 1998, NALSAR is consistently ranked as India's #2 or #3 law school and is celebrated for its progressive student democracy, legal clinics, and top recruitment by magic circle law firms in India and the UK.",
+    "feeRange": "₹2,75,000 / year (Statutory NLU Schedule)",
+    "annualTuitionFee": 275000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 98,
+      "averagePackage": "₹16.5 LPA",
+      "highestPackage": "₹32.0 LPA",
+      "professorStudentRatio": "1:11",
+      "academicPrograms": [
+        "B.A. LL.B. (Hons.) 5-Year Integrated",
+        "LL.M. in Corporate & Commercial Law",
+        "MBA in Corporate Governance and Business Laws",
+        "Ph.D. in Legal Studies"
+      ],
+      "topRecruiters": [
+        "Shardul Amarchand Mangaldas",
+        "Cyril Amarchand Mangaldas",
+        "AZB & Partners",
+        "Khaitan & Co",
+        "Trilegal",
+        "Linklaters (London)",
+        "Herbert Smith Freehills (UK)",
+        "Luthra and Luthra",
+        "IndusLaw",
+        "ICICI Bank Legal"
+      ],
+      "financialAid": {
+        "scholarships": "NALSAR Student Financial Aid Policy ensuring no student drops out due to inability to pay.",
+        "governmentSchemes": "Telangana State Post-Matric Scholarship & NSP Schemes.",
+        "researchGrants": "Full fellowship for doctoral research scholars."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#3 Law in India",
+      "rankingBody": "NIRF Law 2024 / BCI Accredited",
+      "researchScore": 9.3,
+      "placementRate": 98,
+      "starRatings": {
+        "campusLife": 4.9,
+        "graduationRate": 5,
+        "careerOpportunities": 5,
+        "infrastructure": 4.8
+      }
+    },
+    "facilities": [
+      "55-acre scenic lakeside residential campus in Shamirpet, Hyderabad",
+      "M.K. Nambyar SAARCLAW Library with international legal repository",
+      "Moot Court Halls and Legal Aid Clinic",
+      "Air-conditioned modern residential hostels and sports facilities",
+      "Centre for Air and Space Law & Centre for Animal Law"
+    ],
+    "popularPrograms": [
+      {
+        "name": "B.A. LL.B. (Hons.) 5-Year Integrated",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "5 Years",
+        "annualFee": 275000,
+        "seats": 132,
+        "entranceExam": "CLAT-UG (Top 150 All India Rank)",
+        "eligibility": "10+2 with min. 45% marks",
+        "department": "Faculty of Law",
+        "careerScope": "Corporate Associate (Magic Circle), Litigation Advocate, Judicial Officer, Civil Servant"
+      },
+      {
+        "name": "LL.M. in Corporate & Commercial Law",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "1 Year",
+        "annualFee": 185000,
+        "seats": 60,
+        "entranceExam": "CLAT-PG",
+        "eligibility": "LL.B. degree with min. 50% marks",
+        "department": "Department of PG Legal Studies",
+        "careerScope": "Senior Corporate Legal Counsel, Securities Regulatory Specialist"
+      },
+      {
+        "name": "MBA in Corporate Governance and Business Laws",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 220000,
+        "seats": 60,
+        "entranceExam": "CAT / NALSAR Test",
+        "eligibility": "Graduation in any stream with min. 50%",
+        "department": "Department of Management Studies",
+        "careerScope": "Corporate Governance Officer, Legal Compliance Lead, Risk Analyst"
+      },
+      {
+        "name": "Ph.D. in Legal Studies",
+        "degree": "Doctoral",
+        "level": "Doctoral",
+        "duration": "3-5 Years",
+        "annualFee": 60000,
+        "seats": 20,
+        "entranceExam": "NALSAR Ph.D. Entrance / NET-JRF",
+        "eligibility": "LL.M. degree with min. 55% marks",
+        "department": "Doctoral Board",
+        "careerScope": "Law Professor, Senior Policy Fellow, International Legal Consultant"
+      }
+    ],
+    "verifiedSource": "NALSAR Recruitment Coordination Committee (RCC) Audit 2024",
+    "source": "seed",
+    "aiMode": true
+  },
+  {
+    "id": "bms-college-of-engineering",
+    "name": "B.M.S. College of Engineering (BMSCE), Bangalore",
+    "shortName": "BMSCE Bangalore",
+    "location": "Bangalore, Karnataka, India",
+    "city": "Bangalore",
+    "state": "Karnataka",
+    "country": "India",
+    "established": 1946,
+    "type": "Private Autonomous Engineering College",
+    "category": "Engineering",
+    "website": "https://www.bmsce.ac.in",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4e/BMS_College_of_Engineering_Logo.png/220px-BMS_College_of_Engineering_Logo.png",
+    "overview": "B.M.S. College of Engineering (BMSCE) was founded in 1946 by Bhusanayana Mukundadas Sreenivasaiah as the first private engineering college in India. Located in Basavanagudi, Bangalore, BMSCE is autonomous and affiliated with VTU. Situated in India's Silicon Valley, BMSCE commands extraordinary industry partnerships and tier-1 campus placements.",
+    "feeRange": "₹2,20,000 - ₹2,75,000 / year",
+    "annualTuitionFee": 240000,
+    "additionalOverviewDetails": {
+      "jobPlacementRate": 88,
+      "averagePackage": "₹11.2 LPA",
+      "highestPackage": "₹50.0 LPA",
+      "professorStudentRatio": "1:13",
+      "academicPrograms": [
+        "B.E. in Computer Science and Engineering",
+        "B.E. in Artificial Intelligence and Machine Learning",
+        "B.E. in Electronics and Communication Engineering",
+        "M.Tech in Computer Science and Engineering",
+        "Master of Business Administration (MBA)"
+      ],
+      "topRecruiters": [
+        "Amazon",
+        "Cisco Systems",
+        "Dell Technologies",
+        "Oracle",
+        "Mercedes-Benz R&D",
+        "Bosch",
+        "Texas Instruments",
+        "Goldman Sachs",
+        "Accenture",
+        "Infosys"
+      ],
+      "financialAid": {
+        "scholarships": "BMS Educational Trust Scholarships for meritorious & needy students.",
+        "governmentSchemes": "Karnataka State Post-Matric & e-PASS Scholarships.",
+        "researchGrants": "VTU Research Fellowships & Industry Sponsored Doctoral Grants."
+      }
+    },
+    "rankings": {
+      "nationalRank": "#73 Engineering in India",
+      "rankingBody": "NIRF Engineering 2024 / NAAC A++ Accredited",
+      "researchScore": 8.6,
+      "placementRate": 88,
+      "starRatings": {
+        "campusLife": 4.7,
+        "graduationRate": 4.8,
+        "careerOpportunities": 4.8,
+        "infrastructure": 4.7
+      }
+    },
+    "facilities": [
+      "15-acre lush urban campus in historical Basavanagudi, Bangalore",
+      "BMSCE Centre of Excellence in IoT and Machine Learning",
+      "Advanced 3D Printing & Additive Manufacturing Centre",
+      "Central Digital Library with 1,50,000+ volumes",
+      "Indoor Sports Arena and Gymnasium"
+    ],
+    "popularPrograms": [
+      {
+        "name": "B.E. in Computer Science and Engineering",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 240000,
+        "seats": 180,
+        "entranceExam": "KCET / COMEDK (Top rankers)",
+        "eligibility": "10+2 with PCM min. 50%",
+        "department": "Department of Computer Science",
+        "careerScope": "Software Engineer, Cloud Developer, AI Solutions Lead"
+      },
+      {
+        "name": "B.E. in Artificial Intelligence and Machine Learning",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 240000,
+        "seats": 90,
+        "entranceExam": "KCET / COMEDK",
+        "eligibility": "10+2 with PCM min. 50%",
+        "department": "Department of AIML",
+        "careerScope": "Machine Learning Engineer, Data Scientist, Algorithm Specialist"
+      },
+      {
+        "name": "B.E. in Electronics and Communication Engineering",
+        "degree": "Undergraduate",
+        "level": "Undergraduate",
+        "duration": "4 Years",
+        "annualFee": 240000,
+        "seats": 150,
+        "entranceExam": "KCET / COMEDK",
+        "eligibility": "10+2 with PCM min. 50%",
+        "department": "Department of ECE",
+        "careerScope": "VLSI Design Engineer, Embedded Firmware Architect"
+      },
+      {
+        "name": "M.Tech in Computer Science and Engineering",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 130000,
+        "seats": 24,
+        "entranceExam": "GATE / Karnataka PGCET",
+        "eligibility": "B.Tech/B.E. in CSE/IT with min. 50%",
+        "department": "Department of CSE",
+        "careerScope": "Senior Systems Engineer, R&D Technologist"
+      },
+      {
+        "name": "Master of Business Administration (MBA)",
+        "degree": "Postgraduate",
+        "level": "Postgraduate",
+        "duration": "2 Years",
+        "annualFee": 150000,
+        "seats": 60,
+        "entranceExam": "PGCET / KMAT / CMAT",
+        "eligibility": "Bachelor degree with min. 50%",
+        "department": "Department of Management Studies",
+        "careerScope": "Product Manager, Business Analyst, Marketing Consultant"
+      }
+    ],
+    "verifiedSource": "BMSCE Placement Centre Annual Employment Disclosure 2024",
+    "source": "seed",
+    "aiMode": true
   }
 ];
 
 export function findClientCollege(query) {
   if (!query) return null;
-  const clean = query.trim().toLowerCase();
-  const cleanSlug = clean.replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-');
+  const raw = query.trim().toLowerCase();
+  const resolved = resolveCollegeQuery(query).toLowerCase().trim();
+  const rawSlug = raw.replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-');
+  const resolvedSlug = resolved.replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-');
+
+  // Direct ID or slug matches
   for (const c of VERIFIED_COLLEGES_CLIENT) {
-    if (c.id === clean || c.id === cleanSlug) return c;
-    if (c.shortName && c.shortName.toLowerCase() === clean) return c;
-    if (c.name.toLowerCase() === clean) return c;
-    if (clean.length >= 3 && (c.name.toLowerCase().includes(clean) || c.id.includes(cleanSlug))) return c;
+    const cId = c.id.toLowerCase();
+    const cShort = (c.shortName || "").toLowerCase();
+    const cName = c.name.toLowerCase();
+
+    if (cId === raw || cId === rawSlug || cId === resolved || cId === resolvedSlug) return c;
+    if (cShort === raw || cShort === resolved) return c;
+    if (cName === raw || cName === resolved) return c;
   }
+
+  // Acronym and alias mappings
+  const ALIAS_LOOKUP = {
+    "fms": "faculty-of-management-studies-university-of-delhi",
+    "fms delhi": "faculty-of-management-studies-university-of-delhi",
+    "xlri": "xlri-jamshedpur",
+    "xlri jamshedpur": "xlri-jamshedpur",
+    "anna university": "anna-university-chennai",
+    "anna univ": "anna-university-chennai",
+    "vjti": "veermata-jijabai-technological-institute-vjti-mumbai",
+    "vjti mumbai": "veermata-jijabai-technological-institute-vjti-mumbai",
+    "coep": "coep-technological-university",
+    "coep pune": "coep-technological-university",
+    "rvce": "rv-college-of-engineering",
+    "rv college": "rv-college-of-engineering",
+    "iiitd": "iiit-delhi",
+    "iiit delhi": "iiit-delhi",
+    "nitw": "nit-warangal",
+    "nit warangal": "nit-warangal",
+    "du": "university-of-delhi",
+    "delhi university": "university-of-delhi",
+    "bhu": "banaras-hindu-university",
+    "nalsar": "nalsar-university-of-law",
+    "spjimr": "spjimr-mumbai",
+    "bmsce": "bms-college-of-engineering",
+    "nfsu": "nfsu-gandhinagar",
+    "sibm": "sibm-pune",
+    "sibm pune": "sibm-pune",
+    "bits": "bits-pilani",
+    "bits pilani": "bits-pilani",
+    "iitb": "iit-bombay",
+    "iit bombay": "iit-bombay",
+    "iitd": "iit-delhi",
+    "iit delhi": "iit-delhi",
+    "iitm": "iit-madras",
+    "iit madras": "iit-madras",
+    "iitkgp": "iit-kharagpur",
+    "iit kharagpur": "iit-kharagpur",
+    "aiims": "aiims-new-delhi",
+    "iima": "iim-ahmedabad",
+    "dtu": "dtu-delhi",
+    "ju": "jadavpur-university",
+    "nitt": "nit-trichy",
+    "nit trichy": "nit-trichy",
+    "gnlu": "gujarat-national-law-university",
+    "nlsiu": "nlsiu-bangalore",
+    "ftii": "film-and-television-institute-of-india",
+    "wwi": "whistling-woods-international",
+    "nid": "national-institute-of-design",
+    "nift": "national-institute-of-fashion-technology",
+    "srcc": "shri-ram-college-of-commerce",
+    "lsr": "lady-shri-ram-college",
+    "xaviers": "st-xaviers-college-mumbai",
+    "christ": "christ-university"
+  };
+
+  if (ALIAS_LOOKUP[raw]) {
+    const match = VERIFIED_COLLEGES_CLIENT.find(c => c.id === ALIAS_LOOKUP[raw]);
+    if (match) return match;
+  }
+  if (ALIAS_LOOKUP[resolved]) {
+    const match = VERIFIED_COLLEGES_CLIENT.find(c => c.id === ALIAS_LOOKUP[resolved]);
+    if (match) return match;
+  }
+
+  // Substring search
+  for (const c of VERIFIED_COLLEGES_CLIENT) {
+    const cId = c.id.toLowerCase();
+    const cShort = (c.shortName || "").toLowerCase();
+    const cName = c.name.toLowerCase();
+
+    if (raw.length >= 3 && (cName.includes(raw) || cId.includes(rawSlug) || cShort.includes(raw))) return c;
+    if (resolved.length >= 3 && (cName.includes(resolved) || cId.includes(resolvedSlug))) return c;
+  }
+
   return null;
 }

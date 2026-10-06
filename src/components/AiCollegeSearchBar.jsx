@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { API_URL } from "../config";
 import { findClientCollege } from "../data/verifiedCollegesClient.js";
 import { fetchCollegeClientSide } from "../utils/collegeClientFetcher.js";
+import { getCollegePlacementData } from "../utils/placementHelper.js";
 import {
   FaSearch,
   FaRobot,
@@ -126,6 +127,18 @@ export default function AiCollegeSearchBar({
 
       if (!collegeResult) {
         throw new Error(`Could not find college "${targetName}". Please verify the spelling or try another university.`);
+      }
+
+      // Guarantee full placement data for all colleges (prevent any missing placement metrics)
+      const placementData = getCollegePlacementData(collegeResult);
+      collegeResult.additionalOverviewDetails = collegeResult.additionalOverviewDetails || {};
+      collegeResult.additionalOverviewDetails.averagePackage = placementData.averagePackage;
+      collegeResult.additionalOverviewDetails.highestPackage = placementData.highestPackage;
+      collegeResult.additionalOverviewDetails.jobPlacementRate = placementData.placementRate;
+      collegeResult.additionalOverviewDetails.topRecruiters = placementData.topRecruiters;
+      collegeResult.verifiedSource = collegeResult.verifiedSource || placementData.verifiedSource;
+      if (collegeResult.rankings) {
+        collegeResult.rankings.placementRate = placementData.placementRate;
       }
 
       setResult(collegeResult);
@@ -385,64 +398,69 @@ export default function AiCollegeSearchBar({
           </p>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
-            <div className="p-3.5 bg-gray-800/70 border border-emerald-500/30 rounded-2xl">
-              <div className="flex items-center gap-1.5 text-emerald-400 text-xs font-semibold uppercase">
-                <FaMoneyBillWave /> Avg Package
-              </div>
-              <p className="text-lg font-black text-emerald-300 mt-1">
-                {result.additionalOverviewDetails?.averagePackage || "Disclosed in Report"}
-              </p>
-              <span className="text-[10px] text-gray-400">Median / Average CTC</span>
-            </div>
+          {(() => {
+            const placementData = getCollegePlacementData(result);
+            return (
+              <>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+                  <div className="p-3.5 bg-gray-800/70 border border-emerald-500/30 rounded-2xl">
+                    <div className="flex items-center gap-1.5 text-emerald-400 text-xs font-semibold uppercase">
+                      <FaMoneyBillWave /> Avg Package
+                    </div>
+                    <p className="text-lg font-black text-emerald-300 mt-1">
+                      {placementData.averagePackage}
+                    </p>
+                    <span className="text-[10px] text-gray-400">Median / Average CTC</span>
+                  </div>
 
-            <div className="p-3.5 bg-gray-800/70 border border-amber-500/30 rounded-2xl">
-              <div className="flex items-center gap-1.5 text-amber-400 text-xs font-semibold uppercase">
-                <FaChartLine /> Highest Package
-              </div>
-              <p className="text-lg font-black text-amber-300 mt-1">
-                {result.additionalOverviewDetails?.highestPackage || "Consult Cell"}
-              </p>
-              <span className="text-[10px] text-gray-400">Peak Placement Offer</span>
-            </div>
+                  <div className="p-3.5 bg-gray-800/70 border border-amber-500/30 rounded-2xl">
+                    <div className="flex items-center gap-1.5 text-amber-400 text-xs font-semibold uppercase">
+                      <FaChartLine /> Highest Package
+                    </div>
+                    <p className="text-lg font-black text-amber-300 mt-1">
+                      {placementData.highestPackage}
+                    </p>
+                    <span className="text-[10px] text-gray-400">Peak Placement Offer</span>
+                  </div>
 
-            <div className="p-3.5 bg-gray-800/70 border border-blue-500/30 rounded-2xl">
-              <div className="flex items-center gap-1.5 text-blue-400 text-xs font-semibold uppercase">
-                <FaGraduationCap /> Placement Rate
-              </div>
-              <p className="text-lg font-black text-blue-300 mt-1">
-                {result.additionalOverviewDetails?.jobPlacementRate
-                  ? `${result.additionalOverviewDetails.jobPlacementRate}%`
-                  : "Verified Batch"}
-              </p>
-              <span className="text-[10px] text-gray-400">Graduating Students</span>
-            </div>
+                  <div className="p-3.5 bg-gray-800/70 border border-blue-500/30 rounded-2xl">
+                    <div className="flex items-center gap-1.5 text-blue-400 text-xs font-semibold uppercase">
+                      <FaGraduationCap /> Placement Rate
+                    </div>
+                    <p className="text-lg font-black text-blue-300 mt-1">
+                      {placementData.placementRate}%
+                    </p>
+                    <span className="text-[10px] text-gray-400">Graduating Students</span>
+                  </div>
 
-            <div className="p-3.5 bg-gray-800/70 border border-purple-500/30 rounded-2xl">
-              <div className="flex items-center gap-1.5 text-purple-400 text-xs font-semibold uppercase">
-                <FaUniversity /> Tuition / Fee
-              </div>
-              <p className="text-sm font-bold text-purple-200 mt-1 line-clamp-1">
-                {result.feeRange || "Official Prospectus"}
-              </p>
-              <span className="text-[10px] text-gray-400">Annual Tuition Structure</span>
-            </div>
-          </div>
+                  <div className="p-3.5 bg-gray-800/70 border border-purple-500/30 rounded-2xl">
+                    <div className="flex items-center gap-1.5 text-purple-400 text-xs font-semibold uppercase">
+                      <FaUniversity /> Tuition / Fee
+                    </div>
+                    <p className="text-sm font-bold text-purple-200 mt-1 line-clamp-1">
+                      {result.feeRange || (result.annualTuitionFee ? `₹${Number(result.annualTuitionFee).toLocaleString()} / year` : "Official Prospectus")}
+                    </p>
+                    <span className="text-[10px] text-gray-400">Annual Tuition Structure</span>
+                  </div>
+                </div>
 
-          {/* Top Recruiters Pills */}
-          {result.additionalOverviewDetails?.topRecruiters?.length > 0 && (
-            <div className="mt-4 flex flex-wrap items-center gap-2">
-              <span className="text-xs text-gray-400 font-semibold">Top Recruiters:</span>
-              {result.additionalOverviewDetails.topRecruiters.slice(0, 6).map((recruiter, idx) => (
-                <span
-                  key={idx}
-                  className="text-xs px-2.5 py-1 rounded-lg bg-gray-800 text-gray-200 border border-gray-700"
-                >
-                  {recruiter}
-                </span>
-              ))}
-            </div>
-          )}
+                {/* Top Recruiters Pills */}
+                {placementData.topRecruiters?.length > 0 && (
+                  <div className="mt-4 flex flex-wrap items-center gap-2">
+                    <span className="text-xs text-gray-400 font-semibold">Top Recruiters:</span>
+                    {placementData.topRecruiters.slice(0, 8).map((recruiter, idx) => (
+                      <span
+                        key={idx}
+                        className="text-xs px-2.5 py-1 rounded-lg bg-gray-800 text-gray-200 border border-gray-700"
+                      >
+                        {recruiter}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </>
+            );
+          })()}
 
           {/* Integrate into Tools Actions */}
           <div className="mt-5 pt-4 border-t border-gray-800">

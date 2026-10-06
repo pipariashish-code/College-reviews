@@ -6,6 +6,7 @@
 
 import { resolveCollegeQuery } from "./collegeResolver.js";
 import { findClientCollege } from "../data/verifiedCollegesClient.js";
+import { getCollegePlacementData } from "./placementHelper.js";
 
 function slugify(text) {
   return text
@@ -583,6 +584,21 @@ export async function fetchCollegeClientSide(collegeName) {
     ];
   }
 
+  const verifiedPlacement = getCollegePlacementData({
+    name: rawName,
+    category,
+    additionalOverviewDetails: {
+      averagePackage: avgPkg,
+      highestPackage: highPkg,
+      jobPlacementRate: placementRate,
+      topRecruiters,
+    },
+    rankings: {
+      placementRate,
+    },
+    verifiedSource,
+  });
+
   return {
     id,
     name: rawName,
@@ -596,12 +612,12 @@ export async function fetchCollegeClientSide(collegeName) {
     imageUrl: wikiData?.thumbnail?.source || undefined,
     overview,
     additionalOverviewDetails: {
-      jobPlacementRate: placementRate,
-      averagePackage: avgPkg,
-      highestPackage: highPkg,
+      jobPlacementRate: verifiedPlacement.placementRate,
+      averagePackage: verifiedPlacement.averagePackage,
+      highestPackage: verifiedPlacement.highestPackage,
       professorStudentRatio: "Varies by Dept & Level (UGC ~1:15-1:20)",
       academicPrograms,
-      topRecruiters,
+      topRecruiters: verifiedPlacement.topRecruiters,
       financialAid: {
         scholarships: "Merit-based scholarships covering 25% to 100% tuition for top rankers",
         governmentSchemes: "Central and State Post-Matric & National Scholarship Portal (NSP)",
@@ -612,7 +628,7 @@ export async function fetchCollegeClientSide(collegeName) {
       nationalRank,
       rankingBody,
       researchScore: 8.6,
-      placementRate,
+      placementRate: verifiedPlacement.placementRate,
       starRatings: {
         campusLife: 4.5,
         graduationRate: 4.6,

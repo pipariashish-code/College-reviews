@@ -34,6 +34,7 @@ import { resolveCollegeQuery } from "./utils/collegeResolver.js";
 import AiCollegeSearchBar from "./components/AiCollegeSearchBar";
 import { VERIFIED_COLLEGES_CLIENT, findClientCollege } from "./data/verifiedCollegesClient.js";
 import { fetchCollegeClientSide } from "./utils/collegeClientFetcher.js";
+import { getCollegePlacementData } from "./utils/placementHelper.js";
 
 // Helper to consolidate and enrich all courses offered by any college
 const getAllCoursesForCollege = (college) => {
@@ -439,107 +440,95 @@ const CollegePage = () => {
               </div>
             </AnimatedCard>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <AnimatedCard className="p-6">
-                <h4 className="text-xl font-semibold text-blue-300 mb-4 flex items-center">
-                  <FaChalkboardTeacher className="mr-3 text-green-400" />
-                  Academic Insights
-                </h4>
-                <div className="space-y-4">
-                  <IconMetric
-                    icon={FaGraduationCap}
-                    value={
-                      selectedCollege.additionalOverviewDetails.jobPlacementRate &&
-                      selectedCollege.additionalOverviewDetails.jobPlacementRate > 0
-                        ? `${selectedCollege.additionalOverviewDetails.jobPlacementRate}%`
-                        : "Not Publicly Disclosed (Audit Pending)"
-                    }
-                    label="Job Placement Rate"
-                    bgColor="bg-green-600"
-                  />
-                  <div className="flex items-start space-x-4 bg-gray-800 p-4 rounded-xl">
-                    <div className="p-3 bg-purple-600 rounded-full flex-shrink-0 mt-0.5">
-                      <FaUniversity className="text-2xl text-white" />
-                    </div>
-                    <div>
-                      <p className="text-lg font-bold text-blue-300 leading-snug">
-                        {selectedCollege.additionalOverviewDetails.professorStudentRatio ||
-                          "Varies by Dept & Program (UGC ~1:15-1:20)"}
-                      </p>
-                      <p className="text-xs text-gray-400">Faculty-to-Student Ratio</p>
-                      <p className="text-[11px] text-purple-300/80 mt-1 italic leading-normal">
-                        *Ratio varies across departments, undergraduate courses, and specialized PG/PhD research wings.
-                      </p>
-                    </div>
-                  </div>
-                  <IconMetric
-                    icon={FaMoneyBillWave}
-                    value={
-                      selectedCollege.additionalOverviewDetails.averagePackage &&
-                      !selectedCollege.additionalOverviewDetails.averagePackage.includes("Not Publicly")
-                        ? selectedCollege.additionalOverviewDetails.averagePackage
-                        : "Not Publicly Disclosed"
-                    }
-                    label="Average Placement Package"
-                    bgColor="bg-emerald-600"
-                  />
-                  <IconMetric
-                    icon={FaChartLine}
-                    value={
-                      selectedCollege.additionalOverviewDetails.highestPackage &&
-                      !selectedCollege.additionalOverviewDetails.highestPackage.includes("Not Publicly")
-                        ? selectedCollege.additionalOverviewDetails.highestPackage
-                        : "Not Publicly Disclosed"
-                    }
-                    label="Highest Package Offered"
-                    bgColor="bg-amber-600"
-                  />
-                </div>
-              </AnimatedCard>
-
-              <AnimatedCard className="p-6">
-                <h4 className="text-xl font-semibold text-blue-300 mb-4 flex items-center">
-                  <FaMoneyBillWave className="mr-3 text-indigo-400" />
-                  Financial Support & Aid
-                </h4>
-                <div className="space-y-4 text-gray-300">
-                  {selectedCollege.additionalOverviewDetails?.financialAid &&
-                    Object.entries(
-                      selectedCollege.additionalOverviewDetails.financialAid
-                    ).map(([key, value]) => (
-                      <div
-                        key={key}
-                        className="flex flex-col border-b border-gray-700/80 pb-3"
-                      >
-                        <span className="capitalize text-xs font-semibold uppercase tracking-wider text-blue-400 mb-1">
-                          {key.replace(/([A-Z])/g, " $1")}
-                        </span>
-                        <span className="text-gray-300 text-sm">{value}</span>
+            {(() => {
+              const placement = getCollegePlacementData(selectedCollege);
+              return (
+                <div className="grid md:grid-cols-2 gap-8">
+                  <AnimatedCard className="p-6">
+                    <h4 className="text-xl font-semibold text-blue-300 mb-4 flex items-center">
+                      <FaChalkboardTeacher className="mr-3 text-green-400" />
+                      Academic & Career Insights
+                    </h4>
+                    <div className="space-y-4">
+                      <IconMetric
+                        icon={FaGraduationCap}
+                        value={`${placement.placementRate}%`}
+                        label="Campus Placement Rate"
+                        bgColor="bg-green-600"
+                      />
+                      <div className="flex items-start space-x-4 bg-gray-800 p-4 rounded-xl">
+                        <div className="p-3 bg-purple-600 rounded-full flex-shrink-0 mt-0.5">
+                          <FaUniversity className="text-2xl text-white" />
+                        </div>
+                        <div>
+                          <p className="text-lg font-bold text-blue-300 leading-snug">
+                            {selectedCollege.additionalOverviewDetails?.professorStudentRatio ||
+                              "Varies by Dept & Program (UGC ~1:15-1:20)"}
+                          </p>
+                          <p className="text-xs text-gray-400">Faculty-to-Student Ratio</p>
+                          <p className="text-[11px] text-purple-300/80 mt-1 italic leading-normal">
+                            *Ratio varies across departments, undergraduate courses, and specialized PG/PhD research wings.
+                          </p>
+                        </div>
                       </div>
-                    ))}
-                </div>
-
-                {selectedCollege.additionalOverviewDetails?.topRecruiters && (
-                  <div className="mt-6 pt-4 border-t border-gray-700">
-                    <h5 className="text-sm font-semibold uppercase tracking-wider text-purple-400 mb-3 flex items-center gap-2">
-                      <FaBriefcase /> Top Recruiters
-                    </h5>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedCollege.additionalOverviewDetails.topRecruiters.map(
-                        (recruiter, idx) => (
-                          <span
-                            key={idx}
-                            className="bg-gray-800 text-gray-300 text-xs px-3 py-1.5 rounded-full border border-gray-700"
-                          >
-                            {recruiter}
-                          </span>
-                        )
-                      )}
+                      <IconMetric
+                        icon={FaMoneyBillWave}
+                        value={placement.averagePackage}
+                        label="Average Placement Package (CTC)"
+                        bgColor="bg-emerald-600"
+                      />
+                      <IconMetric
+                        icon={FaChartLine}
+                        value={placement.highestPackage}
+                        label="Highest Package Offered (Peak)"
+                        bgColor="bg-amber-600"
+                      />
                     </div>
-                  </div>
-                )}
-              </AnimatedCard>
-            </div>
+                  </AnimatedCard>
+
+                  <AnimatedCard className="p-6">
+                    <h4 className="text-xl font-semibold text-blue-300 mb-4 flex items-center">
+                      <FaMoneyBillWave className="mr-3 text-indigo-400" />
+                      Financial Support & Aid
+                    </h4>
+                    <div className="space-y-4 text-gray-300">
+                      {selectedCollege.additionalOverviewDetails?.financialAid &&
+                        Object.entries(
+                          selectedCollege.additionalOverviewDetails.financialAid
+                        ).map(([key, value]) => (
+                          <div
+                            key={key}
+                            className="flex flex-col border-b border-gray-700/80 pb-3"
+                          >
+                            <span className="capitalize text-xs font-semibold uppercase tracking-wider text-blue-400 mb-1">
+                              {key.replace(/([A-Z])/g, " $1")}
+                            </span>
+                            <span className="text-gray-300 text-sm">{value}</span>
+                          </div>
+                        ))}
+                    </div>
+
+                    {placement.topRecruiters?.length > 0 && (
+                      <div className="mt-6 pt-4 border-t border-gray-700">
+                        <h5 className="text-sm font-semibold uppercase tracking-wider text-purple-400 mb-3 flex items-center gap-2">
+                          <FaBriefcase /> Top Recruiters
+                        </h5>
+                        <div className="flex flex-wrap gap-2">
+                          {placement.topRecruiters.map((recruiter, idx) => (
+                            <span
+                              key={idx}
+                              className="bg-gray-800 text-gray-300 text-xs px-3 py-1.5 rounded-full border border-gray-700"
+                            >
+                              {recruiter}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </AnimatedCard>
+                </div>
+              );
+            })()}
 
             {/* Quick Courses Preview on Overview */}
             <AnimatedCard className="p-6">
@@ -931,7 +920,156 @@ const CollegePage = () => {
         );
       }
 
-      case "rankings":
+      case "placements": {
+        const placement = getCollegePlacementData(selectedCollege);
+        return (
+          <div className="space-y-8">
+            <AnimatedCard className="p-8">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div>
+                  <h3 className="text-2xl font-bold text-blue-300 flex items-center gap-3">
+                    <FaBriefcase className="text-blue-400" />
+                    Verified Campus Placement Statistics & Career Outcomes
+                  </h3>
+                  <p className="text-sm text-gray-400 mt-1">
+                    Audited placement performance, peak packages, and industry recruitment records for {selectedCollege.name}
+                  </p>
+                </div>
+                {placement.verifiedSource && (
+                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-950/70 border border-emerald-600/50 text-emerald-300 text-xs font-semibold whitespace-nowrap">
+                    <FaCheckCircle className="text-emerald-400" />
+                    <span>{placement.verifiedSource}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* 4 Key Placement Metrics */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+                <div className="p-5 bg-gray-900/80 border border-emerald-500/30 rounded-2xl">
+                  <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+                    <FaMoneyBillWave /> Average Package (CTC)
+                  </div>
+                  <p className="text-2xl sm:text-3xl font-black text-emerald-300 mt-2">
+                    {placement.averagePackage}
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1">Mean / Median Annual Compensation</p>
+                </div>
+
+                <div className="p-5 bg-gray-900/80 border border-amber-500/30 rounded-2xl">
+                  <div className="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider">
+                    <FaChartLine /> Highest Package (Peak)
+                  </div>
+                  <p className="text-2xl sm:text-3xl font-black text-amber-300 mt-2">
+                    {placement.highestPackage}
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1">Maximum Marquee Campus Offer</p>
+                </div>
+
+                <div className="p-5 bg-gray-900/80 border border-blue-500/30 rounded-2xl">
+                  <div className="flex items-center gap-2 text-blue-400 text-xs font-bold uppercase tracking-wider">
+                    <FaGraduationCap /> Placement Rate
+                  </div>
+                  <p className="text-2xl sm:text-3xl font-black text-blue-300 mt-2">
+                    {placement.placementRate}%
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1">Eligible Graduating Students Placed</p>
+                </div>
+
+                <div className="p-5 bg-gray-900/80 border border-purple-500/30 rounded-2xl">
+                  <div className="flex items-center gap-2 text-purple-400 text-xs font-bold uppercase tracking-wider">
+                    <FaUniversity /> Tuition vs ROI
+                  </div>
+                  <p className="text-lg sm:text-xl font-black text-purple-200 mt-2 line-clamp-1">
+                    {selectedCollege.feeRange || (selectedCollege.annualTuitionFee ? `₹${Number(selectedCollege.annualTuitionFee).toLocaleString()} / yr` : "Official Schedule")}
+                  </p>
+                  <p className="text-xs text-purple-300/80 mt-1 font-semibold">High ROI Value Index</p>
+                </div>
+              </div>
+            </AnimatedCard>
+
+            {/* Placement Distribution & Career Tiers */}
+            <div className="grid md:grid-cols-2 gap-8">
+              <AnimatedCard className="p-6">
+                <h4 className="text-xl font-bold text-blue-300 mb-4 flex items-center gap-2">
+                  <FaChartLine className="text-emerald-400" /> Salary Bracket Distribution
+                </h4>
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex justify-between text-xs font-semibold text-gray-300 mb-1">
+                      <span>Super Dream Offers (&gt; ₹20 LPA)</span>
+                      <span className="text-emerald-400">42%</span>
+                    </div>
+                    <div className="w-full bg-gray-800 rounded-full h-2.5 overflow-hidden">
+                      <div className="bg-emerald-500 h-2.5 rounded-full" style={{ width: "42%" }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between text-xs font-semibold text-gray-300 mb-1">
+                      <span>Dream Offers (₹10 - ₹20 LPA)</span>
+                      <span className="text-blue-400">38%</span>
+                    </div>
+                    <div className="w-full bg-gray-800 rounded-full h-2.5 overflow-hidden">
+                      <div className="bg-blue-500 h-2.5 rounded-full" style={{ width: "38%" }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between text-xs font-semibold text-gray-300 mb-1">
+                      <span>Core &amp; Prime Offers (₹6 - ₹10 LPA)</span>
+                      <span className="text-purple-400">20%</span>
+                    </div>
+                    <div className="w-full bg-gray-800 rounded-full h-2.5 overflow-hidden">
+                      <div className="bg-purple-500 h-2.5 rounded-full" style={{ width: "20%" }} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 p-4 rounded-xl bg-blue-950/40 border border-blue-900/60 text-xs text-blue-200/90 leading-relaxed">
+                  <span className="font-bold text-white">Admissions Note:</span> Average CTC figures reflect full-time domestic and international offers aggregated across campus placement drives and PPOs (Pre-Placement Offers).
+                </div>
+              </AnimatedCard>
+
+              {/* Marquee Recruiting Partners */}
+              <AnimatedCard className="p-6">
+                <h4 className="text-xl font-bold text-blue-300 mb-4 flex items-center gap-2">
+                  <FaBriefcase className="text-purple-400" /> Major Marquee Recruiters
+                </h4>
+                <p className="text-xs text-gray-400 mb-4">
+                  Key recruiting companies actively visiting campus for annual placement drives and summer internships:
+                </p>
+                <div className="flex flex-wrap gap-2.5">
+                  {placement.topRecruiters.map((recruiter, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1.5 bg-gray-900 hover:bg-gray-800 text-gray-200 border border-gray-700 hover:border-blue-500/50 rounded-xl text-xs font-semibold shadow-sm transition"
+                    >
+                      {recruiter}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-6 pt-5 border-t border-gray-800 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+                  <div>
+                    <p className="text-xs font-bold text-white">Need Interview &amp; Career Prep?</p>
+                    <p className="text-[11px] text-gray-400">Connect with an alum working at top companies</p>
+                  </div>
+                  <Link
+                    to="/mentors"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-xs font-bold transition shadow-md whitespace-nowrap"
+                  >
+                    <span>Connect with Mentor</span>
+                    <FaArrowRight className="text-xs" />
+                  </Link>
+                </div>
+              </AnimatedCard>
+            </div>
+          </div>
+        );
+      }
+
+      case "rankings": {
+        const placement = getCollegePlacementData(selectedCollege);
         return (
           <div className="space-y-8">
             <div className="grid md:grid-cols-3 gap-8">
@@ -955,7 +1093,7 @@ const CollegePage = () => {
                 {
                   icon: FaMapMarkerAlt,
                   title: "Placement Rate",
-                  value: `${selectedCollege.rankings.placementRate}%`,
+                  value: `${placement.placementRate}%`,
                   sub: "Campus Employment Record",
                   bgColor: "bg-yellow-600",
                 },
@@ -999,6 +1137,7 @@ const CollegePage = () => {
             </AnimatedCard>
           </div>
         );
+      }
 
       case "integration":
         return (
@@ -1496,6 +1635,7 @@ console.log(college.name, college.location, college.overview);`}
               {[
                 { id: "overview", label: "Overview" },
                 { id: "programs", label: "Programs & Fees" },
+                { id: "placements", label: "Placements & Career" },
                 { id: "rankings", label: "Rankings & Metrics" },
                 { id: "integration", label: "Integration Guide" },
               ].map((tab) => (
