@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "./config";
 import { setAuthSession, authenticateLocally, DEMO_USERS } from "./utils/auth";
-import { FaUserGraduate, FaChalkboardTeacher, FaUserCheck, FaSignInAlt, FaLock, FaUser } from "react-icons/fa";
+import { FaUserCheck, FaSignInAlt, FaLock, FaUser } from "react-icons/fa";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -50,7 +50,7 @@ const Login = () => {
         setError(
           err.response?.data?.message ||
           localResult.error ||
-          "Login failed. Please check your credentials or try a Demo Account."
+          "Login failed. Please check your credentials."
         );
         setLoading(false);
       }
@@ -59,13 +59,6 @@ const Login = () => {
 
   const handleGuestLogin = () => {
     completeLogin(DEMO_USERS.guest, "mock-guest-token");
-  };
-
-  const handleDemoLogin = (type) => {
-    const demoUser = DEMO_USERS[type] || DEMO_USERS.student;
-    setUsername(demoUser.username);
-    setPassword("demo123");
-    completeLogin(demoUser, `mock-${type}-token`);
   };
 
   return (
@@ -88,31 +81,6 @@ const Login = () => {
           <p className="text-sm text-gray-400 mt-1">
             Access your MentoreX college directory & mentoring dashboard
           </p>
-        </div>
-
-        {/* Quick Demo Login Buttons */}
-        <div className="mb-6 p-3 bg-gray-900/80 rounded-xl border border-gray-700/80">
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 text-center">
-            ⚡ Quick 1-Click Demo Login
-          </p>
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={() => handleDemoLogin("student")}
-              className="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 text-blue-300 text-xs font-semibold transition"
-            >
-              <FaUserGraduate className="text-blue-400" />
-              <span>Demo Student</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleDemoLogin("mentor")}
-              className="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/30 text-emerald-300 text-xs font-semibold transition"
-            >
-              <FaChalkboardTeacher className="text-emerald-400" />
-              <span>Demo Mentor</span>
-            </button>
-          </div>
         </div>
 
         {successMsg && (
