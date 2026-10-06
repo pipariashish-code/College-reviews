@@ -1,0 +1,8 @@
+{
+  "name": "MentoreX",
+  "description": "MentoreX helps students choose the right college, plan their budget and manage expenses, with guidance from mentors.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

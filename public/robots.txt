@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mentorex.co.in/sitemap.xml

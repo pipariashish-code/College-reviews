@@ -1,0 +1,227 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { CONTACT_EMAIL, SUBSCRIBE_ENDPOINT } from "./config";
+import Logo from "./Logo";
+
+const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [message, setMessage] = useState("");
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    setMessage("");
+    try {
+      const response = await fetch(SUBSCRIBE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          _subject: "New newsletter subscriber",
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+      const data = await response.json();
+      if (response.ok && String(data.success) === "true") {
+        setStatus("success");
+        setMessage("Thanks for subscribing!");
+        setEmail("");
+      } else {
+        throw new Error(data.message || "Subscription failed");
+      }
+    } catch (err) {
+      console.error("Subscribe error:", err);
+      setStatus("error");
+      setMessage("Something went wrong. Please try again later.");
+    }
+  };
+
+  return (
+    <footer className="bg-gray-900 text-gray-100 py-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <div className="grid md:grid-cols-4 gap-8">
+          {/* Company Info */}
+          <div>
+            <h3 className="flex items-center gap-3 text-2xl font-bold text-white mb-4">
+              <Logo size={36} variant="light" />
+              <span style={{ fontFamily: "Sora, sans-serif", letterSpacing: "-0.02em" }}>
+                Mentore<span className="text-amber-400">X</span>
+              </span>
+            </h3>
+            <p className="text-gray-400 mb-4">
+              Empowering students with comprehensive insights, financial tools,
+              and personalized guidance for educational success.
+            </p>
+            <div className="flex space-x-4">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-2xl text-gray-400 hover:text-blue-400 transition-colors"
+              >
+                <FaFacebook />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-2xl text-gray-400 hover:text-blue-400 transition-colors"
+              >
+                <FaTwitter />
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-2xl text-gray-400 hover:text-blue-400 transition-colors"
+              >
+                <FaLinkedin />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-2xl text-gray-400 hover:text-blue-400 transition-colors"
+              >
+                <FaInstagram />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-lg font-semibold text-blue-300 mb-4">
+              Quick Links
+            </h4>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  to="/"
+                  className="text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/about"
+                  className="text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/colleges"
+                  className="text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  Colleges
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/book-mentor"
+                  className="text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  Book a Mentor
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Tools */}
+          <div>
+            <h4 className="text-lg font-semibold text-blue-300 mb-4">
+              Our Tools
+            </h4>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  to="/tools/college-fee-comparison"
+                  className="text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  College Fee Comparison
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/tools/loan-eligibility"
+                  className="text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  Loan Eligibility Calculator
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/tools/scholarship-finder"
+                  className="text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  Scholarship Finder
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact & Newsletter */}
+          <div>
+            <h4 className="text-lg font-semibold text-blue-300 mb-4">
+              Stay Connected
+            </h4>
+            <form className="mb-4" onSubmit={handleSubscribe}>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="w-full p-2 bg-gray-800 text-white rounded-md mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="w-full p-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md hover:from-blue-700 hover:to-blue-800 transition-colors disabled:opacity-60"
+              >
+                {status === "sending" ? "Subscribing..." : "Subscribe"}
+              </button>
+              {message && (
+                <p
+                  className={`text-sm mt-2 ${
+                    status === "success" ? "text-green-400" : "text-red-400"
+                  }`}
+                >
+                  {message}
+                </p>
+              )}
+            </form>
+            <div>
+              <p className="text-gray-400 text-sm">
+                Contact:{" "}
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="hover:text-blue-300 transition-colors"
+                >
+                  {CONTACT_EMAIL}
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Copyright */}
+        <div className="border-t border-gray-800 mt-8 pt-6 text-center">
+          <p className="text-gray-500">
+            © {new Date().getFullYear()} MentoreX. All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
