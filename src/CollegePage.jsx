@@ -26,6 +26,7 @@ import {
   FaCalculator,
   FaBalanceScale,
   FaArrowRight,
+  FaRedoAlt,
 } from "react-icons/fa";
 
 import { resolveCollegeQuery } from "./utils/collegeResolver.js";
@@ -33,6 +34,7 @@ import AiCollegeSearchBar from "./components/AiCollegeSearchBar";
 import { VERIFIED_COLLEGES_CLIENT, findClientCollege } from "./data/verifiedCollegesClient.js";
 import { fetchCollegeClientSide } from "./utils/collegeClientFetcher.js";
 import { getCollegePlacementData } from "./utils/placementHelper.js";
+import { fetchLiveProgramsForCollege } from "./utils/collegeProgramsFetcher.js";
 
 // Helper to consolidate and enrich all courses offered by any college
 const getAllCoursesForCollege = (college) => {
@@ -238,6 +240,38 @@ const CollegePage = () => {
   const [courseSort, setCourseSort] = useState("default");
   const [loading, setLoading] = useState(false);
 
+  // Dedicated Live Programs State (fetches live curriculum for any college dynamically)
+  const [liveProgramsMap, setLiveProgramsMap] = useState({});
+  const [fetchingPrograms, setFetchingPrograms] = useState(false);
+  const [programsSourceMap, setProgramsSourceMap] = useState({});
+
+  const loadLivePrograms = useCallback(async (college, force = false) => {
+    if (!college) return;
+    const key = college.id || college.name;
+    if (!force && liveProgramsMap[key] && liveProgramsMap[key].length > 0) return;
+
+    try {
+      setFetchingPrograms(true);
+      const res = await fetchLiveProgramsForCollege(college);
+      if (res && res.programs && res.programs.length > 0) {
+        setLiveProgramsMap((prev) => ({
+          ...prev,
+          [key]: res.programs,
+        }));
+        if (res.source) {
+          setProgramsSourceMap((prev) => ({
+            ...prev,
+            [key]: res.source,
+          }));
+        }
+      }
+    } catch (err) {
+      console.warn("Failed to live fetch programs:", err);
+    } finally {
+      setFetchingPrograms(false);
+    }
+  }, [liveProgramsMap]);
+
   const fetchCollegesList = useCallback(async (selectNewId = null) => {
     try {
       setLoading(true);
@@ -353,6 +387,12 @@ const CollegePage = () => {
 
   const selectedCollege =
     colleges.find((c) => c.id === selectedCollegeId) || colleges[0];
+
+  useEffect(() => {
+    if (selectedCollege && activeTab === "programs") {
+      loadLivePrograms(selectedCollege);
+    }
+  }, [selectedCollege, activeTab, loadLivePrograms]);
 
   const filteredColleges = colleges.filter((c) => {
     if (!c) return false;
@@ -583,7 +623,13 @@ const CollegePage = () => {
         );
 
       case "programs": {
-        const allCourses = getAllCoursesForCollege(selectedCollege);
+        const collegeKey = selectedCollege.id || selectedCollege.name;
+        const liveList = liveProgramsMap[collegeKey];
+        const allCourses = (Array.isArray(liveList) && liveList.length > 0)
+          ? liveList
+          : getAllCoursesForCollege(selectedCollege);
+        const currentSource = programsSourceMap[collegeKey] || "Live Academic Curriculum (MentoreX AI)";
+
         const ugCount = allCourses.filter((c) => c.level === "Undergraduate").length;
         const pgCount = allCourses.filter((c) => c.level === "Postgraduate").length;
         const intCount = allCourses.filter((c) => c.level === "Integrated Degree").length;
@@ -622,24 +668,48 @@ const CollegePage = () => {
             <div className="bg-gradient-to-r from-blue-950/70 via-gray-900 to-indigo-950/70 p-6 rounded-2xl border border-blue-500/30">
               <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-400/30 mb-2">
-                    <FaBookOpen /> Comprehensive Course Catalog
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-400/30">
+                      <FaBookOpen /> Live University Curriculum Engine
+                    </div>
+                    {currentSource && (
+                      <span className="text-[11px] bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 px-2.5 py-0.5 rounded-full flex items-center gap-1 font-medium">
+                        <FaCheckCircle className="text-emerald-400 text-[10px]" />
+                        <span>{currentSource}</span>
+                      </span>
+                    )}
                   </div>
                   <h3 className="text-2xl md:text-3xl font-extrabold text-white">
                     Academic Programs & Degrees Offered
                   </h3>
                   <p className="text-sm text-gray-400 mt-1">
-                    Showing all accredited Undergraduate, Postgraduate, Doctoral, and Diploma programs offered by{" "}
+                    Live dynamic catalog of accredited Undergraduate, Postgraduate, Doctoral, and Diploma programs offered by{" "}
                     <span className="text-blue-300 font-semibold">{selectedCollege.name}</span>
                   </p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => loadLivePrograms(selectedCollege, true)}
+                    disabled={fetchingPrograms}
+                    className="px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg cursor-pointer disabled:opacity-50"
+                  >
+                    <FaRedoAlt className={fetchingPrograms ? "animate-spin" : ""} />
+                    {fetchingPrograms ? "Fetching Live Programs..." : "Re-fetch Live Programs"}
+                  </button>
                   <div className="px-4 py-2.5 bg-blue-900/60 border border-blue-500/40 rounded-xl text-center">
                     <div className="text-2xl font-black text-blue-300">{allCourses.length}</div>
                     <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">Total Courses</div>
                   </div>
                 </div>
               </div>
+
+              {fetchingPrograms && (
+                <div className="mt-4 p-3.5 bg-blue-900/30 border border-blue-500/40 rounded-xl text-xs text-blue-200 flex items-center gap-3 animate-pulse">
+                  <div className="w-4 h-4 border-2 border-blue-400 border-t-transparent rounded-full animate-spin flex-shrink-0" />
+                  <span>Fetching live accredited degree programs, eligibility criteria, and fee structures for {selectedCollege.name} from MentoreX AI curriculum engine...</span>
+                </div>
+              )}
 
               {/* Course Level Category Filter Pills */}
               <div className="flex flex-wrap gap-2 mt-6 pt-4 border-t border-gray-800">

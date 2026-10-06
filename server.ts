@@ -204,6 +204,58 @@ app.get("/api/colleges/db-stats", (_req: Request, res: Response) => {
 });
 
 /**
+ * POST /api/colleges/programs/fetch
+ * Live fetch all accredited programs for ANY college
+ * Body: { collegeName?: string, name?: string, collegeId?: string, category?: string }
+ */
+app.post("/api/colleges/programs/fetch", async (req: Request, res: Response) => {
+  try {
+    const { collegeName, name, collegeId, category } = req.body;
+    const target = collegeName || name || collegeId;
+    if (!target || typeof target !== "string" || !target.trim()) {
+      return res.status(400).json({
+        success: false,
+        error: "Please provide college name in { collegeName: '...' }",
+      });
+    }
+
+    const result = await CollegeService.fetchCollegeProgramsLive(target.trim(), category);
+    return res.status(200).json(result);
+  } catch (err: any) {
+    console.error("Live programs fetch error:", err);
+    return res.status(500).json({
+      success: false,
+      error: err.message || "Failed to fetch college programs live",
+    });
+  }
+});
+
+/**
+ * GET /api/colleges/programs/fetch
+ * Query param version: ?name=Stanford%20University
+ */
+app.get("/api/colleges/programs/fetch", async (req: Request, res: Response) => {
+  try {
+    const target = (req.query.name || req.query.collegeName || req.query.q) as string;
+    const category = req.query.category as string | undefined;
+    if (!target || !target.trim()) {
+      return res.status(400).json({
+        success: false,
+        error: "Query parameter 'name' or 'collegeName' is required",
+      });
+    }
+
+    const result = await CollegeService.fetchCollegeProgramsLive(target.trim(), category);
+    return res.status(200).json(result);
+  } catch (err: any) {
+    return res.status(500).json({
+      success: false,
+      error: err.message || "Failed to fetch college programs live",
+    });
+  }
+});
+
+/**
  * POST /api/colleges/fetch
  * Fetch relevant data about ANY college that does NOT exist on the website.
  * Body: { name: string, stream?: string, forceAi?: boolean, mode?: 'ai' }
