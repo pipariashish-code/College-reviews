@@ -282,10 +282,10 @@ export default function AiCollegeSearchBar({
             </div>
             <div className="flex-1">
               <h4 className="text-sm font-bold text-blue-200">
-                Gemini AI Mode is analyzing "{query}"
+                MentoreX AI is analyzing "{query}"
               </h4>
               <p className="text-xs text-blue-300/80 mt-0.5">
-                {loadingStep === 1 && "Connecting to Gemini AI higher education knowledge engine..."}
+                {loadingStep === 1 && "Connecting to MentoreX AI higher education knowledge engine..."}
                 {loadingStep === 2 && "Extracting audited placement CTCs, NIRF rankings & tuition fees..."}
                 {loadingStep === 3 && "Synthesizing comprehensive institutional insights & top recruiters..."}
               </p>
@@ -517,7 +517,7 @@ export default function AiCollegeSearchBar({
                 <FaCheckCircle className="text-emerald-400" />
                 <span>Audited Source: {result.verifiedSource}</span>
               </span>
-              <span className="text-gray-500">Fetched via Gemini AI Mode</span>
+              <span className="text-gray-500">Fetched via MentoreX AI</span>
             </div>
           )}
         </div>

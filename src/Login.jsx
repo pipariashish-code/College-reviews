@@ -156,6 +156,7 @@ const Login = () => {
               </label>
               <Link
                 to="/forgot-password"
+                state={{ email: username.trim() }}
                 className="text-xs text-blue-400 hover:text-blue-300"
               >
                 Forgot Password?

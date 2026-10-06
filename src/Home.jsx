@@ -127,13 +127,13 @@ const Home = () => {
           <div className="mt-14 pt-10 border-t border-blue-500/20">
             <div className="text-center max-w-2xl mx-auto mb-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-400/30 mb-3">
-                <FaRobot className="text-blue-400 text-sm" /> Live Gemini AI Mode Active
+                <FaRobot className="text-blue-400 text-sm" /> MentoreX AI Mode Active
               </div>
               <h2 className="text-2xl md:text-3xl font-extrabold text-white">
-                Search Any College with AI Mode
+                Search Any College with MentoreX AI
               </h2>
               <p className="text-gray-400 text-sm md:text-base mt-1">
-                Type any university in India or globally. Gemini AI fetches verified placement packages (average & peak CTC), placement rates, and tuition fees instantly.
+                Type any university in India or globally. MentoreX AI fetches verified placement packages (average & peak CTC), placement rates, and tuition fees instantly.
               </p>
             </div>
             <div className="max-w-4xl mx-auto">

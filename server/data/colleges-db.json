@@ -21,9 +21,12 @@
       "highestPackage": "₹45.0 LPA",
       "professorStudentRatio": "1:12",
       "academicPrograms": [
-        "M.Tech Cyber Security",
         "M.Sc Forensic Science",
-        "B.Tech + M.Tech Integrated Cyber Security"
+        "M.Tech Cyber Security",
+        "M.Sc Digital Forensics & Information Security",
+        "B.Tech - M.Tech Computer Science & Cyber Security (Integrated 5-Year)",
+        "M.Sc Forensic Odontology & Toxicology",
+        "Homeland Security & Behavioral Forensics"
       ],
       "topRecruiters": [
         "Deloitte",
@@ -112,8 +115,11 @@
       "highestPackage": "₹1.68 CPA",
       "professorStudentRatio": "1:11",
       "academicPrograms": [
-        "B.Tech Computer Science and Engineering",
-        "B.Tech Electrical Engineering"
+        "Computer Science and Engineering",
+        "Electrical Engineering",
+        "Mechanical Engineering",
+        "Engineering Physics",
+        "Aerospace Engineering"
       ],
       "topRecruiters": [
         "Google",
@@ -193,8 +199,11 @@
       "highestPackage": "₹2.0 CPA",
       "professorStudentRatio": "1:12",
       "academicPrograms": [
-        "B.Tech Computer Science and Engineering",
-        "B.Tech Mathematics and Computing"
+        "Computer Science and Engineering",
+        "Mathematics and Computing",
+        "Electrical Engineering",
+        "Mechanical Engineering",
+        "Textile and Fibre Engineering"
       ],
       "topRecruiters": [
         "Microsoft",
@@ -272,7 +281,11 @@
       "highestPackage": "₹1.31 CPA",
       "professorStudentRatio": "1:11",
       "academicPrograms": [
-        "B.Tech Computer Science and Engineering"
+        "Computer Science and Engineering",
+        "Electrical Engineering",
+        "Mechanical Engineering",
+        "Data Science & Electronic Systems",
+        "Naval Architecture & Marine Engineering"
       ],
       "topRecruiters": [
         "Texas Instruments",
@@ -344,7 +357,10 @@
       "professorStudentRatio": "1:14",
       "academicPrograms": [
         "B.E. Computer Science",
-        "B.E. Electrical & Electronics"
+        "B.E. Electrical & Electronics",
+        "B.E. Mechanical Engineering",
+        "M.Sc. Economics (Dual Degree)",
+        "B.E. Chemical Engineering"
       ],
       "topRecruiters": [
         "Google",
@@ -421,10 +437,13 @@
     "additionalOverviewDetails": {
       "jobPlacementRate": 100,
       "averagePackage": "₹18.0 LPA (Junior Resident Doctor Stipend)",
-      "highestPackage": "₹35.0 LPA",
+      "highestPackage": "₹35.0 LPA (Senior Fellowship / Consultant)",
       "professorStudentRatio": "1:4",
       "academicPrograms": [
-        "MBBS"
+        "MBBS (Bachelor of Medicine and Bachelor of Surgery)",
+        "MD / MS Postgraduate Clinical Specializations",
+        "DM / M.Ch Super-specialty Programs",
+        "B.Sc. Nursing (Hons)"
       ],
       "topRecruiters": [
         "AIIMS Residency & Fellowship",
@@ -494,7 +513,9 @@
       "highestPackage": "₹1.15 CPA",
       "professorStudentRatio": "1:8",
       "academicPrograms": [
-        "Post Graduate Programme in Management (PGP)"
+        "Post Graduate Programme in Management (PGP / MBA)",
+        "PGP in Food and Agri-Business Management (PGP-FABM)",
+        "Post Graduate Programme in Management for Executives (PGPX)"
       ],
       "topRecruiters": [
         "McKinsey & Company",
@@ -563,8 +584,11 @@
       "highestPackage": "₹1.02 CPA",
       "professorStudentRatio": "1:15",
       "academicPrograms": [
-        "B.Tech Computer Science and Engineering (Cat 1)",
-        "B.Tech Computer Science and Engineering (Cat 2)"
+        "Computer Science and Engineering",
+        "Information Technology",
+        "Electronics and Communication",
+        "Biotechnology",
+        "Mechanical Engineering"
       ],
       "topRecruiters": [
         "Microsoft",
@@ -859,7 +883,7 @@
       "professorStudentRatio": "1:12",
       "academicPrograms": [
         "B.A. LL.B. (Hons.)",
-        "LL.M. in International & Commercial Law",
+        "LL.M. (Master of Laws)",
         "Master of Public Policy (MPP)",
         "Ph.D. in Law"
       ],
@@ -953,7 +977,11 @@
       "highestPackage": "₹82.0 LPA",
       "professorStudentRatio": "1:15",
       "academicPrograms": [
-        "B.Tech Computer Engineering"
+        "Computer Engineering",
+        "Information Technology",
+        "Software Engineering",
+        "Electronics and Communication",
+        "Mechanical Engineering"
       ],
       "topRecruiters": [
         "Google",
@@ -1024,7 +1052,11 @@
       "highestPackage": "$410,000 / year",
       "professorStudentRatio": "1:3",
       "academicPrograms": [
-        "B.S. in Electrical Engineering & Computer Science (Course 6-2)"
+        "Computer Science and Engineering",
+        "Electrical Science and Engineering",
+        "Mechanical Engineering",
+        "Physics and Mathematics",
+        "Aeronautics and Astronautics"
       ],
       "topRecruiters": [
         "Google",
@@ -1095,8 +1127,11 @@
       "highestPackage": "$390,000 / year",
       "professorStudentRatio": "1:5",
       "academicPrograms": [
-        "B.S. Computer Science",
-        "M.S. Computer Science / AI Track"
+        "Computer Science",
+        "Artificial Intelligence",
+        "Management Science and Engineering",
+        "Economics",
+        "Bioengineering"
       ],
       "topRecruiters": [
         "Google",
@@ -1387,10 +1422,12 @@
       "highestPackage": "₹85.0 LPA",
       "professorStudentRatio": "1:13",
       "academicPrograms": [
-        "B.E. Computer Science & Engineering",
-        "B.E. Information Technology",
-        "B.E. Electronics & Telecommunication",
-        "M.Tech Computer Science"
+        "Computer Science & Engineering",
+        "Electronics & Telecommunication",
+        "Power Engineering",
+        "Chemical Engineering",
+        "Information Technology",
+        "Mechanical Engineering"
       ],
       "topRecruiters": [
         "Google",
@@ -1485,9 +1522,12 @@
       "highestPackage": "₹2.68 CPA",
       "professorStudentRatio": "1:12",
       "academicPrograms": [
-        "B.Tech Computer Science & Engineering",
-        "B.Tech Electronics & Electrical Communication",
-        "M.Tech Artificial Intelligence"
+        "Computer Science and Engineering",
+        "Electronics & Electrical Communication",
+        "Aerospace Engineering",
+        "Data Science & Artificial Intelligence",
+        "Industrial & Systems Engineering",
+        "Ocean Engineering & Naval Architecture"
       ],
       "topRecruiters": [
         "Apple",
@@ -1575,8 +1615,12 @@
       "highestPackage": "₹52.8 LPA",
       "professorStudentRatio": "1:13",
       "academicPrograms": [
-        "B.Tech Computer Science and Engineering",
-        "B.Tech Electronics & Communication"
+        "Computer Science and Engineering",
+        "Electronics and Communication",
+        "Electrical and Electronics",
+        "Mechanical Engineering",
+        "Chemical Engineering",
+        "Production Engineering"
       ],
       "topRecruiters": [
         "Microsoft",
@@ -1655,7 +1699,11 @@
       "highestPackage": "₹54.5 LPA",
       "professorStudentRatio": "1:13",
       "academicPrograms": [
-        "B.Tech Computer Science and Engineering"
+        "Computer Science and Engineering",
+        "Information Technology",
+        "Artificial Intelligence",
+        "Electronics and Communication",
+        "Mechanical Engineering"
       ],
       "topRecruiters": [
         "Google",
@@ -1726,8 +1774,11 @@
       "highestPackage": "$240,000 / year",
       "professorStudentRatio": "1:13",
       "academicPrograms": [
-        "B.S. Aeronautical and Astronautical Engineering",
-        "B.S. Computer Science"
+        "Aerospace and Aeronautical Engineering",
+        "Computer Science",
+        "Mechanical Engineering",
+        "Electrical and Computer Engineering",
+        "Industrial Engineering"
       ],
       "topRecruiters": [
         "Boeing",
@@ -1806,7 +1857,9 @@
       "highestPackage": "₹1.02 CPA",
       "professorStudentRatio": "1:11",
       "academicPrograms": [
-        "B.Tech Computer Science and Engineering"
+        "B.Tech Computer Science and Engineering",
+        "B.Tech Electronics and Communication",
+        "Dual Degree (B.Tech + MS by Research in CSE/ECE/Computational Linguistics)"
       ],
       "topRecruiters": [
         "Google",
@@ -1876,9 +1929,12 @@
       "highestPackage": "₹74.84 LPA",
       "professorStudentRatio": "Varies by Dept & Program (UGC ~1:15-1:20)",
       "academicPrograms": [
-        "Master of Business Administration (MBA - Flagship)",
-        "MBA (Innovation & Entrepreneurship)",
-        "MBA (Leadership and Strategy)"
+        "Marketing Management",
+        "Financial Management",
+        "Human Resource Management",
+        "Operations and Supply Chain Management",
+        "Innovation and Entrepreneurship",
+        "Business Analytics"
       ],
       "topRecruiters": [
         "Accenture Strategy",
@@ -1974,9 +2030,11 @@
         "B.A. LL.B. (Hons.)",
         "B.Com. LL.B. (Hons.)",
         "B.B.A. LL.B. (Hons.)",
-        "LL.M. in Corporate & Commercial Law",
-        "LL.M. in Intellectual Property Rights",
-        "Ph.D. in Legal Studies"
+        "B.Sc. LL.B. (Hons.)",
+        "B.S.W. LL.B. (Hons.)",
+        "LL.M. in Corporate and Commercial Law",
+        "LL.M. in Intellectual Property Rights & Cyber Law",
+        "Ph.D. in Law and Interdisciplinary Legal Studies"
       ],
       "topRecruiters": [
         "Shardul Amarchand Mangaldas",
@@ -2087,9 +2145,11 @@
       "academicPrograms": [
         "B.A. (Hons.) Psychology",
         "B.A. (Hons.) Economics",
-        "B.Com. (Hons.) Accounting & Finance",
         "B.A. (Hons.) Journalism & Mass Communication",
-        "M.A. Applied Psychology"
+        "B.A. (Hons.) English Literature",
+        "B.A. (Hons.) Political Science",
+        "B.Com. (Hons.) Accounting & Finance",
+        "M.A. Psychology"
       ],
       "topRecruiters": [
         "McKinsey & Company",
@@ -2189,10 +2249,11 @@
       "professorStudentRatio": "1:18",
       "academicPrograms": [
         "BMS (Bachelor of Management Studies)",
-        "B.A. (Hons.) Psychology",
-        "B.A. Film, Television & Media Production",
-        "B.Com. (Accounting & Financial Management)",
-        "B.A. (Hons.) Economics"
+        "B.A. (Hons.) Psychology & Behavioral Science",
+        "B.Com. (Banking & Financial Markets)",
+        "B.A. Film, Television & New Media Production",
+        "B.A. (Hons.) Economics",
+        "M.A. Public Policy & Economics"
       ],
       "topRecruiters": [
         "McKinsey & Company",
@@ -2293,7 +2354,8 @@
       "academicPrograms": [
         "B.Com. (Hons.)",
         "B.A. (Hons.) Economics",
-        "PGD Global Business Operations (GBO)"
+        "Post Graduate Diploma in Global Business Operations (GBO)",
+        "M.Com."
       ],
       "topRecruiters": [
         "McKinsey & Company",
@@ -2378,11 +2440,12 @@
       "highestPackage": "₹32.0 LPA",
       "professorStudentRatio": "1:8",
       "academicPrograms": [
-        "PG Diploma in Film Direction & Screenplay Writing",
+        "B.A. / PG Diploma in Film Direction & Screenplay Writing",
         "PG Diploma in Cinematography",
         "PG Diploma in Sound Recording & Sound Design",
-        "PG Diploma in Film Editing",
-        "B.A. Screen Acting"
+        "PG Diploma in Editing & Post-Production",
+        "PG Certificate in Television Direction & Production",
+        "B.A. Screen Acting & Performance Arts"
       ],
       "topRecruiters": [
         "Netflix India",
@@ -2481,10 +2544,12 @@
       "highestPackage": "₹28.0 LPA",
       "professorStudentRatio": "1:10",
       "academicPrograms": [
-        "B.A. in Filmmaking (Direction / Cinematography)",
-        "B.A. in Animation & VFX",
+        "B.A. in Filmmaking (Direction, Cinematography, Editing)",
+        "B.Sc. in Filmmaking",
+        "B.A. in Animation & Visual Effects (VFX)",
+        "B.A. in Screenwriting",
         "BBA in Media & Entertainment Management",
-        "B.A. in Screenwriting"
+        "B.Des in Visual Communication & Design"
       ],
       "topRecruiters": [
         "Disney Star",
@@ -2577,8 +2642,10 @@
       "professorStudentRatio": "1:9",
       "academicPrograms": [
         "B.Des in Product Design",
+        "B.Des in Communication Design (Graphic / Animation)",
         "B.Des in Interaction & UI/UX Design",
-        "B.Des in Communication & Graphic Design",
+        "B.Des in Textile & Apparel Design",
+        "B.Des in Ceramic & Glass Design",
         "M.Des in Strategic Design Management",
         "M.Des in New Media Design"
       ],
@@ -2681,7 +2748,9 @@
       "academicPrograms": [
         "B.Des in Fashion Design",
         "B.Des in Fashion Communication",
-        "B.FTech Apparel Production",
+        "B.Des in Textile Design",
+        "B.Des in Accessory & Jewellery Design",
+        "B.FTech in Apparel Production",
         "Master of Fashion Management (MFM)"
       ],
       "topRecruiters": [
@@ -2774,10 +2843,13 @@
       "highestPackage": "₹24.0 LPA",
       "professorStudentRatio": "1:18",
       "academicPrograms": [
-        "BBA (Finance and International Business)",
+        "BBA (Bachelor of Business Administration - Finance / Marketing)",
+        "BBA (Business Analytics / BMS)",
         "B.Sc. (Hons.) Psychology",
+        "B.A. (Hons.) Psychology & English",
         "B.Com. (Hons.) Professional",
-        "B.A. (Hons.) Media Studies & Film Production",
+        "B.A. (Hons.) Journalism, Media & Film Studies",
+        "MBA (Master of Business Administration)",
         "M.Sc. Clinical Psychology"
       ],
       "topRecruiters": [

@@ -19,11 +19,9 @@ import {
   FaRegStar,
   FaStarHalfAlt,
   FaSearch,
-  FaCode,
   FaCheckCircle,
   FaBuilding,
   FaGlobe,
-  FaCopy,
   FaRobot,
   FaCalculator,
   FaBalanceScale,
@@ -239,8 +237,6 @@ const CollegePage = () => {
   const [courseSearch, setCourseSearch] = useState("");
   const [courseSort, setCourseSort] = useState("default");
   const [loading, setLoading] = useState(false);
-  const [showApiDocs, setShowApiDocs] = useState(false);
-  const [codeCopied, setCodeCopied] = useState("");
 
   const fetchCollegesList = useCallback(async (selectNewId = null) => {
     try {
@@ -266,12 +262,6 @@ const CollegePage = () => {
   useEffect(() => {
     fetchCollegesList();
   }, [fetchCollegesList]);
-
-  const copySnippet = (text, key) => {
-    navigator.clipboard.writeText(text);
-    setCodeCopied(key);
-    setTimeout(() => setCodeCopied(""), 2500);
-  };
 
   const [aiFetching, setAiFetching] = useState(false);
 
@@ -1139,157 +1129,6 @@ const CollegePage = () => {
         );
       }
 
-      case "integration":
-        return (
-          <div className="space-y-8">
-            <AnimatedCard className="p-8">
-              <h3 className="text-2xl font-bold text-blue-300 mb-4 flex items-center gap-2">
-                <FaCode className="text-blue-400" />
-                How to Integrate Live Results with Your Website
-              </h3>
-              <p className="text-gray-300 leading-relaxed text-sm md:text-base mb-6">
-                You can call the live backend API from anywhere on your website (such as search boxes, calculator tools, program pages, or mentor booking). Below are copy-paste integration examples for React, Vanilla JavaScript, and cURL.
-              </p>
-
-              {/* Code Snippet 1: React Live Search Hook */}
-              <div className="space-y-6">
-                <div className="bg-gray-900 border border-gray-700 rounded-xl p-5">
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">
-                      Option A: React Component (Instant Live Search & Fetch)
-                    </span>
-                    <button
-                      onClick={() =>
-                        copySnippet(
-`import { useState } from 'react';
-import axios from 'axios';
-
-export function CollegeLiveSearch({ onSelectCollege }) {
-  const [query, setQuery] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [collegeData, setCollegeData] = useState(null);
-
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    if (!query.trim()) return;
-    setLoading(true);
-
-    try {
-      // 1. Fetch live college data (fetches from Wikipedia/AI if not already cached)
-      const res = await axios.post('/api/colleges/fetch', { name: query });
-      if (res.data.success) {
-        setCollegeData(res.data.data);
-        if (onSelectCollege) onSelectCollege(res.data.data);
-      }
-    } catch (err) {
-      console.error('Error fetching college:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="space-y-4">
-      <form onSubmit={handleSearch} className="flex gap-2">
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search any university (e.g. IIT Kharagpur)..."
-          className="p-3 bg-gray-800 text-white rounded-lg flex-1 border border-gray-700"
-        />
-        <button type="submit" disabled={loading} className="px-5 py-3 bg-blue-600 text-white rounded-lg font-bold">
-          {loading ? 'Fetching Live...' : 'Search'}
-        </button>
-      </form>
-
-      {collegeData && (
-        <div className="p-4 bg-gray-800 rounded-lg border border-gray-700">
-          <h3 className="text-xl font-bold text-blue-300">{collegeData.name}</h3>
-          <p className="text-sm text-gray-400">{collegeData.location} • Est: {collegeData.established}</p>
-          <p className="text-gray-300 mt-2">{collegeData.overview}</p>
-          <div className="mt-3 flex gap-4 text-sm font-semibold">
-            <span className="text-green-400">Avg Package: {collegeData.additionalOverviewDetails.averagePackage}</span>
-            <span className="text-yellow-400">Placement: {collegeData.additionalOverviewDetails.jobPlacementRate}%</span>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}`,
-                          "react-snippet"
-                        )
-                      }
-                      className="text-xs flex items-center gap-1.5 px-3 py-1 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded border border-gray-600 transition"
-                    >
-                      <FaCopy /> {codeCopied === "react-snippet" ? "Copied!" : "Copy React Code"}
-                    </button>
-                  </div>
-                  <pre className="text-xs text-gray-300 font-mono overflow-x-auto bg-black/60 p-4 rounded-lg">
-{`// 1. Send query to POST /api/colleges/fetch
-const response = await fetch('/api/colleges/fetch', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name: 'IIT Kharagpur' })
-});
-const { data: college } = await response.json();
-console.log(college.name, college.location, college.overview);`}
-                  </pre>
-                </div>
-
-                {/* Code Snippet 2: cURL / Backend */}
-                <div className="bg-gray-900 border border-gray-700 rounded-xl p-5">
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="text-xs font-semibold text-green-400 uppercase tracking-wider">
-                      Option B: Direct REST API (cURL or Python)
-                    </span>
-                    <button
-                      onClick={() =>
-                        copySnippet(
-`curl -X POST http://localhost:3000/api/colleges/fetch \\
-  -H "Content-Type: application/json" \\
-  -d '{"name": "Jadavpur University"}'`,
-                          "curl-snippet"
-                        )
-                      }
-                      className="text-xs flex items-center gap-1.5 px-3 py-1 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded border border-gray-600 transition"
-                    >
-                      <FaCopy /> {codeCopied === "curl-snippet" ? "Copied!" : "Copy cURL"}
-                    </button>
-                  </div>
-                  <pre className="text-xs text-gray-300 font-mono overflow-x-auto bg-black/60 p-4 rounded-lg">
-{`curl -X POST http://localhost:3000/api/colleges/fetch \\
-  -H "Content-Type: application/json" \\
-  -d '{"name": "Jadavpur University"}'`}
-                  </pre>
-                </div>
-
-                {/* Key Benefits */}
-                <div className="grid md:grid-cols-3 gap-4 pt-4 border-t border-gray-700">
-                  <div className="p-4 bg-gray-800/60 rounded-xl border border-gray-700/60">
-                    <h5 className="font-bold text-blue-300 mb-1 text-sm">1. Zero Key Dependency</h5>
-                    <p className="text-xs text-gray-400">
-                      Fetches live verified encyclopedic data, real photos, established years, and locations via Wikipedia & HipoLabs open APIs even without an external API key.
-                    </p>
-                  </div>
-                  <div className="p-4 bg-gray-800/60 rounded-xl border border-gray-700/60">
-                    <h5 className="font-bold text-green-300 mb-1 text-sm">2. Automatic In-Memory Caching</h5>
-                    <p className="text-xs text-gray-400">
-                      Once a college is fetched, it is stored in the server's cache so subsequent searches by any user load instantaneously.
-                    </p>
-                  </div>
-                  <div className="p-4 bg-gray-800/60 rounded-xl border border-gray-700/60">
-                    <h5 className="font-bold text-purple-300 mb-1 text-sm">3. Optional Gemini AI Turbo</h5>
-                    <p className="text-xs text-gray-400">
-                      If <code>GEMINI_API_KEY</code> is set in <code>.env</code>, it automatically upgrades to Gemini 3.8 Flash for deep NIRF ranking parsing and detailed recruiter extraction.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </AnimatedCard>
-          </div>
-        );
-
       default:
         return null;
     }
@@ -1312,27 +1151,12 @@ console.log(college.name, college.location, college.overview);`}
                 Search verified university profiles or type any university in India or worldwide to fetch its live statistics, rankings, placement records, and campus photos.
               </p>
             </div>
-
-            <div className="flex gap-2">
-              <button
-                onClick={() => setActiveTab("integration")}
-                className="flex items-center gap-2 px-4 py-2.5 bg-blue-600/80 hover:bg-blue-600 text-white text-sm font-semibold rounded-xl border border-blue-500 transition duration-200"
-              >
-                <FaCode /> Integration Guide
-              </button>
-              <button
-                onClick={() => setShowApiDocs(!showApiDocs)}
-                className="flex items-center gap-2 px-4 py-2.5 bg-gray-800/80 hover:bg-gray-700 text-blue-300 text-sm font-semibold rounded-xl border border-gray-600 transition duration-200"
-              >
-                {showApiDocs ? "Hide Docs" : "Quick API"}
-              </button>
-            </div>
           </div>
 
           {/* AI Mode College Search Bar */}
           <div className="mt-6 pt-6 border-t border-blue-500/20">
             <label className="block text-sm font-semibold text-blue-200 mb-2">
-              Search or fetch live stats for ANY college using Gemini AI Mode:
+              Search or fetch live stats for ANY college using MentoreX AI:
             </label>
             <AiCollegeSearchBar
               onSelectCollege={handleAiSelect}
@@ -1340,44 +1164,6 @@ console.log(college.name, college.location, college.overview);`}
               autoNavigate={false}
             />
           </div>
-
-          {/* API Documentation Drawer */}
-          {showApiDocs && (
-            <div className="mt-6 pt-6 border-t border-gray-700 text-sm text-gray-300 space-y-4 bg-black/40 p-4 rounded-xl border border-gray-800">
-              <h3 className="font-bold text-white text-base flex items-center gap-2">
-                <FaCode className="text-blue-400" /> College Intelligence REST API Reference
-              </h3>
-              <p className="text-gray-400 text-xs">
-                You can query this API programmatically from any frontend, mobile app, or external script:
-              </p>
-
-              <div className="space-y-3 font-mono text-xs">
-                <div className="bg-gray-900 p-3 rounded-lg border border-gray-800">
-                  <span className="text-green-400 font-bold">GET</span>{" "}
-                  <span className="text-blue-300">/api/colleges</span>
-                  <p className="text-gray-400 font-sans mt-1">
-                    List colleges with optional filters: <code className="text-purple-300">?search=IIT&category=Engineering&sort=placement</code>
-                  </p>
-                </div>
-
-                <div className="bg-gray-900 p-3 rounded-lg border border-gray-800">
-                  <span className="text-green-400 font-bold">GET</span>{" "}
-                  <span className="text-blue-300">/api/colleges/:id</span>
-                  <p className="text-gray-400 font-sans mt-1">
-                    Retrieve complete verified profile by college slug (e.g. <code className="text-purple-300">/api/colleges/iit-bombay</code>)
-                  </p>
-                </div>
-
-                <div className="bg-gray-900 p-3 rounded-lg border border-gray-800">
-                  <span className="text-yellow-400 font-bold">POST</span>{" "}
-                  <span className="text-blue-300">/api/colleges/fetch</span>
-                  <p className="text-gray-400 font-sans mt-1">
-                    Body: <code className="text-yellow-300">&#123; "name": "Stanford University", "stream": "Engineering" &#125;</code>
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* College Selector / Filter Bar */}
@@ -1424,7 +1210,6 @@ console.log(college.name, college.location, college.overview);`}
                     if (filteredColleges.length > 0) {
                       setSelectedCollegeId(filteredColleges[0].id);
                       setSearchTerm("");
-                      if (activeTab === "integration") setActiveTab("overview");
                     } else if (searchTerm.trim()) {
                       handleAiSearch(searchTerm);
                     }
@@ -1450,7 +1235,6 @@ console.log(college.name, college.location, college.overview);`}
                     if (filteredColleges.length > 0) {
                       setSelectedCollegeId(filteredColleges[0].id);
                       setSearchTerm("");
-                      if (activeTab === "integration") setActiveTab("overview");
                     } else if (searchTerm.trim()) {
                       handleAiSearch(searchTerm);
                     }
@@ -1470,7 +1254,6 @@ console.log(college.name, college.location, college.overview);`}
                       onClick={() => {
                         setSelectedCollegeId(c.id);
                         setSearchTerm("");
-                        if (activeTab === "integration") setActiveTab("overview");
                       }}
                       className="w-full text-left px-4 py-2.5 hover:bg-gray-700 text-sm flex items-center justify-between border-b border-gray-700/50"
                     >
@@ -1490,7 +1273,7 @@ console.log(college.name, college.location, college.overview);`}
                     className="w-full text-left px-4 py-3 bg-blue-900/40 hover:bg-blue-800/60 text-blue-300 text-xs font-semibold flex items-center gap-2 border-t border-blue-800/50 transition cursor-pointer"
                   >
                     <FaRobot className="text-blue-400" />
-                    <span>{aiFetching ? "Gemini AI is analyzing..." : `Search & Fetch "${searchTerm}" with AI Mode`}</span>
+                    <span>{aiFetching ? "MentoreX AI is analyzing..." : `Search & Fetch "${searchTerm}" with MentoreX AI`}</span>
                   </button>
                 </div>
               )}
@@ -1511,17 +1294,14 @@ console.log(college.name, college.location, college.overview);`}
                   disabled={aiFetching}
                   className="px-3 py-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition cursor-pointer"
                 >
-                  <FaRobot /> {aiFetching ? "Analyzing with AI..." : `Fetch "${searchTerm}" with AI Mode`}
+                  <FaRobot /> {aiFetching ? "Analyzing with MentoreX AI..." : `Fetch "${searchTerm}" with MentoreX AI`}
                 </button>
               </div>
             ) : (
               filteredColleges.map((c) => (
                 <button
                   key={c.id}
-                  onClick={() => {
-                    setSelectedCollegeId(c.id);
-                    if (activeTab === "integration") setActiveTab("overview");
-                  }}
+                  onClick={() => setSelectedCollegeId(c.id)}
                   className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition flex items-center gap-2 ${
                     selectedCollege?.id === c.id
                       ? "bg-blue-600 text-white shadow-lg shadow-blue-900/30"
@@ -1637,7 +1417,6 @@ console.log(college.name, college.location, college.overview);`}
                 { id: "programs", label: "Programs & Fees" },
                 { id: "placements", label: "Placements & Career" },
                 { id: "rankings", label: "Rankings & Metrics" },
-                { id: "integration", label: "Integration Guide" },
               ].map((tab) => (
                 <button
                   key={tab.id}

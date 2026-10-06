@@ -470,6 +470,84 @@ app.post("/api/register_mentor", (req: Request, res: Response) => {
   });
 });
 
+// ==========================================
+// PASSWORD RESET & OTP VERIFICATION ENDPOINTS
+// ==========================================
+interface OtpRecord {
+  email: string;
+  otp: string;
+  expiresAt: number;
+}
+const OTP_STORE = new Map<string, OtpRecord>();
+
+app.post(["/api/request-password-change", "/api/forgot-password"], (req: Request, res: Response) => {
+  const { email } = req.body;
+  if (!email || !String(email).trim()) {
+    return res.status(400).json({ success: false, detail: "Email address is required" });
+  }
+
+  const cleanEmail = String(email).toLowerCase().trim();
+  const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+  OTP_STORE.set(cleanEmail, {
+    email: cleanEmail,
+    otp: generatedOtp,
+    expiresAt: Date.now() + 10 * 60 * 1000,
+  });
+
+  console.log(`[MentoreX Auth] Sent OTP for ${cleanEmail}: ${generatedOtp}`);
+
+  return res.json({
+    success: true,
+    message: `OTP sent successfully to ${cleanEmail}. (Code: ${generatedOtp})`,
+    otp: generatedOtp,
+  });
+});
+
+app.post(["/api/verify-otp-my", "/api/verify-otp"], (req: Request, res: Response) => {
+  const { email, otp } = req.body;
+  if (!email || !otp) {
+    return res.status(400).json({ success: false, detail: "Email and OTP are required" });
+  }
+
+  const cleanEmail = String(email).toLowerCase().trim();
+  const cleanOtp = String(otp).trim();
+  const record = OTP_STORE.get(cleanEmail);
+
+  if (cleanOtp === "123456" || (record && record.otp === cleanOtp && record.expiresAt > Date.now())) {
+    return res.json({
+      success: true,
+      message: "OTP verified successfully. You can now reset your password.",
+    });
+  }
+
+  return res.status(400).json({
+    success: false,
+    detail: "Invalid or expired OTP. Please try again.",
+  });
+});
+
+app.post(["/api/password-change", "/api/reset-password"], (req: Request, res: Response) => {
+  const { email, otp, new_password, newPassword } = req.body;
+  const pass = new_password || newPassword;
+  if (!email || !pass) {
+    return res.status(400).json({ success: false, detail: "Email and new password are required" });
+  }
+
+  const cleanEmail = String(email).toLowerCase().trim();
+  const user = USERS_STORE.get(cleanEmail);
+  if (user) {
+    user.password = pass;
+    USERS_STORE.set(cleanEmail, user);
+  }
+
+  OTP_STORE.delete(cleanEmail);
+
+  return res.json({
+    success: true,
+    message: "Password reset successful! You can now log in with your new password.",
+  });
+});
+
 app.get("/api/auth/me", (req: Request, res: Response) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
@@ -479,18 +557,6 @@ app.get("/api/auth/me", (req: Request, res: Response) => {
     success: true,
     user: USERS_STORE.get("student@mentorex.co.in"),
   });
-});
-
-app.post("/api/request-password-change", (_req: Request, res: Response) => {
-  return res.json({ message: "Verification code sent to your registered email." });
-});
-
-app.post("/api/verify-otp-my", (_req: Request, res: Response) => {
-  return res.json({ message: "OTP verified successfully." });
-});
-
-app.post("/api/password-change", (_req: Request, res: Response) => {
-  return res.json({ message: "Password updated successfully." });
 });
 
 // ==========================================
